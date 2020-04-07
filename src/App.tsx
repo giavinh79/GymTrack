@@ -1,7 +1,7 @@
 import React from 'react';
-import Home from './app/components/Home';
-import { Counter } from './features/counter/Counter';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from './app/components/Home';
+import Landing from './app/pages/Landing';
 import './App.css';
 
 function App() {
@@ -9,10 +9,19 @@ function App() {
     <div className='App'>
       <Router>
         <Switch>
-          <Route path='/home' component={() => <Home />} />
-          <Route path='/home/day' component={() => <Home />} />
-          <Route path='/home/day/edit' component={() => <Home />} />
-          <Route path='/' component={() => <Counter />} />
+          <Route exact path='/' component={() => <Landing />} />
+          <Route exact path='/about' component={() => <Landing />} />
+          <Route exact path='/help' component={() => <Landing />} />
+          <Route
+            path='/home'
+            render={({ match: { url } }) => (
+              <>
+                <Route path={`${url}/`} component={Home} exact />
+                <Route path={`${url}/day`} component={Home} />
+                <Route path={`${url}/details`} component={Home} />
+              </>
+            )}
+          />
         </Switch>
       </Router>
     </div>

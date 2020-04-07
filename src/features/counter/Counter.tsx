@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { decrement, increment, incrementByAmount, incrementAsync, selectCount } from './counterSlice';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { decrement, increment, incrementByAmount, incrementAsync, selectCount } from './counterSlice';
 import { Button, Row, Col } from 'reactstrap';
 import './Counter.module.css';
-import Navbar from '../../app/components/Navbar';
+import Navbar from '../../app/components/Header';
 
 export function Counter() {
-  const count = useSelector(selectCount);
-  const dispatch = useDispatch();
-  const [incrementAmount, setIncrementAmount] = useState('2');
+  // const count = useSelector(selectCount);
+  // const dispatch = useDispatch();
+  // const [incrementAmount, setIncrementAmount] = useState('2');
 
   return (
     <>
@@ -34,7 +34,7 @@ export function Counter() {
         </Col>
       </Row>
       <div style={{ marginTop: '-13rem', height: '17rem', width: '100%', backgroundColor: '#2f2f2f' }}></div>
-      <div>
+      {/* <div>
         <div className={'row'}>
           <button className='button' aria-label='Increment value' onClick={() => dispatch(increment())}>
             +
@@ -49,7 +49,7 @@ export function Counter() {
             className='textbox'
             aria-label='Set increment amount'
             value={incrementAmount}
-            onChange={e => setIncrementAmount(e.target.value)}
+            onChange={(e) => setIncrementAmount(e.target.value)}
           />
           <button className='button' onClick={() => dispatch(incrementByAmount(Number(incrementAmount) || 0))}>
             Add Amount
@@ -58,7 +58,7 @@ export function Counter() {
             Add Async
           </button>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

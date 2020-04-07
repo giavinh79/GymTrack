@@ -1,22 +1,14 @@
 import React from 'react';
 import { Container, Row, Col, Navbar, NavbarBrand, NavbarText } from 'reactstrap';
-// @ts-ignore
 import Calendar from 'rc-calendar';
-// import 'react-calendar/dist/Calendar.css';
-// import './CalendarStyles.css';
+import Homebar from './Homebar';
 import 'rc-calendar/assets/index.css';
 import { Card, Button, CardTitle, CardText } from 'reactstrap';
 
 export default function Home() {
   return (
     <>
-      <Navbar light style={{ width: '100%', justifyContent: 'center' }}>
-        <NavbarBrand href='/' style={{ position: 'absolute' }}>
-          <span>Gym</span>
-          <span style={{ color: '#3e41ab' }}>Track</span>
-        </NavbarBrand>
-        <NavbarText style={{ marginLeft: 'auto' }}>Logout</NavbarText>
-      </Navbar>
+      <Homebar />
       <div style={{ backgroundColor: '#F8F9FA', width: '100%' }}>
         <Container fluid='lg'>
           <p style={{ fontSize: '1.1rem', margin: '2rem' }}>
