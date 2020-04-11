@@ -5,27 +5,35 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
+    <meta name="description" content="Web site created using create-react-app" />
     <!-- <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" /> -->
 
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>Gym Track</title>
+    <script src="https://kit.fontawesome.com/23287ecd37.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: 'AIzaSyAYDuhx-r5dQRySfWluE59IC-7pnV39uOo',
+        authDomain: 'gymtrack-e6a77.firebaseapp.com',
+        databaseURL: 'https://gymtrack-e6a77.firebaseio.com',
+        projectId: 'gymtrack-e6a77',
+        storageBucket: 'gymtrack-e6a77.appspot.com',
+        messagingSenderId: '1086872219631',
+        appId: '1:1086872219631:web:c362984f22d36acda0901a',
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
   </body>
 </html>

@@ -1,0 +1,27 @@
+.landing-wrapper-desktop {
+  display: block;
+}
+
+.landing-wrapper-mobile {
+  display: none;
+}
+
+.mountain-background {
+  height: 35rem;
+  width: 100%;
+  position: absolute;
+  top: 7rem;
+  background-color: #bdbdbd;
+  z-index: -1;
+  clip-path: polygon(44% 63%, 61% 14%, 81% 71%, 91% 55%, 100% 78%, 100% 100%, 100% 100%, 18% 100%, 37% 51%);
+}
+
+@media screen and (max-width: 1000px) {
+  .landing-wrapper-desktop {
+    display: none;
+  }
+
+  .landing-wrapper-mobile {
+    display: block;
+  }
+}

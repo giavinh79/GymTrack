@@ -1,13 +1,15 @@
 import React, { useState, FunctionComponent } from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import LoginModal from '../components/LoginModal';
+import './HeaderStyles.css';
 
 interface IProps {
   test?: boolean;
 }
 
 const Header: FunctionComponent<IProps> = (props) => {
-  const { test } = props;
   const [isOpen, setIsOpen] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
   return (
@@ -16,26 +18,34 @@ const Header: FunctionComponent<IProps> = (props) => {
         position: 'absolute',
         top: 0,
         zIndex: 2,
-        width: test ? '100%' : 'inherit',
-        maxWidth: test ? 'auto' : '80rem',
+        // width: test ? '100%' : 'inherit',
       }}
+      className='header-wrapper'
     >
-      <Navbar color='light' light expand='md' style={{ padding: '.5rem 1.5rem' }}>
+      {showLoginModal && <LoginModal setShowLoginModal={setShowLoginModal} />}
+      <Navbar color='light' light expand='md' style={{ padding: '.5rem 1.5rem' }} className='navbar'>
         <NavbarBrand href='/'>
           <span>Gym</span>
           <span style={{ color: '#3e41ab' }}>Track</span>
+          <i className='fas fa-running' style={{ margin: '0 1rem' }}></i>
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className='mr-auto' navbar>
             <NavItem>
-              <NavLink href='/components/'>About</NavLink>
+              <NavLink href='/components/' disabled>
+                About
+              </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href='https://github.com/reactstrap/reactstrap'>Learn</NavLink>
+              <NavLink href='https://github.com/reactstrap/reactstrap' disabled>
+                Learn
+              </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href='https://github.com/reactstrap/reactstrap'>Help</NavLink>
+              <NavLink href='https://github.com/reactstrap/reactstrap' disabled>
+                Help
+              </NavLink>
             </NavItem>
           </Nav>
           <NavLink
@@ -45,9 +55,14 @@ const Header: FunctionComponent<IProps> = (props) => {
               borderRadius: '10px',
               boxShadow: '0 0 black',
               padding: '0.3rem 1rem',
-              // margin: '0.5rem', only for mobile
+              cursor: 'pointer',
             }}
-            href='https://github.com/reactstrap/reactstrap'
+            // href='https://github.com/reactstrap/reactstrap'
+            onClick={() => {
+              setShowLoginModal(true);
+            }}
+            className='nav-login'
+            // onClick={() => setShowLoginModal(true)}
           >
             Login
           </NavLink>

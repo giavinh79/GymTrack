@@ -1,0 +1,27 @@
+.header-wrapper {
+  max-width: auto;
+  width: inherit;
+}
+
+.navbar {
+  box-shadow: none;
+}
+
+.nav-login {
+  margin: 0;
+}
+
+@media screen and (max-width: 1000px) {
+  .header-wrapper {
+    max-width: 80rem;
+    width: 100%;
+  }
+
+  .navbar {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .nav-login {
+    margin: 0.6rem 0.5rem 0.5rem 0.5rem;
+  }
+}
