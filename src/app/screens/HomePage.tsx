@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Navbar, NavbarBrand, NavbarText } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import Calendar from 'rc-calendar';
-import Homebar from '../components/Homebar';
-import 'rc-calendar/assets/index.css';
 import { Card, Button, CardTitle, CardText } from 'reactstrap';
 import StartWorkoutModal from '../components/StartWorkoutModal';
+import 'rc-calendar/assets/index.css';
 
 export default function Home() {
   const [startModal, setStartModal] = useState(false);

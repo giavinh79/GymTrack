@@ -1,20 +1,29 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Navbar, NavbarBrand, NavbarText } from 'reactstrap';
-import './HomebarStyles.css';
+import firebase from '../../../auth/firebase';
+import { useHistory } from 'react-router-dom';
+import './homebar.scss';
 
 export default function Homebar() {
+  const history = useHistory();
+
+  const handleLogout = async () => {
+    try {
+      await firebase.auth().signOut();
+      localStorage.removeItem('expectSignIn');
+      history.push('/');
+    } catch (err) {
+      localStorage.removeItem('expectSignIn');
+      history.push('/');
+    }
+  };
+
   return (
     <Navbar light style={{ width: '100%', justifyContent: 'center' }}>
       <Breadcrumb tag='nav' listTag='div' className='bread-wrapper'>
         <BreadcrumbItem tag='a' href='#' active>
           Home
         </BreadcrumbItem>
-        {/* <BreadcrumbItem tag='a'>
-          Library
-        </BreadcrumbItem>
-        <BreadcrumbItem tag='a' active>
-          Data
-        </BreadcrumbItem> */}
       </Breadcrumb>
       <NavbarBrand href='/' style={{ position: 'absolute' }}>
         <span>Gym</span>
@@ -31,6 +40,7 @@ export default function Homebar() {
           marginLeft: 'auto',
           cursor: 'pointer',
         }}
+        onClick={handleLogout}
       >
         Logout
       </NavbarText>
