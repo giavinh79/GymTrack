@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../components/Landing/Header';
 import { Button, InputGroupAddon, InputGroup, Input } from 'reactstrap';
 import { useDispatch } from 'react-redux';
-import actions from '../../actions';
+import { enableEmailRegistration } from '../../slices/signupSlice';
 
 interface IProps {
   handleSubmit: (e: React.FormEvent) => void;
@@ -62,7 +62,7 @@ const MobileLandingPage: React.FC<IProps> = ({ handleSubmit }) => {
                     placeholder='Email'
                     type='email'
                     required
-                    onChange={(e) => dispatch(actions.auth.setEmail(e.target.value))}
+                    onChange={(e) => dispatch(enableEmailRegistration(e.target.value))}
                   />
                   <InputGroupAddon addonType='append'>
                     <Button size='' style={{ backgroundColor: '#736E9E' }}>

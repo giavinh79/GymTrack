@@ -1,18 +1,26 @@
 @import './variables';
+@import '~animate.css/animate.css';
 
 .login-form {
   padding: 2rem;
-
-  &__icon-wrapper {
-    width: 100%;
-    text-align: right;
-  }
 
   &__button {
     width: 100%;
     margin-top: 1rem;
     background-color: $loginBgColor !important;
     border-radius: 20px;
+  }
+
+  &__alert {
+    margin: 0 !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  &__close-icon {
+    cursor: pointer;
+    margin-left: auto !important;
+    padding: 0.7rem 0 0.7rem 2rem !important;
   }
 }
 

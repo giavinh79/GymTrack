@@ -4,7 +4,7 @@ import Header from '../components/Landing/Header';
 import MobileLandingPage from './MobileLandingPage';
 import SignupModal from '../components/Authentication/SignupModal';
 import { useDispatch } from 'react-redux';
-import actions from '../../actions';
+import { enableEmailRegistration } from '../../slices/signupSlice';
 import './LandingPageStyles.css';
 
 const Landing = () => {
@@ -39,9 +39,10 @@ const Landing = () => {
                       placeholder='Email Address'
                       type='email'
                       required
-                      onChange={(e) => dispatch(actions.auth.setEmail(e.target.value))}
+                      onChange={(e) => dispatch(enableEmailRegistration(e.target.value))}
+                      style={{ position: 'absolute', paddingRight: '12rem', zIndex: 1 }}
                     />
-                    <InputGroupAddon addonType='append'>
+                    <InputGroupAddon addonType='append' style={{ position: 'absolute', right: 0, zIndex: 2 }}>
                       <Button size='' style={{ backgroundColor: '#736E9E' }}>
                         SIGN UP TODAY
                       </Button>

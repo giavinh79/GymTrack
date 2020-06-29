@@ -1,15 +1,40 @@
-/* For global styles used throughout program (imported already)
+/* Default imported global styles used throughout program
  * Local component styles can be found in their 'styles' folder
  */
 
 @import './variables';
+
+/* General Sub-Styles */
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.hide-mobile {
+  display: block;
+}
+
+@media only screen and (max-width: 600px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+/* Container Styles */
 
 .container {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 1rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+
+  &--no-center {
+    @extend .container;
+    justify-content: normal;
+    align-items: normal;
+  }
 
   &--column {
     @extend .container;
@@ -19,6 +44,12 @@
   &--right {
     @extend .container;
     justify-content: flex-end;
+  }
+
+  &--tight {
+    @extend .container;
+    margin: 0;
+    padding: 0;
   }
 }
 
@@ -41,3 +72,15 @@
   margin: 0 0.5rem 0 0;
   font-size: 0.8rem;
 }
+
+/* Input styles */
+
+.input-error {
+  border: 1px solid red !important;
+}
+
+/* Overriding bootstrap styles */
+
+// .modal-open {
+//   overflow: scroll !important;
+// }
