@@ -53,6 +53,34 @@
   }
 }
 
+/* Button styles */
+
+.button {
+  cursor: pointer;
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  margin: 0 1rem;
+
+  &--green {
+    @extend .button;
+    background-color: #5aa45a;
+  }
+
+  &__icon {
+    color: white;
+    margin-right: 0.5rem;
+  }
+
+  &__text {
+    font-weight: 500;
+    font-size: 1rem;
+    color: white;
+    margin: 0;
+  }
+}
+
 /* Text styles */
 
 .bold {
@@ -80,7 +108,3 @@
 }
 
 /* Overriding bootstrap styles */
-
-// .modal-open {
-//   overflow: scroll !important;
-// }

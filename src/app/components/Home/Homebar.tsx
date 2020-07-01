@@ -20,7 +20,7 @@ export default function Homebar() {
 
   return (
     <>
-      <Navbar light style={{ width: '100%', justifyContent: 'center' }}>
+      <Navbar light style={{ backgroundColor: 'white', width: '100%', justifyContent: 'center' }}>
         {/* <NavbarText
         style={{
           backgroundColor: '#736e9e',
@@ -37,7 +37,7 @@ export default function Homebar() {
         Logout
       </NavbarText> */}
 
-        <NavbarBrand href='/' style={{ position: 'absolute' }}>
+        <NavbarBrand href='/' style={{ position: 'absolute' }} onClick={handleLogout}>
           <span>Gym</span>
           <span style={{ color: '#3e41ab' }}>Track</span>
           <i className='fas fa-running' style={{ margin: '0 1rem' }}></i>

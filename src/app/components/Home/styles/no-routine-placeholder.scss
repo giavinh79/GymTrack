@@ -1,0 +1,26 @@
+@import '../../../styles/global.scss';
+
+.empty {
+  padding: 1rem;
+  margin-top: 2rem;
+
+  &__title {
+    font-weight: 700;
+    font-size: 2rem;
+    color: #838383;
+  }
+
+  &__subtitle {
+    @extend .no-margin;
+    font-weight: 500;
+    font-size: 1.5rem;
+    color: #acaaaa;
+  }
+}
+
+.empty img {
+  height: auto;
+  width: 100%;
+  margin-top: 2rem;
+  max-width: 45rem;
+}

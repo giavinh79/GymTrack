@@ -80,7 +80,7 @@ function App() {
               <>
                 <Homebar />
 
-                <div style={{ backgroundColor: '#F8F9FA', width: '100%' }}>
+                <div style={{ backgroundColor: '#F8F9FA', height: 'inherit', width: '100%' }}>
                   <ProtectedRoute component={HomePage} path={`${url}/`} exact />
                   {/* <Route path={`${url}/`} component={HomePage} exact /> */}
                   <Route path={`${url}/details`} component={DetailsPage} />

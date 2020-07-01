@@ -19,10 +19,10 @@ const Header = () => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         dispatch(loginUser());
-      }
 
-      if (history.location.pathname === '/') {
-        history.push('/home');
+        if (history.location.pathname === '/') {
+          history.push('/home');
+        }
       }
     });
   }, [dispatch, history]);

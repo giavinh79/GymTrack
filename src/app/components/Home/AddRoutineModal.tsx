@@ -15,10 +15,8 @@ const AddRoutineModal = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      //   await firebase.auth().signInWithNameAndDescription(name, description);
       await createRoutine({ name, description });
-      localStorage.setItem('expectSignIn', '1');
-      //   history.push('/home');
+      dispatch(hideModal());
     } catch (err) {
       console.log(err.message);
       console.log(err);

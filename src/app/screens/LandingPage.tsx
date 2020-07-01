@@ -40,7 +40,7 @@ const Landing = () => {
                       type='email'
                       required
                       onChange={(e) => dispatch(enableEmailRegistration(e.target.value))}
-                      style={{ position: 'absolute', paddingRight: '12rem', zIndex: 1 }}
+                      style={{ paddingRight: '12rem', zIndex: 1 }}
                     />
                     <InputGroupAddon addonType='append' style={{ position: 'absolute', right: 0, zIndex: 2 }}>
                       <Button size='' style={{ backgroundColor: '#736E9E' }}>
