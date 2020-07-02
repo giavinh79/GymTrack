@@ -31,7 +31,7 @@
     "reactstrap": "^8.5.1",
     "recharts": "^1.8.5",
     "styled-components": "^5.1.1",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.6"
   },
   "scripts": {
     "start": "react-scripts start",
