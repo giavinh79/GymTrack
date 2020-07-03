@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import LoginModal from '../Authentication/LoginModal';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectAuth, loginUser } from '../../../slices/authSlice';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../../slices/authSlice';
 import firebase from '../../../auth/firebase';
 import { useHistory } from 'react-router-dom';
 import './styles/header.scss';

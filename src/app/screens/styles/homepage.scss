@@ -1,0 +1,11 @@
+/* For styles of React components rendered on HomePage.tsx, see components/Home */
+
+.visualization-wrapper {
+  margin: 0 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .visualization-wrapper {
+    margin: 0;
+  }
+}

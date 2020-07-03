@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, FormGroup, Label, Input, Modal, Alert } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Modal } from 'reactstrap';
 import { useDispatch } from 'react-redux';
 import { hideModal } from '../../../slices/modalSlice';
 import { createRoutine } from '../../../api/restCalls';

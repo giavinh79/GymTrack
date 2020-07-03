@@ -17,8 +17,8 @@ const LoginModal: React.FC<IProps> = ({ setShowLoginModal }) => {
   const history = useHistory();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
     try {
+      e.preventDefault();
       await firebase.auth().signInWithEmailAndPassword(email, password);
       localStorage.setItem('expectSignIn', '1');
       history.push('/home');

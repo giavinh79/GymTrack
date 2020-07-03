@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import { Button, Form, FormGroup, Label, Input, Modal } from 'reactstrap';
 import { useSelector } from 'react-redux';
 import { selectSignupEmail } from '../../../slices/signupSlice';
+import firebase from '../../../auth/firebase';
+import { register } from '../../../api/restCalls';
 import './styles/styles.scss';
+import { useHistory } from 'react-router-dom';
 
 interface IProps {
   setDisplaySignupModal: (type: boolean) => void;
 }
 
 const SignupModal: React.FC<IProps> = ({ setDisplaySignupModal }) => {
+  const history = useHistory();
   const [modal, setModal] = useState(true);
 
   const [email, setEmail] = useState(useSelector(selectSignupEmail));
@@ -21,6 +25,18 @@ const SignupModal: React.FC<IProps> = ({ setDisplaySignupModal }) => {
       setDisplaySignupModal(false);
     }, 200);
     setModal(!modal);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<any>) => {
+    try {
+      e.preventDefault();
+      await register({ email, password });
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      localStorage.setItem('expectSignIn', '1');
+      history.push('/home');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const isPasswordVerified = () => {
@@ -57,7 +73,7 @@ const SignupModal: React.FC<IProps> = ({ setDisplaySignupModal }) => {
 
   return (
     <Modal isOpen={modal} toggle={unmount} centered={true}>
-      <Form className='signup-form'>
+      <Form className='signup-form' onSubmit={handleSubmit}>
         <div className='signup-form__icon-wrapper'>
           <i className='fas fa-times' style={{ cursor: 'pointer' }} onClick={unmount}></i>
         </div>
@@ -104,7 +120,7 @@ const SignupModal: React.FC<IProps> = ({ setDisplaySignupModal }) => {
         </FormGroup>
         <div className='container--right'>{verificationMessage()}</div>
 
-        <Button className='signup-form__button' disabled={!isPasswordVerified()}>
+        <Button className='signup-form__button' disabled={!isPasswordVerified()} type='submit'>
           Sign Up
         </Button>
       </Form>

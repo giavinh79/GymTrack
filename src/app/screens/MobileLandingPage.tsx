@@ -24,7 +24,7 @@ const MobileLandingPage: React.FC<IProps> = ({ handleSubmit }) => {
               display: 'flex',
               flexDirection: 'column',
               width: '100%',
-              maxHeight: '100%',
+              // maxHeight: '100%',
               backgroundColor: '#212121',
               borderBottom: '1px solid #ccc',
             }}
