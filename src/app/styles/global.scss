@@ -55,11 +55,6 @@
 
 /* Button styles */
 
-.btn--disabled {
-  cursor: not-allowed !important;
-  // pointer-events: none;
-}
-
 .button {
   cursor: pointer;
   box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14),
@@ -83,6 +78,29 @@
     font-size: 1rem;
     color: white;
     margin: 0;
+    margin-right: 0.1rem;
+  }
+}
+
+/* Icon styles */
+
+.icon {
+  cursor: pointer;
+  margin-right: 0.7rem;
+
+  &--blue {
+    @extend .icon;
+    color: #6a99c5;
+  }
+
+  &--green {
+    @extend .icon;
+    color: #5aa45a;
+  }
+
+  &--red {
+    @extend .icon;
+    color: #d93030;
   }
 }
 

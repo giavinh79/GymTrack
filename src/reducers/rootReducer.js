@@ -7,6 +7,7 @@ import authReducer from '../slices/authSlice';
 import modalReducer from '../slices/modalSlice';
 import loadingReducer from '../slices/loadingSlice';
 import routinesReducer from '../slices/routinesSlice';
+import refreshReducer from '../slices/refreshSlice';
 
 const rootReducer = combineReducers({
   login: loginModalReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   modal: modalReducer,
   loading: loadingReducer,
   routines: routinesReducer,
+  refresh: refreshReducer,
 });
 
 export default rootReducer;

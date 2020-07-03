@@ -4,7 +4,7 @@ import Calendar from 'rc-calendar';
 import Model from 'react-body-highlighter';
 import WorkoutCard from '../components/Home/WorkoutCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectModal, showAddRoutineModal } from '../../slices/modalSlice';
+import { selectModal, showAddRoutineModal, showDeleteRoutineDialog } from '../../slices/modalSlice';
 import { selectLoading, doneLoading } from '../../slices/loadingSlice';
 import AddRoutineModal from '../components/Home/AddRoutineModal';
 import VisualizationPanel from '../components/Home/VisualizationPanel';
@@ -15,6 +15,7 @@ import firebase from '../../auth/firebase';
 import Skeleton from 'react-loading-skeleton';
 import './styles/homepage.scss';
 import 'rc-calendar/assets/index.css';
+import Dialog from '../components/Dialog/Dialog';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -59,6 +60,8 @@ const Home = () => {
 
         if (routines != null && JSON.parse(routines).length > 0 && selectedRoutine != null) {
           setRoutine(JSON.parse(routines).find((routine: any) => routine._id === selectedRoutine));
+        } else {
+          setRoutine(null);
         }
 
         dispatch(doneLoading());
@@ -84,6 +87,14 @@ const Home = () => {
   return (
     <>
       {modalState === 'ADD_ROUTINE' && <AddRoutineModal />}
+      {modalState === 'DELETE_ROUTINE' && (
+        <Dialog
+          type='delete'
+          title='Are you sure you want to delete this routine?'
+          text='This action is permanent and cannot be undone.'
+        />
+      )}
+
       <Container fluid='lg'>
         {routine ? (
           <>
@@ -91,19 +102,9 @@ const Home = () => {
               <div style={{ color: '#666', fontWeight: 800, fontSize: '1.7rem', marginBottom: '0.5rem' }}>
                 <span style={{ cursor: 'pointer' }}>ROUTINE</span>
                 <i className='fas fa-caret-down' style={{ cursor: 'pointer', margin: '0 1.5rem 0 0.5rem' }}></i>
-                <i
-                  className='fas fa-plus-circle'
-                  style={{ cursor: 'pointer', color: '#5AA45A', marginRight: '0.5rem' }}
-                  onClick={() => dispatch(showAddRoutineModal())}
-                ></i>
-                <i
-                  className='fas fa-times-circle'
-                  style={{ cursor: 'pointer', color: '#d93030', marginRight: '0.5rem' }}
-                ></i>
-                <i
-                  className='fas fa-info-circle'
-                  style={{ cursor: 'pointer', color: '#6a99c5', marginRight: '0.5rem' }}
-                ></i>
+                <i className='fas fa-info-circle icon--blue'></i>
+                <i className='fas fa-plus-circle icon--green' onClick={() => dispatch(showAddRoutineModal())}></i>
+                <i className='fas fa-times-circle icon--red' onClick={() => dispatch(showDeleteRoutineDialog())}></i>
               </div>
               <span style={{ color: '#8d8d8d', fontWeight: 600, fontSize: '1.5rem' }}>
                 {loadingState ? <Skeleton width={'70%'} /> : routine.name}
@@ -122,7 +123,8 @@ const Home = () => {
                     textColor='#7168c1'
                     day='MON'
                     title='Push Day'
-                    text='Bench Press, Incline Benchpress, Decline Benchpress, Chest Flies'
+                    text="Placeholder for list of this day's exercises"
+                    // text='Bench Press, Incline Benchpress, Decline Benchpress, Chest Flies'
                   />
                   <WorkoutCard
                     backgroundColor='#388ccd29'
@@ -130,7 +132,7 @@ const Home = () => {
                     textColor='#388ccd'
                     day='TUES'
                     title='Pull Day'
-                    text='Bicep Curl, Dumbbell Rows, Bicep Machine, Barbell Curl'
+                    // text='Bicep Curl, Dumbbell Rows, Bicep Machine, Barbell Curl'
                   />
                 </Row>
                 <Row>
@@ -140,15 +142,15 @@ const Home = () => {
                     textColor='rgb(84, 174, 110)'
                     day='WED'
                     title='Ab Day'
-                    text='Air bike, Ab Wheel, Sit-ups, Crunches'
+                    // text='Air bike, Ab Wheel, Sit-ups, Crunches'
                   />
                   <WorkoutCard
                     backgroundColor='#FFEFB3'
                     iconColor='#e6b707ab'
                     textColor='#e6b707'
                     day='THURS'
-                    title='Pull Day'
-                    text='Bicep Curl, Dumbbell Rows, Bicep Machine, Barbell Curl'
+                    title='Legs'
+                    // text='Bicep Curl, Dumbbell Rows, Bicep Machine, Barbell Curl'
                   />
                 </Row>
                 <Row>
@@ -158,7 +160,7 @@ const Home = () => {
                     textColor='#FF7231'
                     day='FRI'
                     title='Push Day 2'
-                    text='Push-ups, Incline Benchpress, Decline Press Machine'
+                    // text='Push-ups, Incline Benchpress, Decline Press Machine'
                   />
                   <WorkoutCard
                     backgroundColor='#B6EDDE'
@@ -166,7 +168,7 @@ const Home = () => {
                     textColor='#32C89F'
                     day='SAT'
                     title='Pull Day 2'
-                    text='Hammer Curls, Bicep Curls, Rope Pull'
+                    // text='Hammer Curls, Bicep Curls, Rope Pull'
                   />
                 </Row>
                 <Row>
@@ -176,7 +178,7 @@ const Home = () => {
                     textColor='#5A6268'
                     day='SUN'
                     title='Rest Day'
-                    text=''
+                    // text=''
                   />
                 </Row>
               </Col>

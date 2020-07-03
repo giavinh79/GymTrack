@@ -5,6 +5,7 @@ export enum Modal {
   SIGNUP = 'SIGNUP',
   LOGIN = 'LOGIN',
   ADD_ROUTINE = 'ADD_ROUTINE',
+  DELETE_ROUTINE = 'DELETE_ROUTINE',
   NONE = 'NONE',
 }
 
@@ -16,12 +17,13 @@ const modalSlice = createSlice({
   reducers: {
     showAddRoutineModal: () => Modal.ADD_ROUTINE,
     showLoginModal: () => Modal.LOGIN,
+    showDeleteRoutineDialog: () => Modal.DELETE_ROUTINE,
     hideModal: () => Modal.NONE,
   },
 });
 
 // Actions
-export const { hideModal, showAddRoutineModal, showLoginModal } = modalSlice.actions;
+export const { hideModal, showAddRoutineModal, showDeleteRoutineDialog, showLoginModal } = modalSlice.actions;
 
 // State value
 export const selectModal = (state: RootState) => state.modal;

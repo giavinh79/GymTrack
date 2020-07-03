@@ -62,7 +62,7 @@ const Header = () => {
                 setShowLoginModal(true);
               }}
             >
-              Login
+              <i className='fas fa-sign-in-alt'></i> Login
             </NavLink>
           </Collapse>
         </Navbar>
