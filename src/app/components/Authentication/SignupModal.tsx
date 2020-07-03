@@ -90,6 +90,7 @@ const SignupModal: React.FC<IProps> = ({ setDisplaySignupModal }) => {
           <Input
             type='email'
             name='signup-email'
+            pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$"
             id='exampleEmail'
             value={email}
             autoComplete='none'

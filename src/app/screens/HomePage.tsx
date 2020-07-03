@@ -13,14 +13,16 @@ import NoRoutinePlaceholder from '../components/Home/NoRoutinePlaceholder';
 import { retrieveRoutines } from '../../api/restCalls';
 import firebase from '../../auth/firebase';
 import Skeleton from 'react-loading-skeleton';
+import Dialog from '../components/Dialog/Dialog';
+import { selectRefresh } from '../../slices/refreshSlice';
 import './styles/homepage.scss';
 import 'rc-calendar/assets/index.css';
-import Dialog from '../components/Dialog/Dialog';
 
 const Home = () => {
   const dispatch = useDispatch();
   const modalState = useSelector(selectModal);
   const loadingState = useSelector(selectLoading);
+  const refreshData = useSelector(selectRefresh);
 
   const [showVisualization, setShowVisualization] = useState(VISUALIZATION.CALENDAR);
 
@@ -47,6 +49,12 @@ const Home = () => {
       friday: {
         exercises: [],
       },
+      saturday: {
+        exercises: [],
+      },
+      sunday: {
+        exercises: [],
+      },
     },
   });
 
@@ -67,7 +75,7 @@ const Home = () => {
         dispatch(doneLoading());
       }
     });
-  }, [dispatch]);
+  }, [dispatch, refreshData]);
 
   const handleVisualization = () => {
     if (showVisualization === VISUALIZATION.CALENDAR) {
@@ -122,7 +130,7 @@ const Home = () => {
                     iconColor='rgba(113, 104, 193, 0.75)'
                     textColor='#7168c1'
                     day='MON'
-                    title='Push Day'
+                    title={routine.workouts['monday'].name || 'Monday'}
                     text="Placeholder for list of this day's exercises"
                     // text='Bench Press, Incline Benchpress, Decline Benchpress, Chest Flies'
                   />
@@ -131,7 +139,7 @@ const Home = () => {
                     iconColor='#388ccdab'
                     textColor='#388ccd'
                     day='TUES'
-                    title='Pull Day'
+                    title={routine.workouts['tuesday'].name || 'Monday'}
                     // text='Bicep Curl, Dumbbell Rows, Bicep Machine, Barbell Curl'
                   />
                 </Row>
@@ -141,7 +149,7 @@ const Home = () => {
                     iconColor='rgba(84, 174, 110, 0.74)'
                     textColor='rgb(84, 174, 110)'
                     day='WED'
-                    title='Ab Day'
+                    title={routine.workouts['wednesday'].name || 'Monday'}
                     // text='Air bike, Ab Wheel, Sit-ups, Crunches'
                   />
                   <WorkoutCard
@@ -149,7 +157,7 @@ const Home = () => {
                     iconColor='#e6b707ab'
                     textColor='#e6b707'
                     day='THURS'
-                    title='Legs'
+                    title={routine.workouts['thursday'].name || 'Monday'}
                     // text='Bicep Curl, Dumbbell Rows, Bicep Machine, Barbell Curl'
                   />
                 </Row>
@@ -159,7 +167,7 @@ const Home = () => {
                     iconColor='#ff7231b8'
                     textColor='#FF7231'
                     day='FRI'
-                    title='Push Day 2'
+                    title={routine.workouts['friday'].name || 'Monday'}
                     // text='Push-ups, Incline Benchpress, Decline Press Machine'
                   />
                   <WorkoutCard
@@ -167,7 +175,7 @@ const Home = () => {
                     iconColor='#32c89f99'
                     textColor='#32C89F'
                     day='SAT'
-                    title='Pull Day 2'
+                    title={routine.workouts['saturday'].name || 'Monday'}
                     // text='Hammer Curls, Bicep Curls, Rope Pull'
                   />
                 </Row>
@@ -177,7 +185,7 @@ const Home = () => {
                     iconColor='#5a6268ab'
                     textColor='#5A6268'
                     day='SUN'
-                    title='Rest Day'
+                    title={routine.workouts['sunday'].name || 'Monday'}
                     // text=''
                   />
                 </Row>

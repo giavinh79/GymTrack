@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Label, Input, Modal } from 'reactstrap';
 import { useDispatch } from 'react-redux';
 import { hideModal } from '../../../slices/modalSlice';
 import { createRoutine } from '../../../api/restCalls';
+import { refreshData } from '../../../slices/refreshSlice';
 
 const AddRoutineModal = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const AddRoutineModal = () => {
     e.preventDefault();
     try {
       await createRoutine({ name, description });
+      dispatch(refreshData());
       dispatch(hideModal());
     } catch (err) {
       console.log(err.message);

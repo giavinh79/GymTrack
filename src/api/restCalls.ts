@@ -4,17 +4,20 @@ import { RoutineData } from './types';
 
 const API_ENDPOINT = process.env.REACT_APP_ENDPOINT || 'http://localhost:3030';
 
-const createRoutine = (data: object) => {
-  try {
-    firebase.auth().onAuthStateChanged(async (user) => {
-      if (user) {
-        const token = await user.getIdToken();
-        await axios.put(`${API_ENDPOINT}/api/routine`, { ...data, token: token });
-      }
-    });
-  } catch (err) {
-    throw err;
-  }
+const createRoutine = async (data: object) => {
+  return new Promise((resolve, reject) => {
+    try {
+      firebase.auth().onAuthStateChanged(async (user) => {
+        if (user) {
+          const token = await user.getIdToken();
+          await axios.put(`${API_ENDPOINT}/api/routine`, { ...data, token: token });
+        }
+      });
+      return resolve();
+    } catch (err) {
+      return reject(err);
+    }
+  });
 };
 
 const register = async (credentials: object) => {

@@ -24,6 +24,8 @@ export interface RoutineObject {
     wednesday: DayRoutine;
     thursday: DayRoutine;
     friday: DayRoutine;
+    saturday: DayRoutine;
+    sunday: DayRoutine;
   };
 }
 
