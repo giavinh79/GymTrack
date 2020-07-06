@@ -11,9 +11,25 @@ const createRoutine = async (data: object) => {
         if (user) {
           const token = await user.getIdToken();
           await axios.put(`${API_ENDPOINT}/api/routine`, { ...data, token: token });
+          return resolve();
         }
       });
-      return resolve();
+    } catch (err) {
+      return reject(err);
+    }
+  });
+};
+
+const deleteRoutine = async (id: string) => {
+  return new Promise((resolve, reject) => {
+    try {
+      firebase.auth().onAuthStateChanged(async (user) => {
+        if (user) {
+          const token = await user.getIdToken();
+          await axios.delete(`${API_ENDPOINT}/api/routine`, { data: { id, token } });
+          return resolve();
+        }
+      });
     } catch (err) {
       return reject(err);
     }
@@ -37,4 +53,4 @@ const retrieveRoutines = async (token: string): Promise<RoutineData> => {
   }
 };
 
-export { createRoutine, register, retrieveRoutines };
+export { createRoutine, deleteRoutine, register, retrieveRoutines };

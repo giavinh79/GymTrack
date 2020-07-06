@@ -20,6 +20,7 @@ export default function Homebar() {
 
   return (
     <Navbar light style={{ backgroundColor: 'white', width: '100%', justifyContent: 'center' }}>
+      <i className='fas fa-arrow-left icon'></i>
       <NavbarBrand href='/' style={{ position: 'absolute' }} onClick={handleLogout}>
         <span>Gym</span>
         <span style={{ color: '#3e41ab' }}>Track</span>

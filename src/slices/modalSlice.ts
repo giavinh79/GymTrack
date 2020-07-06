@@ -6,6 +6,7 @@ export enum Modal {
   LOGIN = 'LOGIN',
   ADD_ROUTINE = 'ADD_ROUTINE',
   DELETE_ROUTINE = 'DELETE_ROUTINE',
+  ROUTINE_INFO = 'ROUTINE_INFO',
   NONE = 'NONE',
 }
 
@@ -18,6 +19,7 @@ const modalSlice = createSlice({
     showAddRoutineModal: () => Modal.ADD_ROUTINE,
     showLoginModal: () => Modal.LOGIN,
     showDeleteRoutineDialog: () => Modal.DELETE_ROUTINE,
+    showRoutineInfo: () => Modal.ROUTINE_INFO,
     hideModal: () => Modal.NONE,
   },
 });

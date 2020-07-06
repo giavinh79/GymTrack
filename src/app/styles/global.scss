@@ -10,6 +10,11 @@
   margin: 0 !important;
 }
 
+.shadow {
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+}
+
 .hide-mobile {
   display: block;
 }
@@ -66,6 +71,19 @@
   &--green {
     @extend .button;
     background-color: #5aa45a;
+
+    &:hover {
+      background-color: rgb(49, 153, 49);
+    }
+  }
+
+  &--blue {
+    @extend .button;
+    background-color: #6a99c5;
+
+    &:hover {
+      background-color: #5681aa;
+    }
   }
 
   &__icon {
@@ -116,6 +134,11 @@
 
 .text--medium {
   font-size: 1.5rem;
+
+  &--grey {
+    @extend .text--medium;
+    color: #989898;
+  }
 }
 
 .text--small {

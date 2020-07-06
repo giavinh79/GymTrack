@@ -10,11 +10,11 @@ import AddRoutineModal from '../components/Home/AddRoutineModal';
 import VisualizationPanel from '../components/Home/VisualizationPanel';
 import { VISUALIZATION, RoutineObject } from './types';
 import NoRoutinePlaceholder from '../components/Home/NoRoutinePlaceholder';
-import { retrieveRoutines } from '../../api/restCalls';
+import { retrieveRoutines, deleteRoutine } from '../../api/restCalls';
 import firebase from '../../auth/firebase';
 import Skeleton from 'react-loading-skeleton';
 import Dialog from '../components/Dialog/Dialog';
-import { selectRefresh } from '../../slices/refreshSlice';
+import { selectRefresh, refreshData } from '../../slices/refreshSlice';
 import './styles/homepage.scss';
 import 'rc-calendar/assets/index.css';
 
@@ -22,7 +22,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const modalState = useSelector(selectModal);
   const loadingState = useSelector(selectLoading);
-  const refreshData = useSelector(selectRefresh);
+  const refreshState = useSelector(selectRefresh);
 
   const [showVisualization, setShowVisualization] = useState(VISUALIZATION.CALENDAR);
 
@@ -31,6 +31,7 @@ const Home = () => {
     date: null,
     description: '',
     token: '',
+    _id: '',
     userId: '',
     userEmail: '',
     workouts: {
@@ -75,11 +76,11 @@ const Home = () => {
         dispatch(doneLoading());
       }
     });
-  }, [dispatch, refreshData]);
+  }, [dispatch, refreshState]);
 
   const handleVisualization = () => {
     if (showVisualization === VISUALIZATION.CALENDAR) {
-      return <Calendar style={{ height: '100%', width: '100%', minWidth: '20.5rem' }} />;
+      return <Calendar style={{ height: '100%', width: '100%', minWidth: '20.5rem', zIndex: 1 }} />;
     } else if (showVisualization === VISUALIZATION.GRAPH) {
       return <div></div>;
     } else {
@@ -92,6 +93,15 @@ const Home = () => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      if (routine) await deleteRoutine(routine._id);
+      dispatch(refreshData());
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       {modalState === 'ADD_ROUTINE' && <AddRoutineModal />}
@@ -100,6 +110,7 @@ const Home = () => {
           type='delete'
           title='Are you sure you want to delete this routine?'
           text='This action is permanent and cannot be undone.'
+          onConfirm={handleDelete}
         />
       )}
 
@@ -130,6 +141,7 @@ const Home = () => {
                     iconColor='rgba(113, 104, 193, 0.75)'
                     textColor='#7168c1'
                     day='MON'
+                    data={routine.workouts['monday']}
                     title={routine.workouts['monday'].name || 'Monday'}
                     text="Placeholder for list of this day's exercises"
                     // text='Bench Press, Incline Benchpress, Decline Benchpress, Chest Flies'
@@ -139,6 +151,7 @@ const Home = () => {
                     iconColor='#388ccdab'
                     textColor='#388ccd'
                     day='TUES'
+                    data={routine.workouts['tuesday']}
                     title={routine.workouts['tuesday'].name || 'Monday'}
                     // text='Bicep Curl, Dumbbell Rows, Bicep Machine, Barbell Curl'
                   />
@@ -149,6 +162,7 @@ const Home = () => {
                     iconColor='rgba(84, 174, 110, 0.74)'
                     textColor='rgb(84, 174, 110)'
                     day='WED'
+                    data={routine.workouts['wednesday']}
                     title={routine.workouts['wednesday'].name || 'Monday'}
                     // text='Air bike, Ab Wheel, Sit-ups, Crunches'
                   />
@@ -157,6 +171,7 @@ const Home = () => {
                     iconColor='#e6b707ab'
                     textColor='#e6b707'
                     day='THURS'
+                    data={routine.workouts['thursday']}
                     title={routine.workouts['thursday'].name || 'Monday'}
                     // text='Bicep Curl, Dumbbell Rows, Bicep Machine, Barbell Curl'
                   />
@@ -167,6 +182,7 @@ const Home = () => {
                     iconColor='#ff7231b8'
                     textColor='#FF7231'
                     day='FRI'
+                    data={routine.workouts['friday']}
                     title={routine.workouts['friday'].name || 'Monday'}
                     // text='Push-ups, Incline Benchpress, Decline Press Machine'
                   />
@@ -175,6 +191,7 @@ const Home = () => {
                     iconColor='#32c89f99'
                     textColor='#32C89F'
                     day='SAT'
+                    data={routine.workouts['saturday']}
                     title={routine.workouts['saturday'].name || 'Monday'}
                     // text='Hammer Curls, Bicep Curls, Rope Pull'
                   />
@@ -185,6 +202,7 @@ const Home = () => {
                     iconColor='#5a6268ab'
                     textColor='#5A6268'
                     day='SUN'
+                    data={routine.workouts['sunday']}
                     title={routine.workouts['sunday'].name || 'Monday'}
                     // text=''
                   />

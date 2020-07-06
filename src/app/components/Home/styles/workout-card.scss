@@ -1,7 +1,8 @@
-@import '../../../styles/global.scss';
-
 .workout-card {
-  @extend .container--no-center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 1rem 0;
   flex: 1;
   border-radius: 22px;
   background-color: white;
@@ -19,8 +20,12 @@
   }
 
   &__info {
-    @extend .container--column;
-    @extend .no-margin;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0;
     position: relative;
     justify-content: normal;
     flex: 5;

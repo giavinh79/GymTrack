@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import { selectSignupEmail } from '../../../slices/signupSlice';
 import firebase from '../../../auth/firebase';
 import { register } from '../../../api/restCalls';
-import './styles/styles.scss';
 import { useHistory } from 'react-router-dom';
+import './styles/styles.scss';
 
 interface IProps {
   setDisplaySignupModal: (type: boolean) => void;
@@ -77,7 +77,7 @@ const SignupModal: React.FC<IProps> = ({ setDisplaySignupModal }) => {
         <div className='signup-form__icon-wrapper'>
           <i className='fas fa-times' style={{ cursor: 'pointer' }} onClick={unmount}></i>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+        <div className='container--column' style={{ textAlign: 'center' }}>
           <div className='container'>
             <span className='text--medium'>Gym</span>
             <span className='signup-form__logo-text text--medium'>Track</span>

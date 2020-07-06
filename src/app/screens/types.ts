@@ -18,6 +18,7 @@ export interface RoutineObject {
   token: string;
   userId: string;
   userEmail?: string;
+  _id: string;
   workouts: {
     monday: DayRoutine;
     tuesday: DayRoutine;

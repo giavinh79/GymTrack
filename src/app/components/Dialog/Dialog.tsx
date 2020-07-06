@@ -8,6 +8,7 @@ interface IProps {
   type?: 'confirm' | 'info' | 'delete';
   title: string;
   text: string;
+  onConfirm: () => void;
 }
 
 /* Object for conditional renders depending on dialog type */
@@ -26,7 +27,7 @@ const dialog = {
   },
 };
 
-const Dialog: FunctionComponent<IProps> = ({ title, text, type = 'info' }) => {
+const Dialog: FunctionComponent<IProps> = ({ title, text, type = 'info', onConfirm }) => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
 
@@ -34,6 +35,14 @@ const Dialog: FunctionComponent<IProps> = ({ title, text, type = 'info' }) => {
     setOpen(false);
     setTimeout(() => {
       dispatch(hideModal());
+    }, 200);
+  };
+
+  const handleConfirm = () => {
+    setOpen(false);
+    setTimeout(() => {
+      dispatch(hideModal());
+      onConfirm();
     }, 200);
   };
 
@@ -49,7 +58,7 @@ const Dialog: FunctionComponent<IProps> = ({ title, text, type = 'info' }) => {
         </div>
       </ModalBody>
       <ModalFooter style={{ border: 'none' }}>
-        <Button color='secondary' size='sm'>
+        <Button color='secondary' size='sm' onClick={handleClose}>
           CANCEL
         </Button>
         <Button
@@ -57,6 +66,7 @@ const Dialog: FunctionComponent<IProps> = ({ title, text, type = 'info' }) => {
           style={{
             backgroundColor: dialog[type].buttonColor,
           }}
+          onClick={handleConfirm}
         >
           CONFIRM
         </Button>

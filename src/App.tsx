@@ -12,7 +12,7 @@ import './app/styles/global.scss';
 const ProtectedRoute: React.FC<{
   component: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
   path: string;
-  exact: boolean;
+  exact?: boolean;
 }> = ({ component: Component, path, exact }): ReactElement => {
   const dispatch = useDispatch();
 
@@ -53,7 +53,7 @@ function App() {
 
                 <div className='body-wrapper'>
                   <ProtectedRoute component={HomePage} path={`${url}/`} exact />
-                  <Route path={`${url}/details`} component={DetailsPage} />
+                  <ProtectedRoute component={DetailsPage} path={`${url}/details`} />
                 </div>
               </>
             )}
