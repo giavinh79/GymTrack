@@ -64,10 +64,10 @@ const SignupModal: React.FC<IProps> = ({ setDisplaySignupModal }) => {
     }
 
     return (
-      <>
+      <div id='password-constraints' style={{ display: 'flex', alignItems: 'center' }}>
         <p className='text--small'>PASSWORD MUST BE AT LEAST 6 CHARACTERS</p>
         <i className='fas fa-times' style={{ color: 'red' }}></i>
-      </>
+      </div>
     );
   };
 
@@ -104,8 +104,9 @@ const SignupModal: React.FC<IProps> = ({ setDisplaySignupModal }) => {
             name='signup-password'
             id='examplePassword'
             placeholder='Enter password'
-            autoComplete='fdsaf'
+            autoComplete='new-password'
             onChange={(e) => setPassword(e.target.value)}
+            aria-describedby='password-constraints'
           />
         </FormGroup>
         <FormGroup>
