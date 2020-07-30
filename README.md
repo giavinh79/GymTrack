@@ -2,6 +2,8 @@
 
 Simple application for tracking and managing a user's fitness journey.
 
+The backend Node.js (Express) API can be found here: [https://github.com/GV79/GymTrackAPI](https://github.com/GV79/GymTrackAPI)
+
 ## Running
 
 Install all dependencies using 'npm install' and then run the application using 'npm start'.
