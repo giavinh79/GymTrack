@@ -3,8 +3,8 @@ import { Button } from 'reactstrap';
 import { selectLoading } from '../../../slices/loadingSlice';
 import { useSelector } from 'react-redux';
 import Skeleton from 'react-loading-skeleton';
-import './styles/workout-card.scss';
 import { useHistory } from 'react-router-dom';
+import './styles/workout-card.scss';
 
 interface Props {
   backgroundColor: string;

@@ -77,7 +77,7 @@ const DetailsPage = () => {
           <p className='button__text'>SAVE</p>
         </div>
       </div>
-      <div className='container--tight button--green no-margin' style={{ borderRadius: '5px' }}>
+      <div className='container--tight button--green' style={{ borderRadius: '5px', margin: '0 0 1rem 0' }}>
         <i className='fas fa-plus button__icon'></i>
         <p className='button__text'>ADD EXERCISE</p>
       </div>
