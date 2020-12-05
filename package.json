@@ -18,7 +18,7 @@
     "@types/reactstrap": "^8.5.1",
     "@types/recharts": "^1.8.14",
     "animate.css": "^4.1.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.0",
     "bootstrap": "^4.5.0",
     "firebase": "^8.1.1",
     "node-sass": "^4.14.1",
