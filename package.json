@@ -23,7 +23,7 @@
     "firebase": "^8.1.1",
     "node-sass": "^4.14.1",
     "rc-calendar": "^9.15.11",
-    "react": "^16.13.1",
+    "react": "^16.14.0",
     "react-beautiful-dnd": "^13.0.0",
     "react-body-highlighter": "^1.0.5",
     "react-dom": "^16.13.1",
