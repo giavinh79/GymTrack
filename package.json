@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
-    "@testing-library/jest-dom": "^5.11.0",
+    "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.5.0",
     "@types/axios": "^0.14.0",
