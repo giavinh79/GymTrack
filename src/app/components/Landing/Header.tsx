@@ -12,8 +12,10 @@ const Header = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
+
   const dispatch = useDispatch();
+
+  const toggle = () => setIsOpen(!isOpen);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -46,7 +48,7 @@ const Header = () => {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href='https://github.com/reactstrap/reactstrap' disabled>
+                <NavLink href='https://github.com/GV79/GymTrack' disabled>
                   GitHub
                 </NavLink>
               </NavItem>

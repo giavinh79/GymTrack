@@ -1,14 +1,15 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Dropdown, DropdownMenu, DropdownToggle, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import './StartWorkoutModalStyles.css';
 
-interface IProps {
+interface IStartWorkoutModalProps {
   setStartModal: any;
 }
 
-const StartWorkoutModal: FunctionComponent<IProps> = ({ setStartModal }) => {
-  const toggle = () => {};
+const StartWorkoutModal: React.FC<IStartWorkoutModalProps> = ({ setStartModal }) => {
   const [open, setOpen] = useState(true);
+
+  const toggle = () => { };
 
   const handleClose = () => {
     setOpen(false);

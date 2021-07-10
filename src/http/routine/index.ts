@@ -1,8 +1,7 @@
 import axios from 'axios';
-import firebase from '../auth/firebase';
-import { RoutineData } from './types';
-
-const API_ENDPOINT = process.env.REACT_APP_ENDPOINT || 'http://localhost:3030';
+import firebase from '../../auth/firebase';
+import { CONFIG } from '../../config';
+import { RoutineData } from './metadata';
 
 const createRoutine = async (data: object) => {
   return new Promise((resolve, reject) => {
@@ -10,8 +9,8 @@ const createRoutine = async (data: object) => {
       firebase.auth().onAuthStateChanged(async (user) => {
         if (user) {
           const token = await user.getIdToken();
-          await axios.put(`${API_ENDPOINT}/api/routine`, { ...data, token: token });
-          return resolve();
+          await axios.put(`${CONFIG.API_ENDPOINT}/api/routine`, { ...data, token: token });
+          resolve(null);
         }
       });
     } catch (err) {
@@ -26,31 +25,22 @@ const deleteRoutine = async (id: string) => {
       firebase.auth().onAuthStateChanged(async (user) => {
         if (user) {
           const token = await user.getIdToken();
-          await axios.delete(`${API_ENDPOINT}/api/routine`, { data: { id, token } });
-          return resolve();
+          await axios.delete(`${CONFIG.API_ENDPOINT}/api/routine`, { data: { id, token } });
+          resolve(null);
         }
       });
     } catch (err) {
-      return reject(err);
+      reject(err)
     }
   });
 };
 
 const register = async (credentials: object) => {
-  try {
-    await axios.post(`${API_ENDPOINT}/api/auth/signup`, credentials);
-  } catch (err) {
-    throw err;
-  }
+  await axios.post(`${CONFIG.API_ENDPOINT}/api/auth/signup`, credentials);
 };
 
 const retrieveRoutines = async (token: string): Promise<RoutineData> => {
-  try {
-    return await axios.get(`${API_ENDPOINT}/api/routine?token=${token}`);
-  } catch (err) {
-    console.log(err);
-    throw err;
-  }
+  return await axios.get(`${CONFIG.API_ENDPOINT}/api/routine?token=${token}`);
 };
 
 export { createRoutine, deleteRoutine, register, retrieveRoutines };

@@ -1,15 +1,24 @@
 import React from 'react';
-import { VISUALIZATION } from '../../screens/types';
 import { useSelector } from 'react-redux';
+
+import { EVisualization } from '../../screens/types';
 import { selectLoading } from '../../../slices/loadingSlice';
+
 import './styles/visualization-panel.scss';
 
-interface Props {
-  setShowVisualization: (type: string) => void;
+interface IVisualizationPanelProps {
+  setVisualization: (type: EVisualization) => void;
+  visualization: EVisualization
 }
 
-const VisualizationPanel: React.FC<Props> = ({ setShowVisualization }) => {
-  const loadingState = useSelector(selectLoading);
+export const VisualizationPanel: React.FC<IVisualizationPanelProps> = ({ setVisualization, visualization }) => {
+  const isLoading = useSelector(selectLoading);
+
+  const handleClick = (visualization: EVisualization) => {
+    if (!isLoading) {
+      setVisualization(visualization)
+    }
+  }
 
   return (
     <div className='container panel'>
@@ -17,20 +26,20 @@ const VisualizationPanel: React.FC<Props> = ({ setShowVisualization }) => {
         className='fas fa-calendar-day'
         style={{
           marginLeft: 'auto',
-          color: '#5a5562',
+          color: visualization === EVisualization.CALENDAR ? '#5a5562' : undefined,
         }}
-        onClick={loadingState ? undefined : () => setShowVisualization(VISUALIZATION.CALENDAR)}
+        onClick={() => handleClick(EVisualization.CALENDAR)}
       ></i>
       <i
         className='fas fa-child'
-        onClick={loadingState ? undefined : () => setShowVisualization(VISUALIZATION.MODEL)}
+        style={{ color: visualization === EVisualization.MODEL ? '#5a5562' : undefined }}
+        onClick={() => handleClick(EVisualization.MODEL)}
       ></i>
       <i
         className='fas fa-chart-bar'
-        onClick={loadingState ? undefined : () => setShowVisualization(VISUALIZATION.GRAPH)}
+        style={{ color: visualization === EVisualization.GRAPH ? '#5a5562' : undefined }}
+        onClick={() => handleClick(EVisualization.GRAPH)}
       ></i>
     </div>
   );
 };
-
-export default VisualizationPanel;

@@ -1,19 +1,21 @@
 import React, { ReactElement, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route, Redirect, RouteComponentProps } from 'react-router-dom';
-import HomePage from './app/screens/HomePage';
-import LandingPage from './app/screens/LandingPage';
+
+import { DetailsPage, HomePage, LandingPage } from 'app/screens';
 import Homebar from './app/components/Home/Homebar';
-import DetailsPage from './app/screens/DetailsPage';
 import firebase from './auth/firebase';
 import { loginUser, logoutUser, selectAuth } from './slices/authSlice';
+
 import './app/styles/global.scss';
 
-const ProtectedRoute: React.FC<{
+interface IProtectedRoute {
   component: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
   path: string;
   exact?: boolean;
-}> = ({ component: Component, path, exact }): ReactElement => {
+}
+
+const ProtectedRoute: React.FC<IProtectedRoute> = ({ component: Component, path, exact }): ReactElement => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,7 +24,7 @@ const ProtectedRoute: React.FC<{
         localStorage.setItem('expectSignIn', '1');
         dispatch(loginUser());
       } else {
-        // maybe I should show loginModal here and render the component here as well
+        // maybe I should show loginModal here
         localStorage.removeItem('expectSignIn');
         dispatch(logoutUser());
       }
@@ -31,20 +33,17 @@ const ProtectedRoute: React.FC<{
 
   if (useSelector(selectAuth) || localStorage.getItem('expectSignIn')) {
     return <Route exact={exact} path={path} render={(props) => <Component {...props} />} />;
-  } else {
-    return <Redirect push to='/' />;
   }
+
+  return <Redirect push to='/' />;
 };
 
 function App() {
-  useEffect(() => {}, []);
-
   return (
     <div className='app-wrapper'>
       <Router>
         <Switch>
           <Route path='/' component={() => <LandingPage />} exact />
-          {/* <Route exact path='/about' component={() => <LandingPage />} /> */}
           <Route
             path='/home'
             render={({ match: { url } }) => (

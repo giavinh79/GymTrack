@@ -6,7 +6,7 @@ import Skeleton from 'react-loading-skeleton';
 import { useHistory } from 'react-router-dom';
 import './styles/workout-card.scss';
 
-interface Props {
+interface IWorkoutCardProps {
   backgroundColor: string;
   day: string;
   data: any;
@@ -20,13 +20,13 @@ const days: Record<string, any> = {
   MON: 'monday',
   TUES: 'tuesday',
   WED: 'wednesday',
-  THURS: 'thursday',
+  THUR: 'thursday',
   FRI: 'friday',
   SAT: 'saturday',
   SUN: 'sunday',
 };
 
-const WorkoutCard: React.FC<Props> = ({
+export const WorkoutCard: React.FC<IWorkoutCardProps> = ({
   backgroundColor,
   day,
   data: { exercises },

@@ -1,4 +1,4 @@
-interface Exercise {
+interface IExercise {
   name: string;
   reps: number;
   weight: number;
@@ -6,12 +6,12 @@ interface Exercise {
   gif?: string;
 }
 
-interface DayRoutine {
+interface IDayRoutine {
   name?: string;
-  exercises: Exercise[];
+  exercises: IExercise[];
 }
 
-export interface RoutineObject {
+export interface IRoutineObject {
   name: string;
   date: Date | null;
   description: string;
@@ -20,18 +20,18 @@ export interface RoutineObject {
   userEmail?: string;
   _id: string;
   workouts: {
-    monday: DayRoutine;
-    tuesday: DayRoutine;
-    wednesday: DayRoutine;
-    thursday: DayRoutine;
-    friday: DayRoutine;
-    saturday: DayRoutine;
-    sunday: DayRoutine;
+    monday: IDayRoutine;
+    tuesday: IDayRoutine;
+    wednesday: IDayRoutine;
+    thursday: IDayRoutine;
+    friday: IDayRoutine;
+    saturday: IDayRoutine;
+    sunday: IDayRoutine;
   };
 }
 
-export const VISUALIZATION = {
-  CALENDAR: 'calendar',
-  GRAPH: 'graph',
-  MODEL: 'model',
+export enum EVisualization {
+  CALENDAR = 'calendar',
+  GRAPH = 'graph',
+  MODEL = 'model',
 };

@@ -11,11 +11,8 @@ const routinesSlice = createSlice({
   },
 });
 
-// Actions
 export const { storeRoutines } = routinesSlice.actions;
 
-// Value to pass to useSelector()
 export const selectRoutines = (state: RootState) => state.routines;
 
-// Reducer
 export default routinesSlice.reducer;

@@ -1,6 +1,5 @@
 import React from 'react';
 import Card from './Card';
-// import { DragDropContext } from 'react-beautiful-dnd';
 
 const WorkoutList = () => {
   return (

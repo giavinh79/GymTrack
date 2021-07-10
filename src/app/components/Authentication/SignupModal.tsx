@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, Modal } from 'reactstrap';
 import { useSelector } from 'react-redux';
+
 import { selectSignupEmail } from '../../../slices/signupSlice';
 import firebase from '../../../auth/firebase';
-import { register } from '../../../api/restCalls';
-import { useHistory } from 'react-router-dom';
+import { register } from '../../../http/routine';
+
 import './styles/styles.scss';
 
-interface IProps {
+interface ISignupModalProps {
   setDisplaySignupModal: (type: boolean) => void;
 }
 
-const SignupModal: React.FC<IProps> = ({ setDisplaySignupModal }) => {
+const SignupModal: React.FC<ISignupModalProps> = ({ setDisplaySignupModal }) => {
   const history = useHistory();
-  const [modal, setModal] = useState(true);
 
+  const [modal, setModal] = useState(true);
   const [email, setEmail] = useState(useSelector(selectSignupEmail));
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
@@ -30,8 +32,10 @@ const SignupModal: React.FC<IProps> = ({ setDisplaySignupModal }) => {
   const handleSubmit = async (e: React.FormEvent<any>) => {
     try {
       e.preventDefault();
+
       await register({ email, password });
       await firebase.auth().signInWithEmailAndPassword(email, password);
+
       localStorage.setItem('expectSignIn', '1');
       history.push('/home');
     } catch (err) {
@@ -40,27 +44,22 @@ const SignupModal: React.FC<IProps> = ({ setDisplaySignupModal }) => {
   };
 
   const isPasswordVerified = () => {
-    if (password.length > 5 && passwordConfirm.length > 5 && password === passwordConfirm) {
-      return true;
-    }
-    return false;
+    return password.length > 5 && password === passwordConfirm
   };
 
   const verificationMessage = () => {
-    if (password.length > 0 || passwordConfirm.length > 0) {
-      if (password.length > 5 || passwordConfirm.length > 5) {
-        return isPasswordVerified() ? (
-          <>
-            <p className='text--small'>PASSWORD VERIFIED</p>
-            <i className='fas fa-check' style={{ color: 'green' }}></i>
-          </>
-        ) : (
-          <>
-            <p className='text--small'>PASSWORD VERIFIED</p>
-            <i className='fas fa-times' style={{ color: 'red' }}></i>
-          </>
-        );
-      }
+    if (password.length > 5 || passwordConfirm.length > 5) {
+      return isPasswordVerified() ? (
+        <>
+          <p className='text--small'>PASSWORD VERIFIED</p>
+          <i className='fas fa-check' style={{ color: 'green' }}></i>
+        </>
+      ) : (
+        <>
+          <p className='text--small'>PASSWORD VERIFIED</p>
+          <i className='fas fa-times' style={{ color: 'red' }}></i>
+        </>
+      );
     }
 
     return (

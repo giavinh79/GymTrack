@@ -8,7 +8,7 @@ interface IProps {
   handleSubmit: (e: React.FormEvent) => void;
 }
 
-const MobileLandingPage: React.FC<IProps> = ({ handleSubmit }) => {
+export const MobileLandingPage: React.FC<IProps> = ({ handleSubmit }) => {
   const dispatch = useDispatch();
 
   return (
@@ -78,5 +78,3 @@ const MobileLandingPage: React.FC<IProps> = ({ handleSubmit }) => {
     </div>
   );
 };
-
-export default MobileLandingPage;

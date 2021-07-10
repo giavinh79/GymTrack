@@ -1,55 +1,9 @@
 import React from 'react';
 import { Container, InputGroup, Input, InputGroupAddon, InputGroupText } from 'reactstrap';
-// import { LineChart, XAxis, YAxis, Legend, Tooltip, CartesianGrid, Line, ResponsiveContainer } from 'recharts';
 import { useHistory } from 'react-router-dom';
 import WorkoutList from '../components/Details/WorkoutList';
 
-// const data = [
-//   {
-//     name: 'January',
-//     benchpress: 4000,
-//     bicepcurl: 2400,
-//     amt: 2400,
-//   },
-//   {
-//     name: 'February',
-//     benchpress: 3000,
-//     bicepcurl: 1398,
-//     amt: 2210,
-//   },
-//   {
-//     name: 'March',
-//     benchpress: 2000,
-//     bicepcurl: 9800,
-//     amt: 2290,
-//   },
-//   {
-//     name: 'April',
-//     benchpress: 2780,
-//     bicepcurl: 3908,
-//     amt: 2000,
-//   },
-//   {
-//     name: 'May',
-//     benchpress: 1890,
-//     bicepcurl: 4800,
-//     amt: 2181,
-//   },
-//   {
-//     name: 'June',
-//     benchpress: 2390,
-//     bicepcurl: 3800,
-//     amt: 2500,
-//   },
-//   {
-//     name: 'July',
-//     benchpress: 3490,
-//     bicepcurl: 4300,
-//     amt: 2100,
-//   },
-// ];
-
-const DetailsPage = () => {
+export const DetailsPage = () => {
   const history = useHistory();
   const pathname = history.location.pathname;
   const day = pathname.substring(pathname.lastIndexOf('/') + 1, pathname.length);
@@ -105,5 +59,3 @@ const DetailsPage = () => {
     </Container>
   );
 };
-
-export default DetailsPage;

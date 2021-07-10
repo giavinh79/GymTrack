@@ -1,10 +1,7 @@
-/* Core Firebase JS SDK */
 import firebase from 'firebase/app';
 
 import 'firebase/auth';
 import 'firebase/database';
-
-/* Firebase Config */
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAYDuhx-r5dQRySfWluE59IC-7pnV39uOo',
@@ -16,6 +13,6 @@ const firebaseConfig = {
   appId: '1:1086872219631:web:c362984f22d36acda0901a',
 };
 
-const app = firebase.initializeApp(firebaseConfig);
+const App = firebase.initializeApp(firebaseConfig);
 
-export default app;
+export default App;

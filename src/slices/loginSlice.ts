@@ -18,11 +18,8 @@ const loginSlice = createSlice({
   },
 });
 
-// Actions
 export const { toggleOn, toggleOff } = loginSlice.actions;
 
-// State value
 export const selectLogin = (state: RootState) => state.login;
 
-// Reducer
 export default loginSlice.reducer;

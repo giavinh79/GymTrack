@@ -4,7 +4,7 @@ import { showAddRoutineModal } from '../../../slices/modalSlice';
 import { useDispatch } from 'react-redux';
 import './styles/no-routine-placeholder.scss';
 
-const NoRoutinePlaceholder = () => {
+export const NoRoutinePlaceholder = () => {
   const dispatch = useDispatch();
 
   return (
@@ -21,5 +21,3 @@ const NoRoutinePlaceholder = () => {
     </Container>
   );
 };
-
-export default NoRoutinePlaceholder;

@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Button, Form, FormGroup, Label, Input, Modal } from 'reactstrap';
 import { useDispatch } from 'react-redux';
 import { hideModal } from '../../../slices/modalSlice';
-import { createRoutine } from '../../../api/restCalls';
+import { createRoutine } from '../../../http/routine';
 import { refreshData } from '../../../slices/refreshSlice';
 
-const AddRoutineModal = () => {
+export const AddRoutineModal = () => {
   const dispatch = useDispatch();
 
   const [name, setName] = useState('');
@@ -79,5 +79,3 @@ const AddRoutineModal = () => {
     </Modal>
   );
 };
-
-export default AddRoutineModal;

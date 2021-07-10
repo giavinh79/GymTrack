@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, Modal, Alert } from 'reactstrap';
 import firebase from '../../../auth/firebase';
-import { useHistory } from 'react-router-dom';
+
 import './styles/styles.scss';
 
-interface IProps {
+interface ILoginModalProps {
   setShowLoginModal: (type: boolean) => void;
 }
 
-const LoginModal: React.FC<IProps> = ({ setShowLoginModal }) => {
+const LoginModal: React.FC<ILoginModalProps> = ({ setShowLoginModal }) => {
+  const history = useHistory();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const [error, setError] = useState(null);
-  const [modal, setModal] = useState(true);
-  const history = useHistory();
+  const [showModal, setShowModal] = useState(true);
 
   const handleSubmit = async (e: React.FormEvent) => {
     try {
@@ -25,30 +27,29 @@ const LoginModal: React.FC<IProps> = ({ setShowLoginModal }) => {
     } catch (err) {
       setError(err);
       console.log(err.message);
-      console.log(err);
     }
   };
 
-  const handleEmail = (e: any) => {
+  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError(null);
     setEmail(e.target.value);
   };
 
-  const handlePassword = (e: any) => {
+  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError(null);
     setPassword(e.target.value);
   };
 
   const unmount = () => {
-    setModal(!modal);
+    setShowModal(false);
     setTimeout(() => {
       setShowLoginModal(false);
     }, 200);
   };
 
   return (
-    <Modal isOpen={modal} toggle={unmount} centered={true}>
-      <Form className='login-form' onSubmit={handleSubmit}>
+    <Modal isOpen={showModal} toggle={unmount} centered>
+      <Form className='login-form' onSubmit={handleSubmit} autoComplete='on'>
         <div className='container--tight'>
           {error && (
             <Alert color='danger' className={'animate__fadeInDown login-form__alert'}>
@@ -62,11 +63,11 @@ const LoginModal: React.FC<IProps> = ({ setShowLoginModal }) => {
           <i className='fas fa-users' style={{ fontSize: '3rem', marginBottom: '2rem' }}></i>
         </div>
         <FormGroup>
-          <Label for='exampleEmail'>Email</Label>
+          <Label for='loginEmail'>Email</Label>
           <Input
             type='email'
-            name='email'
-            id='exampleEmail'
+            name='username'
+            id='loginEmail'
             required
             placeholder='email'
             value={email}
@@ -75,11 +76,11 @@ const LoginModal: React.FC<IProps> = ({ setShowLoginModal }) => {
           />
         </FormGroup>
         <FormGroup>
-          <Label for='examplePassword'>Password</Label>
+          <Label for='loginPassword'>Password</Label>
           <Input
             type='password'
             name='password'
-            id='examplePassword'
+            id='loginPassword'
             required
             placeholder='password'
             value={password}

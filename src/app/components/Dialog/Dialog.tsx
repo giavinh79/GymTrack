@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { hideModal } from '../../../slices/modalSlice';
 import './dialog.scss';
 
-interface IProps {
+interface IDialogProps {
   type?: 'confirm' | 'info' | 'delete';
   title: string;
   text: string;
@@ -27,7 +27,7 @@ const dialog = {
   },
 };
 
-const Dialog: FunctionComponent<IProps> = ({ title, text, type = 'info', onConfirm }) => {
+export const Dialog: FunctionComponent<IDialogProps> = ({ title, text, type = 'info', onConfirm }) => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
 

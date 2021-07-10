@@ -10,11 +10,8 @@ const loadingSlice = createSlice({
   },
 });
 
-// Actions
 export const { loading, doneLoading } = loadingSlice.actions;
 
-// Value to pass to useSelector()
 export const selectLoading = (state: RootState) => state.loading;
 
-// Reducer
 export default loadingSlice.reducer;

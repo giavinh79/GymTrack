@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Button, Row, Col, Input, InputGroup, InputGroupAddon } from 'reactstrap';
-import Header from '../components/Landing/Header';
-import MobileLandingPage from './MobileLandingPage';
-import SignupModal from '../components/Authentication/SignupModal';
 import { useDispatch } from 'react-redux';
+import { Button, Row, Col, Input, InputGroup, InputGroupAddon } from 'reactstrap';
+
+import Header from '../components/Landing/Header';
+import { MobileLandingPage } from './';
+import SignupModal from '../components/Authentication/SignupModal';
 import { enableEmailRegistration } from '../../slices/signupSlice';
+
 import './LandingPageStyles.css';
 
-const Landing = () => {
+export const LandingPage = () => {
   const dispatch = useDispatch();
   const [displaySignupModal, setDisplaySignupModal] = useState(false);
 
@@ -67,5 +69,3 @@ const Landing = () => {
     </>
   );
 };
-
-export default Landing;

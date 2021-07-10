@@ -3,44 +3,46 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@reduxjs/toolkit": "^1.4.0",
-    "@testing-library/jest-dom": "^5.11.0",
-    "@testing-library/react": "^10.4.8",
+    "@reduxjs/toolkit": "^1.6.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^10.4.9",
     "@testing-library/user-event": "^7.2.1",
     "@types/axios": "^0.14.0",
-    "@types/jest": "^26.0.10",
-    "@types/node": "^14.6.0",
-    "@types/react": "^16.9.41",
-    "@types/react-beautiful-dnd": "^13.0.0",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-redux": "^7.1.9",
-    "@types/react-router-dom": "^5.1.5",
-    "@types/reactstrap": "^8.5.1",
-    "@types/recharts": "^1.8.14",
-    "animate.css": "^4.1.0",
-    "axios": "^0.19.2",
-    "bootstrap": "^4.5.0",
-    "firebase": "^7.18.0",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^14.17.5",
+    "@types/react": "^16.14.11",
+    "@types/react-beautiful-dnd": "^13.1.1",
+    "@types/react-dom": "^16.9.14",
+    "@types/react-redux": "^7.1.18",
+    "@types/react-router-dom": "^5.1.8",
+    "@types/reactstrap": "^8.7.2",
+    "@types/recharts": "^1.8.19",
+    "animate.css": "^4.1.1",
+    "axios": "^0.21.1",
+    "bootstrap": "^4.6.0",
+    "firebase": "^7.24.0",
     "node-sass": "^4.14.1",
     "rc-calendar": "^9.15.11",
-    "react": "^16.13.1",
-    "react-beautiful-dnd": "^13.0.0",
-    "react-body-highlighter": "^1.0.5",
-    "react-dom": "^16.13.1",
-    "react-loading-skeleton": "^2.1.1",
-    "react-redux": "^7.2.0",
+    "react": "^16.14.0",
+    "react-beautiful-dnd": "^13.1.0",
+    "react-body-highlighter": "^2.0.2",
+    "react-dom": "^16.14.0",
+    "react-i18next": "^11.11.1",
+    "react-loading-skeleton": "^2.2.0",
+    "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3",
-    "reactstrap": "^8.5.1",
+    "react-scripts": "^3.4.4",
+    "reactstrap": "^8.9.0",
     "recharts": "^1.8.5",
-    "styled-components": "^5.1.1",
-    "typescript": "^3.9.7"
+    "styled-components": "^5.3.0",
+    "typescript": "^3.9.10"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "npx prettier --check ."
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -56,5 +58,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.171",
+    "prettier": "2.3.2"
   }
 }

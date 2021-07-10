@@ -19,11 +19,8 @@ const signupSlice = createSlice({
   },
 });
 
-// Actions
 export const { enableEmailRegistration } = signupSlice.actions;
 
-// Value to pass to useSelector()
 export const selectSignupEmail = (state: RootState) => state.signup.email;
 
-// Reducer
 export default signupSlice.reducer;
