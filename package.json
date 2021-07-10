@@ -42,7 +42,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "npx prettier --check ."
+    "lint": "npx prettier --check .",
+    "check-formatting": "prettier --check .",
+    "fix-formatting": "prettier --write ."
   },
   "eslintConfig": {
     "extends": "react-app"
