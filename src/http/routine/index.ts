@@ -1,12 +1,12 @@
 import axios from 'axios';
-import firebase from '../../auth/firebase';
+import { auth } from '../../auth/firebase';
 import { CONFIG } from '../../config';
-import { RoutineData } from './metadata';
+import { IRoutineData } from './types';
 
 const createRoutine = async (data: object) => {
   return new Promise((resolve, reject) => {
     try {
-      firebase.auth().onAuthStateChanged(async (user) => {
+      auth.onAuthStateChanged(async (user) => {
         if (user) {
           const token = await user.getIdToken();
           await axios.put(`${CONFIG.API_ENDPOINT}/api/routine`, { ...data, token: token });
@@ -22,7 +22,7 @@ const createRoutine = async (data: object) => {
 const deleteRoutine = async (id: string) => {
   return new Promise((resolve, reject) => {
     try {
-      firebase.auth().onAuthStateChanged(async (user) => {
+      auth.onAuthStateChanged(async (user) => {
         if (user) {
           const token = await user.getIdToken();
           await axios.delete(`${CONFIG.API_ENDPOINT}/api/routine`, { data: { id, token } });
@@ -30,17 +30,13 @@ const deleteRoutine = async (id: string) => {
         }
       });
     } catch (err) {
-      reject(err)
+      reject(err);
     }
   });
 };
 
-const register = async (credentials: object) => {
-  await axios.post(`${CONFIG.API_ENDPOINT}/api/auth/signup`, credentials);
+const retrieveRoutines = async (token: string): Promise<IRoutineData> => {
+  return axios.get(`${CONFIG.API_ENDPOINT}/api/routine?token=${token}`);
 };
 
-const retrieveRoutines = async (token: string): Promise<RoutineData> => {
-  return await axios.get(`${CONFIG.API_ENDPOINT}/api/routine?token=${token}`);
-};
-
-export { createRoutine, deleteRoutine, register, retrieveRoutines };
+export { createRoutine, deleteRoutine, retrieveRoutines };

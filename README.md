@@ -1,6 +1,6 @@
 # GymTrack
 
-Simple application for tracking and managing a user's fitness journey. Deploys automatically on merges to master via Netlify.
+Simple React.js, TypeScript, and Redux application for tracking and managing a user's fitness journey. Deploys automatically on merges to master via Netlify.
 
 The backend Node.js (Express) API can be found here: [https://github.com/GV79/GymTrackAPI](https://github.com/GV79/GymTrackAPI) but will be deprecated soon.
 
@@ -15,8 +15,18 @@ Run 'npm run build' and use the newly created 'build' folder for deployment.
 ## Development
 
 In the text editor of your choice, install the Prettier extension and change the settings so that formatting is done automatically on save.
-For development, Redux Toolkit and TypeScript are used.
 
-## Environment Files
+## Tech Stack
 
-Look at the .env.example placed in GymTrackAPI. A MongoDB database needs to be set-up properly in order for the backend to work.
+- React.js (w/ TypeScript)
+- Redux Toolkit for global state management
+- React Router for routing
+
+## TODO REFACTORING
+
+- Lazy load some librairies (i.e. react-body-highlighter and the graphs)
+- Further break down components \*\*\*
+- Replace majority of `navigate` with links
+- Husky and some CI
+- Replace SASS & React Bootstrap styles with Chakra UI
+- Add React Hook Forms

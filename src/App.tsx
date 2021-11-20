@@ -1,47 +1,54 @@
-import React, { ReactElement, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter as Router, Switch, Route, Redirect, RouteComponentProps } from 'react-router-dom';
+// import React, { ReactElement, useEffect } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { BrowserRouter as Router, Switch, Route, Redirect, RouteComponentProps } from 'react-router-dom';
 
-import { DetailsPage, HomePage, LandingPage } from 'app/screens';
-import Homebar from './app/components/Home/Homebar';
-import firebase from './auth/firebase';
-import { loginUser, logoutUser, selectAuth } from './slices/authSlice';
+// import { DetailsPage, HomePage, LandingPage } from 'src/screens';
+// import Homebar from './features/home/Homebar';
+// import { loginUser, logoutUser, selectAuth } from './slices/auth/authSlice';
+// import { auth } from './auth/firebase';
 
-import './app/styles/global.scss';
+import './styles/global.scss';
+import { AppRoutes } from './routes';
+import { BrowserRouter } from 'react-router-dom';
 
-interface IProtectedRoute {
-  component: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
-  path: string;
-  exact?: boolean;
-}
+// interface IProtectedRoute {
+//   component: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
+//   path: string;
+//   exact?: boolean;
+// }
 
-const ProtectedRoute: React.FC<IProtectedRoute> = ({ component: Component, path, exact }): ReactElement => {
-  const dispatch = useDispatch();
+// const ProtectedRoute: React.FC<IProtectedRoute> = ({ component: Component, path, exact }): ReactElement => {
+//   const dispatch = useDispatch();
 
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        localStorage.setItem('expectSignIn', '1');
-        dispatch(loginUser());
-      } else {
-        // maybe I should show loginModal here
-        localStorage.removeItem('expectSignIn');
-        dispatch(logoutUser());
-      }
-    });
-  }, [dispatch]);
+//   useEffect(() => {
+//     auth.onAuthStateChanged((user) => {
+//       if (user) {
+//         localStorage.setItem('expectSignIn', '1');
+//         dispatch(loginUser());
+//       } else {
+//         // maybe I should show loginModal here
+//         // why do i have this local storage item?? wtf1
+//         localStorage.removeItem('expectSignIn');
+//         dispatch(logoutUser());
+//       }
+//     });
+//   }, [dispatch]);
 
-  if (useSelector(selectAuth) || localStorage.getItem('expectSignIn')) {
-    return <Route exact={exact} path={path} render={(props) => <Component {...props} />} />;
-  }
+//   if (useSelector(selectAuth) || localStorage.getItem('expectSignIn')) {
+//     return <Route exact={exact} path={path} render={(props) => <Component {...props} />} />;
+//   }
 
-  return <Redirect push to='/' />;
-};
+//   return <Redirect push to='/' />;
+// };
 
 function App() {
   return (
     <div className='app-wrapper'>
-      <Router>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+
+      {/* <Router>
         <Switch>
           <Route path='/' component={() => <LandingPage />} exact />
           <Route
@@ -59,7 +66,7 @@ function App() {
           />
           <Redirect push to='/' />
         </Switch>
-      </Router>
+      </Router> */}
     </div>
   );
 }
