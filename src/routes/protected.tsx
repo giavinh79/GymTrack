@@ -3,10 +3,10 @@ import { Navigate, Outlet, RouteObject } from 'react-router-dom';
 
 import { lazyImport } from 'src/utils';
 import Homebar from 'src/features/home/Homebar';
-import { DefaultPageLoader } from 'src/components/loaders/default-page-loader/DefaultPageLoader';
+import { DefaultPageLoader } from 'src/components';
 
-const { HomePage } = lazyImport(() => import('src/screens'), 'HomePage');
-const { DetailsPage } = lazyImport(() => import('src/screens'), 'DetailsPage');
+const { HomePage } = lazyImport(() => import('src/pages'), 'HomePage');
+const { DetailsPage } = lazyImport(() => import('src/pages'), 'DetailsPage');
 
 const ProtectedPage = () => {
   return (

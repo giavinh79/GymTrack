@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, Modal, Alert } from 'reactstrap';
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -11,7 +11,7 @@ interface ILoginModalProps {
   setShowLoginModal: (type: boolean) => void;
 }
 
-const LoginModal: React.FC<ILoginModalProps> = ({ setShowLoginModal }) => {
+export const LoginModal = ({ setShowLoginModal }: ILoginModalProps): ReactElement => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -20,7 +20,7 @@ const LoginModal: React.FC<ILoginModalProps> = ({ setShowLoginModal }) => {
   const [error, setError] = useState(false);
   const [showModal, setShowModal] = useState(true);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     try {
       e.preventDefault();
       await signInWithEmailAndPassword(auth, email, password);
@@ -32,17 +32,17 @@ const LoginModal: React.FC<ILoginModalProps> = ({ setShowLoginModal }) => {
     }
   };
 
-  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setError(false);
     setEmail(e.target.value);
   };
 
-  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setError(false);
     setPassword(e.target.value);
   };
 
-  const unmount = () => {
+  const unmount = (): void => {
     setShowModal(false);
     setTimeout(() => {
       setShowLoginModal(false);
@@ -104,5 +104,3 @@ const LoginModal: React.FC<ILoginModalProps> = ({ setShowLoginModal }) => {
     </Modal>
   );
 };
-
-export default LoginModal;

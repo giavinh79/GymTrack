@@ -1,0 +1,21 @@
+{
+  "NAVIGATION": {},
+  "FIRST_HEADER": "Track your fitness journey.",
+  "SECOND_HEADER": "Start today for free.",
+  "SIGNUP": {
+    "BUTTON": "SIGN UP TODAY",
+    "MODAL": {
+      "TITLE": "Let's Get Started",
+      "EMAIL": "Email",
+      "PASSWORD": "Password",
+      "PASSWORD_PLACEHOLDER": "Enter password",
+      "SUBMIT_BUTTON": "Sign Up",
+      "CONFIRM_PASSWORD": "Confirm Password",
+      "PASSWORD_VERIFIED": "PASSWORD VERIFIED",
+      "PASSWORD_MIN_LENGTH_WARNING": "PASSWORD MUST BE AT LEAST 6 CHARACTERS"
+    }
+  },
+  "LOGIN": {
+    "BUTTON": "Login"
+  }
+}

@@ -9,9 +9,9 @@ interface IStartWorkoutModalProps {
 const StartWorkoutModal: React.FC<IStartWorkoutModalProps> = ({ setStartModal }) => {
   const [open, setOpen] = useState(true);
 
-  const toggle = () => { };
+  const toggle = () => {};
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setOpen(false);
     setTimeout(() => {
       setStartModal(false);
@@ -54,8 +54,7 @@ const StartWorkoutModal: React.FC<IStartWorkoutModalProps> = ({ setStartModal })
           // color='primary'
           style={{
             backgroundColor: '#736E9E',
-          }}
-        >
+          }}>
           Start Workout
         </Button>{' '}
         <Button color='secondary'>Cancel</Button>

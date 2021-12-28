@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { EVisualization } from '../../screens/types';
+import { EVisualization } from '../../pages/types';
 import { selectLoading } from '../../slices/general/loadingSlice';
 
 import './styles/visualization-panel.scss';

@@ -1,5 +1,8 @@
 import { lazy } from 'react';
-import { isNil, get, pick, omit } from 'lodash';
+import isNil from 'lodash/isNil'; // lodash is CommonJS and not tree-shakeable with regular named exports :(
+import get from 'lodash/get';
+import pick from 'lodash/pick';
+import omit from 'lodash/omit';
 
 const exists = <T>(value: T | null | undefined): value is T => {
   return !isNil(value);
@@ -15,4 +18,17 @@ const lazyImport = <T extends React.ComponentType<any>, I extends { [K2 in K]: T
   });
 };
 
-export { isNil, lazyImport, exists, get, omit, pick };
+// dynamically load css (typically used to lazy load stylesheets)
+const lazyLoadCss = (cssArray: string[]) => {
+  const { head } = document;
+
+  cssArray.forEach((css) => {
+    const link = document.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    link.href = css;
+    head.appendChild(link);
+  });
+};
+
+export { exists, get, isNil, lazyLoadCss, lazyImport, omit, pick };

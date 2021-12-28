@@ -1,14 +1,15 @@
-import React from 'react';
-import Header from '../features/landing/Header';
+import React, { ReactElement } from 'react';
 import { Button, InputGroupAddon, InputGroup, Input } from 'reactstrap';
 import { useDispatch } from 'react-redux';
-import { enableEmailRegistration } from '../slices/auth/signupSlice';
 
-interface IProps {
+import { Header } from 'src/features/landing/Header';
+import { enableEmailRegistration } from 'src/slices/auth/signupSlice';
+
+interface IMobileLandingPageProps {
   handleSubmit: (e: React.FormEvent) => void;
 }
 
-export const MobileLandingPage: React.FC<IProps> = ({ handleSubmit }) => {
+export const MobileLandingPage = ({ handleSubmit }: IMobileLandingPageProps): ReactElement => {
   const dispatch = useDispatch();
 
   return (

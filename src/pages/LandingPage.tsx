@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button, Row, Col, Input, InputGroup, InputGroupAddon } from 'reactstrap';
 
-import Header from '../features/landing/Header';
+import { Header, SignupModal } from 'src/features';
+import { enableEmailRegistration } from 'src/slices/auth/signupSlice';
+
 import { MobileLandingPage } from '.';
-import SignupModal from '../features/authentication/signup-modal/SignupModal';
-import { enableEmailRegistration } from '../slices/auth/signupSlice';
+import fitnessBackground from 'src/assets/images/landing/landing_page_fitness.svg';
 
 import './LandingPageStyles.css';
 
-export const LandingPage = () => {
+export const LandingPage = (): ReactElement => {
   const dispatch = useDispatch();
   const [displaySignupModal, setDisplaySignupModal] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
     setDisplaySignupModal(true);
   };
@@ -54,7 +55,11 @@ export const LandingPage = () => {
               </Row>
             </Col>
             <Col sm={7}>
-              <img src='/images/landingpagefitness.svg' alt='landing page' style={{ maxWidth: '100%', maxHeight: '100%' }} />
+              <img
+                src={fitnessBackground}
+                alt='landing page fitness background'
+                style={{ maxWidth: '100%', maxHeight: '100%' }}
+              />
             </Col>
           </Row>
           <div className='mountain-background'></div>
