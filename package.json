@@ -8,7 +8,7 @@
     "@emotion/styled": "^11.6.0",
     "@reduxjs/toolkit": "^1.7.1",
     "animate.css": "^4.1.1",
-    "axios": "^0.22.0",
+    "axios": "^0.24.0",
     "bootstrap": "^4.6.1",
     "firebase": "^9.6.1",
     "framer-motion": "^4.1.17",
