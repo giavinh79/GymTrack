@@ -7,12 +7,13 @@
 }
 
 .mountain-background {
+  position: absolute;
   height: 35rem;
   width: 100%;
-  position: absolute;
   top: 7rem;
-  background-color: #bdbdbd;
   z-index: -1;
+
+  background-color: #bdbdbd;
   clip-path: polygon(44% 63%, 61% 14%, 81% 71%, 91% 55%, 100% 78%, 100% 100%, 100% 100%, 18% 100%, 37% 51%);
 }
 

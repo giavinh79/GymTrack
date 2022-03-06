@@ -1,5 +1,6 @@
-import { cloneDeep, isEqual } from 'lodash';
 import { useMemo, useRef, useState } from 'react';
+import cloneDeep from 'lodash/cloneDeep';
+import isEqual from 'lodash/isEqual';
 
 interface IObject {
   [key: string]: string;

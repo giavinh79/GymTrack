@@ -1,6 +1,9 @@
 import { Container } from 'reactstrap';
-import { showAddRoutineModal } from '../../slices/modal';
 import { useDispatch } from 'react-redux';
+
+import emptySvg from 'src/assets/images/landing/landing_page_fitness.svg';
+import { showAddRoutineModal } from 'src/slices/modal';
+
 import './styles/no-routine-placeholder.scss';
 
 export const NoRoutinePlaceholder = () => {
@@ -16,7 +19,7 @@ export const NoRoutinePlaceholder = () => {
           <p className='button__text'>CREATE</p>
         </div>
       </div>
-      <img src='/images/empty.svg' alt='empty' />
+      <img src={emptySvg} alt='empty' />
     </Container>
   );
 };

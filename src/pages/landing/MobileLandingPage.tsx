@@ -2,8 +2,8 @@ import React, { ReactElement } from 'react';
 import { Button, InputGroupAddon, InputGroup, Input } from 'reactstrap';
 import { useDispatch } from 'react-redux';
 
-import { Header } from 'src/features/landing/Header';
-import { enableEmailRegistration } from 'src/slices/auth/signupSlice';
+import { Header } from 'src/features/landing/header/Header';
+import fitnessBackground from 'src/assets/images/landing/landing_page_fitness.svg';
 
 interface IMobileLandingPageProps {
   handleSubmit: (e: React.FormEvent) => void;
@@ -13,7 +13,9 @@ export const MobileLandingPage = ({ handleSubmit }: IMobileLandingPageProps): Re
   const dispatch = useDispatch();
 
   return (
-    <div style={{ width: '100%', maxWidth: '80rem', boxShadow: '0 1px 4px rgba(0,0,0,0.3)' }} className='landing-wrapper-mobile'>
+    <div
+      style={{ width: '100%', maxWidth: '80rem', boxShadow: '0 1px 4px rgba(0,0,0,0.3)' }}
+      className='landing-wrapper-mobile'>
       <Header />
       <>
         <div style={{ marginTop: '3.6rem', width: '100%' }}>
@@ -27,8 +29,8 @@ export const MobileLandingPage = ({ handleSubmit }: IMobileLandingPageProps): Re
               borderBottom: '1px solid #ccc',
             }}>
             <img
-              src='/images/landingpagefitness.svg'
-              alt='landing page'
+              src={fitnessBackground}
+              alt='landing page background'
               style={{
                 backgroundColor: 'white',
                 height: '20rem',
@@ -54,12 +56,12 @@ export const MobileLandingPage = ({ handleSubmit }: IMobileLandingPageProps): Re
               </h1>
               <form onSubmit={handleSubmit} style={{ margin: '2rem' }}>
                 <InputGroup size='lg'>
-                  <Input
+                  {/* <Input
                     placeholder='Email'
                     type='email'
                     required
                     onChange={(e) => dispatch(enableEmailRegistration(e.target.value))}
-                  />
+                  /> */}
                   <InputGroupAddon addonType='append'>
                     <Button size='' style={{ backgroundColor: '#736E9E' }}>
                       SIGN UP

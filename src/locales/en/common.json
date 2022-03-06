@@ -1,3 +1,12 @@
 {
-  "NAME": "GymTrack"
+  "NAME": "GymTrack",
+  "AUTH": {
+    "LOGIN": "Login"
+  },
+  "BUTTON": {
+    "CONFIRM": "Confirm",
+    "CANCEL": "Cancel",
+    "YES": "Yes",
+    "NO": "No"
+  }
 }

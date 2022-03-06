@@ -1,2 +1,2 @@
-export * from './Header';
+export * from './header';
 export * from './StartWorkoutModal';

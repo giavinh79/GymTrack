@@ -1,106 +1,114 @@
 import React, { ReactElement, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button, Form, FormGroup, Label, Input, Modal, Alert } from 'reactstrap';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { Link, useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from '@firebase/auth';
+import { Alert, Button, Group, Modal, Space, Text, TextInput, Title } from '@mantine/core';
+import { useForm } from '@mantine/hooks';
+import { useTranslation } from 'react-i18next';
 
 import { auth } from 'src/auth/firebase';
 
-import '../styles/styles.scss';
+import { useStyles } from './LoginModal.styles';
 
 interface ILoginModalProps {
+  showLoginModal: boolean;
   setShowLoginModal: (type: boolean) => void;
 }
 
-export const LoginModal = ({ setShowLoginModal }: ILoginModalProps): ReactElement => {
+export const LoginModal = ({ showLoginModal, setShowLoginModal }: ILoginModalProps): ReactElement => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [serverError, setServerError] = useState(false);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  const [error, setError] = useState(false);
-  const [showModal, setShowModal] = useState(true);
+  const { classes } = useStyles();
+
+  const form = useForm<{ email: string; password: string }>({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+  });
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     try {
       e.preventDefault();
-      await signInWithEmailAndPassword(auth, email, password);
+      setIsLoggingIn(true);
+      await signInWithEmailAndPassword(auth, form.values.email, form.values.password);
       localStorage.setItem('expectSignIn', '1');
       navigate('/home');
     } catch (err) {
-      setError(true);
+      setServerError(true);
       console.log(err);
     }
   };
 
-  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setError(false);
-    setEmail(e.target.value);
+  const handleCloseModal = (): void => {
+    setShowLoginModal(false);
+    form.reset();
   };
 
-  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setError(false);
-    setPassword(e.target.value);
-  };
-
-  const unmount = (): void => {
-    setShowModal(false);
-    setTimeout(() => {
-      setShowLoginModal(false);
-    }, 200);
+  const isFormDirty = (): boolean => {
+    return Object.values(form.values).some((value) => value.length === 0);
   };
 
   return (
-    <Modal isOpen={showModal} toggle={unmount} centered>
-      <Form className='login-form' onSubmit={handleSubmit} autoComplete='on'>
-        <div className='container--tight'>
-          {error && (
-            <Alert color='danger' className={'animate__fadeInDown login-form__alert'}>
-              Invalid username or password, please try again.
-            </Alert>
-          )}
-          <i className='fas fa-times login-form__close-icon' onClick={unmount}></i>
-        </div>
-        <div className='container--column'>
-          <p className='text--large'>Welcome</p>
-          <i className='fas fa-users' style={{ fontSize: '3rem', marginBottom: '2rem' }}></i>
-        </div>
-        <FormGroup>
-          <Label for='loginEmail'>Email</Label>
-          <Input
-            type='email'
-            name='username'
-            id='loginEmail'
-            required
-            placeholder='email'
-            value={email}
-            onChange={handleEmail}
-            className={error ? 'animate__animated animate__shakeX input-error' : ''}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for='loginPassword'>Password</Label>
-          <Input
-            type='password'
-            name='password'
-            id='loginPassword'
-            required
-            placeholder='password'
-            value={password}
-            onChange={handlePassword}
-            className={error ? 'animate__animated animate__shakeX input-error' : ''}
-          />
-        </FormGroup>
-        <div className='container--right'>
-          <p className='text--small' style={{ cursor: 'pointer', color: '#bd2b2b' }}>
-            FORGOT PASSWORD?
-          </p>
-          <i className='fa fa-key' aria-hidden='true' style={{ color: '#bd2b2b' }}></i>
-          {/* <i className='fas fa-times' style={{ color: 'red' }}></i> */}
-        </div>
-        <Button className='login-form__button' type='submit' disabled={email.length === 0 || password.length === 0}>
-          Login
+    <Modal opened={showLoginModal} onClose={handleCloseModal} centered padding={35}>
+      <form onSubmit={handleSubmit} autoComplete='on'>
+        {serverError && (
+          <Alert color='red' className='animate__fadeInDown login-form__alert'>
+            {t('landing:LOGIN.MODAL.ERROR.AUTH')}
+          </Alert>
+        )}
+        <Group position='center' direction='column'>
+          <Title order={1} className={classes.header}>
+            {t('landing:LOGIN.MODAL.HEADER')}
+          </Title>
+          <i className={`fas fa-users ${classes.userIcon}`} />
+          <Space h='xl' />
+        </Group>
+        <TextInput
+          {...form.getInputProps('email')}
+          id='loginEmail'
+          type='email'
+          name='username'
+          label={t('landing:LOGIN.MODAL.EMAIL_LABEL')}
+          placeholder={t('landing:LOGIN.MODAL.EMAIL_PLACEHOLDER')}
+          required
+          classNames={{
+            input: serverError ? 'animate__animated animate__shakeX input-error' : '',
+          }}
+          data-autofocus
+          onFocus={() => setServerError(false)}
+        />
+        <Space h='md' />
+        <TextInput
+          {...form.getInputProps('password')}
+          id='loginPassword'
+          type='password'
+          name='password'
+          label={t('landing:LOGIN.MODAL.PASSWORD_LABEL')}
+          placeholder={t('landing:LOGIN.MODAL.PASSWORD_PLACEHOLDER')}
+          required
+          classNames={{
+            input: serverError ? 'animate__animated animate__shakeX input-error' : '',
+          }}
+          onFocus={() => setServerError(false)}
+        />
+        <Space h='md' />
+        <Group position='right' spacing='xs'>
+          <Link to={'/todo'} target='_blank'>
+            <Text color='red' size='xs'>
+              {t('landing:LOGIN.MODAL.FORGOT_PASSWORD')}
+            </Text>
+          </Link>
+          <i className={`fa fa-key ${classes.keyIcon}`} aria-hidden='true' />
+        </Group>
+        <Space h='xl' />
+        <Button type='submit' disabled={isFormDirty()} fullWidth loading={isLoggingIn}>
+          {t('landing:LOGIN.MODAL.PRIMARY_BUTTON')}
         </Button>
-      </Form>
+      </form>
     </Modal>
   );
 };

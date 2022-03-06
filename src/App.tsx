@@ -1,14 +1,17 @@
 import { BrowserRouter } from 'react-router-dom';
+import { MantineProvider } from '@mantine/core';
 
-import { AppRoutes } from './routes';
-
-import './styles/global.scss';
+import { AppRoutes } from 'src/routes';
+import { theme } from 'src/styles/theme';
+import 'src/styles/global.scss';
 
 function App() {
   return (
     <div className='app-wrapper'>
       <BrowserRouter>
-        <AppRoutes />
+        <MantineProvider withNormalizeCSS withGlobalStyles theme={theme}>
+          <AppRoutes />
+        </MantineProvider>
       </BrowserRouter>
     </div>
   );

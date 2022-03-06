@@ -16,7 +16,7 @@ import { exists, isNil } from 'src/utils';
 import { defaultRoutineObject } from './utils';
 
 import 'rc-calendar/assets/index.css';
-import '../styles/homepage.scss';
+import './homepage.scss';
 
 export const HomePage = () => {
   const dispatch = useDispatch();

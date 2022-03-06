@@ -1,6 +1,5 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import loginModalReducer from '../slices/auth/loginSlice';
-import signupModalReducer from '../slices/auth/signupSlice';
 import authReducer from '../slices/auth/authSlice';
 import modalReducer from '../slices/modal/modalSlice';
 import loadingReducer from '../slices/general/loadingSlice';
@@ -10,7 +9,6 @@ import refreshReducer from '../slices/general/refreshSlice';
 export const store = configureStore({
   reducer: {
     login: loginModalReducer,
-    signup: signupModalReducer,
     auth: authReducer,
     modal: modalReducer,
     loading: loadingReducer,

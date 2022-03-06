@@ -11,11 +11,22 @@
       "PASSWORD_PLACEHOLDER": "Enter password",
       "SUBMIT_BUTTON": "Sign Up",
       "CONFIRM_PASSWORD": "Confirm Password",
-      "PASSWORD_VERIFIED": "PASSWORD VERIFIED",
+      "PASSWORDS_ARE_DIFFERENT": "PASSWORDS ENTERED ARE DIFFERENT",
       "PASSWORD_MIN_LENGTH_WARNING": "PASSWORD MUST BE AT LEAST 6 CHARACTERS"
     }
   },
   "LOGIN": {
-    "BUTTON": "Login"
+    "MODAL": {
+      "HEADER": "Welcome",
+      "PRIMARY_BUTTON": "Login",
+      "FORGOT_PASSWORD": "FORGOT PASSWORD?",
+      "PASSWORD_LABEL": "Password",
+      "PASSWORD_PLACEHOLDER": "password",
+      "EMAIL_LABEL": "Email",
+      "EMAIL_PLACEHOLDER": "email",
+      "ERROR": {
+        "AUTH": "Invalid credentials, please try again."
+      }
+    }
   }
 }
