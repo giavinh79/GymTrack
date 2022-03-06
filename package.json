@@ -14,7 +14,7 @@
     "@sentry/react": "^6.16.1",
     "@sentry/tracing": "^6.16.1",
     "animate.css": "^4.1.1",
-    "axios": "^0.22.0",
+    "axios": "^0.26.0",
     "bootstrap": "^4.6.1",
     "firebase": "^9.6.6",
     "framer-motion": "^4.1.17",
