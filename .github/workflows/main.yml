@@ -13,6 +13,6 @@ jobs:
       - name: Install modules
         run: yarn
       - name: Run tests
-        run: yarn test --passWithNoTests
+        run: yarn test
       - name: Formats files with Prettier
         run: yarn fix-formatting

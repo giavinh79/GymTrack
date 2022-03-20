@@ -36,6 +36,8 @@
     "start": "vite",
     "build": "vite build",
     "lint": "npx prettier --check .",
+    "test": "vitest --passWithNoTests",
+    "coverage": "vitest run --coverage",
     "check-formatting": "prettier --check .",
     "fix-formatting": "prettier --write ."
   },
@@ -74,6 +76,7 @@
     "sass": "^1.49.9",
     "vite": "2.8.6",
     "vite-plugin-svgr": "^1.0.1",
-    "vite-tsconfig-paths": "^3.4.1"
+    "vite-tsconfig-paths": "^3.4.1",
+    "vitest": "^0.7.6"
   }
 }
