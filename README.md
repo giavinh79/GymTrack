@@ -4,6 +4,8 @@ Simple & for fun React.js, TypeScript, and Redux application for tracking and ma
 
 The backend was made in Node.js (Express.js) but is being deprecated for a Spring Boot version [here](https://github.com/GV79/GymTrackApiV2).
 
+![image](https://user-images.githubusercontent.com/24909563/159189357-b88bdbd4-331f-4f5e-9938-0851813ab132.png)
+
 ## Running
 
 Install all dependencies using `npm install` and then run the application using `npm start`.
