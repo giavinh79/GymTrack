@@ -8,4 +8,7 @@ export const theme: MantineThemeOverride = {
     violet: ['#EDECEE', '#D6D5DA', '#C0BFC9', '#ACABBA', '#9996AE', '#8682A4', '#736E9E', '#6159A6', '#5c53a9'],
   },
   primaryColor: 'violet',
+  headings: {
+    fontWeight: 500,
+  },
 };

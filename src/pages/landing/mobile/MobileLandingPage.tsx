@@ -5,7 +5,7 @@ import { Header, SignupRequest } from 'src/features';
 import fitnessBackground from 'src/assets/images/landing/landing_page_fitness.svg';
 
 import { useMobileLandingPageStyles } from './MobileLandingPage.styles';
-import { Group } from '@mantine/core';
+import { Group, Title } from '@mantine/core';
 
 interface IMobileLandingPageProps {
   handleSignup: (e: FormEvent) => void;
@@ -28,16 +28,16 @@ export const MobileLandingPageComponent = ({ handleSignup, setSignupEmail }: IMo
             className={classes.fitnessBackground}
           />
           <Group align='center' direction='column' className={classes.content}>
-            <h1 className={classes.header}>
+            <Title className={classes.header}>
               <Trans t={t} i18nKey='FIRST_HEADER'>
                 <strong className={classes.headerPrefix}>Track</strong> your fitness journey.
               </Trans>
-            </h1>
-            <h1 className={classes.header}>
+            </Title>
+            <Title className={classes.header}>
               <Trans t={t} i18nKey='SECOND_HEADER'>
                 <strong className={classes.headerPrefix}>Start</strong> today for free.
               </Trans>
-            </h1>
+            </Title>
             <SignupRequest handleSignup={handleSignup} setSignupEmail={setSignupEmail} />
           </Group>
         </Group>
