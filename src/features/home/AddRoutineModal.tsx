@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Button, Form, FormGroup, Label, Input, Modal } from 'reactstrap';
 import { useDispatch } from 'react-redux';
-import { hideModal } from '../../slices/modal/modalSlice';
-import { createRoutine } from '../../http/routine';
-import { refreshData } from '../../slices/general/refreshSlice';
+
+import { modalHidden } from 'src/slices/modal/modalSlice';
+import { createRoutine } from 'src/http/routine';
+import { refreshData } from 'src/slices/general/refreshSlice';
 
 export const AddRoutineModal = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export const AddRoutineModal = () => {
     try {
       await createRoutine({ name, description });
       dispatch(refreshData());
-      dispatch(hideModal());
+      dispatch(modalHidden());
     } catch (err) {
       console.log(err);
     }
@@ -35,46 +35,47 @@ export const AddRoutineModal = () => {
   const unmount = () => {
     setModal((modal) => !modal);
     setTimeout(() => {
-      dispatch(hideModal());
+      dispatch(modalHidden());
     }, 200);
   };
 
   return (
-    <Modal isOpen={modal} toggle={unmount} centered>
-      <Form className='login-form' onSubmit={handleSubmit}>
-        <div className='container--column'>
-          <p className='text--large' style={{ color: '#736E9E', fontWeight: 500 }}>
-            New Routine
-          </p>
-          {/* <i className='fas fa-users' style={{ fontSize: '3rem', marginBottom: '2rem' }}></i> */}
-        </div>
-        <FormGroup>
-          <Label for='routine-name'>Name</Label>
-          <Input
-            type='text'
-            name='routine-name'
-            id='routine-name'
-            required
-            placeholder='name'
-            value={name}
-            onChange={handleName}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for='exampleDescription'>Description (optional)</Label>
-          <Input
-            name='description'
-            id='description'
-            type='textarea'
-            placeholder='description'
-            value={description}
-            onChange={handleDescription}
-          />
-        </FormGroup>
-        <Button className='login-form__button' type='submit' disabled={name.length === 0}>
-          Create
-        </Button>
-      </Form>
-    </Modal>
+    <></>
+    // <Modal isOpen={modal} toggle={unmount} centered>
+    //   <Form className='login-form' onSubmit={handleSubmit}>
+    //     <div className='container--column'>
+    //       <p className='text--large' style={{ color: '#736E9E', fontWeight: 500 }}>
+    //         New Routine
+    //       </p>
+    //       {/* <i className='fas fa-users' style={{ fontSize: '3rem', marginBottom: '2rem' }}></i> */}
+    //     </div>
+    //     <FormGroup>
+    //       <Label for='routine-name'>Name</Label>
+    //       <Input
+    //         type='text'
+    //         name='routine-name'
+    //         id='routine-name'
+    //         required
+    //         placeholder='name'
+    //         value={name}
+    //         onChange={handleName}
+    //       />
+    //     </FormGroup>
+    //     <FormGroup>
+    //       <Label for='exampleDescription'>Description (optional)</Label>
+    //       <Input
+    //         name='description'
+    //         id='description'
+    //         type='textarea'
+    //         placeholder='description'
+    //         value={description}
+    //         onChange={handleDescription}
+    //       />
+    //     </FormGroup>
+    //     <Button className='login-form__button' type='submit' disabled={name.length === 0}>
+    //       Create
+    //     </Button>
+    //   </Form>
+    // </Modal>
   );
 };

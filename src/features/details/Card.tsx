@@ -1,7 +1,3 @@
-import React from 'react';
-import './styles/card.scss';
-// import { DragDropContext } from 'react-beautiful-dnd';
-
 const Card = () => {
   return (
     <div className='container exercise-card no-margin'>

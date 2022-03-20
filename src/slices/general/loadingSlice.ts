@@ -1,5 +1,6 @@
-import { RootState } from '../../stores/rootStore';
 import { createSlice } from '@reduxjs/toolkit';
+
+import { RootState } from 'src/stores/rootStore';
 
 const loadingSlice = createSlice({
   name: 'loading',

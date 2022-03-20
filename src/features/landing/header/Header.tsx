@@ -1,32 +1,35 @@
-import { ReactElement, useState } from 'react';
-
+import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Center } from '@mantine/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, Center, Space } from '@mantine/core';
 
-import { Logo } from 'src/shared/components';
 import { LoginModal } from 'src/features';
+import { Logo, ThemeToggle } from 'src/shared/components';
+import { EModal, modalHidden, modalShown, selectModal } from 'src/slices';
 
-import { useStyles } from './Header.styles';
+import { useHeaderStyles } from './Header.styles';
 
 export const Header = (): ReactElement => {
   const { t } = useTranslation();
 
-  const [showLoginModal, setShowLoginModal] = useState(false);
+  const dispatch = useDispatch();
+  const modal = useSelector(selectModal);
 
-  const { classes } = useStyles();
+  const { classes } = useHeaderStyles();
 
   return (
     <>
+      {modal === EModal.LOGIN && <LoginModal onClose={() => dispatch(modalHidden())} />}
       <Center inline className={classes.container}>
-        <Logo />
-        <Button
-          leftIcon={<i className='fas fa-sign-in-alt' />}
-          onClick={() => setShowLoginModal(true)}
-          className={classes.loginButton}>
-          {t('common:AUTH.LOGIN')}
-        </Button>
+        <Logo enableLink />
+        <div className={classes.rightSection}>
+          <ThemeToggle />
+          <Space w='md' />
+          <Button leftIcon={<i className='fas fa-sign-in-alt' />} onClick={() => dispatch(modalShown(EModal.LOGIN))}>
+            {t('common:AUTH.LOGIN')}
+          </Button>
+        </div>
       </Center>
-      <LoginModal showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} />
     </>
   );
 };

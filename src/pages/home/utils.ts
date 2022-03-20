@@ -1,31 +1,32 @@
-export const defaultRoutineObject = {
+import { IRoutine } from 'src/types/internal/routine';
+import { EDay } from 'src/types/internal/common';
+
+export const defaultRoutineObject: IRoutine = {
+  id: 'testId',
   name: '',
-  date: null,
+  date: new Date().toUTCString(),
   description: '',
-  token: '',
-  _id: '',
-  userId: '',
-  userEmail: '',
+  creatorId: '',
   workouts: {
-    monday: {
+    [EDay.MONDAY]: {
       exercises: [],
     },
-    tuesday: {
+    [EDay.TUESDAY]: {
       exercises: [],
     },
-    wednesday: {
+    [EDay.WEDNESDAY]: {
       exercises: [],
     },
-    thursday: {
+    [EDay.THURSDAY]: {
       exercises: [],
     },
-    friday: {
+    [EDay.FRIDAY]: {
       exercises: [],
     },
-    saturday: {
+    [EDay.SATURDAY]: {
       exercises: [],
     },
-    sunday: {
+    [EDay.SUNDAY]: {
       exercises: [],
     },
   },

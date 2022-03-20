@@ -21,7 +21,7 @@ code {
   flex-flow: column;
   align-items: center;
   text-align: center;
-  height: 100vh;
+  height: 100%;
 }
 
 .body-wrapper {

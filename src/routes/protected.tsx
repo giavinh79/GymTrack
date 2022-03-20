@@ -1,20 +1,41 @@
 import { Suspense } from 'react';
 import { Navigate, Outlet, RouteObject } from 'react-router-dom';
+import { createStyles } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { ErrorBoundary } from '@sentry/react';
 
 import { lazyImport } from 'src/utils';
-import Homebar from 'src/features/home/Homebar';
-import { DefaultPageLoader, ErrorFallback } from 'src/shared/components';
+import { RunningLoader, ErrorFallback, AuthenticatedNavbar, AuthenticatedMobileNavbar } from 'src/shared/components';
+import { ROUTES } from 'src/routes/constants';
 
 const { HomePage } = lazyImport(() => import('src/pages'), 'HomePage');
 const { DetailsPage } = lazyImport(() => import('src/pages'), 'DetailsPage');
 
+const useProtectedPageStyles = createStyles((theme) => ({
+  pageContainer: {
+    padding: '1rem',
+    marginLeft: '5rem',
+    width: 'fit-content',
+    backgroundColor: 'transparent',
+
+    [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
+      marginLeft: 0,
+      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
+    },
+  },
+}));
+
 const ProtectedPage = () => {
+  const { classes } = useProtectedPageStyles();
+  const matches = useMediaQuery(`(min-width: 769px)`);
+
   return (
     <ErrorBoundary fallback={<ErrorFallback />}>
-      <Homebar />
-      <Suspense fallback={<DefaultPageLoader />}>
-        <Outlet />
+      {matches ? <AuthenticatedNavbar /> : <AuthenticatedMobileNavbar />}
+      <Suspense fallback={<RunningLoader transparentBng={false} />}>
+        <div className={classes.pageContainer}>
+          <Outlet />
+        </div>
       </Suspense>
     </ErrorBoundary>
   );
@@ -22,7 +43,7 @@ const ProtectedPage = () => {
 
 export const protectedRoutes: RouteObject[] = [
   {
-    path: '/home',
+    path: ROUTES.HOME,
     element: <ProtectedPage />,
     children: [
       { path: '', element: <HomePage />, index: true },

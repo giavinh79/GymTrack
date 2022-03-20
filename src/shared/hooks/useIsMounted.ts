@@ -1,6 +1,13 @@
 import { useEffect, useRef } from 'react';
 
-export const useIsMounted = (): boolean => {
+/**
+ * Custom hook that determines whether or not component is unmounting
+ *
+ * @example
+ * const isMounted = useIsMounted();
+ * if (isMounted.current) // component is not unmounting
+ */
+export const useIsMounted = (): React.MutableRefObject<boolean> => {
   const isMountedRef = useRef(true);
 
   useEffect(() => {
@@ -9,5 +16,5 @@ export const useIsMounted = (): boolean => {
     };
   }, []);
 
-  return isMountedRef.current;
+  return isMountedRef;
 };

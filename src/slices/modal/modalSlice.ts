@@ -1,12 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../../stores/rootStore';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { RootState } from 'src/stores/rootStore';
 
 export enum EModal {
+  // auth
   SIGNUP = 'SIGNUP',
   LOGIN = 'LOGIN',
+
+  // routines
   ADD_ROUTINE = 'ADD_ROUTINE',
   DELETE_ROUTINE = 'DELETE_ROUTINE',
   ROUTINE_INFO = 'ROUTINE_INFO',
+
+  // default state
   NONE = 'NONE',
 }
 
@@ -16,15 +22,14 @@ const modalSlice = createSlice({
   name: 'modal',
   initialState,
   reducers: {
-    showAddRoutineModal: () => EModal.ADD_ROUTINE,
-    showLoginModal: () => EModal.LOGIN,
-    showDeleteRoutineDialog: () => EModal.DELETE_ROUTINE,
-    showRoutineInfo: () => EModal.ROUTINE_INFO,
-    hideModal: () => EModal.NONE,
+    modalShown(_, action: PayloadAction<EModal>) {
+      return action.payload;
+    },
+    modalHidden: () => EModal.NONE,
   },
 });
 
-export const { hideModal, showAddRoutineModal, showDeleteRoutineDialog, showLoginModal } = modalSlice.actions;
+export const { modalShown, modalHidden } = modalSlice.actions;
 
 export const selectModal = (state: RootState) => state.modal;
 

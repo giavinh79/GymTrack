@@ -1,0 +1,57 @@
+import React, { memo, ReactElement } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
+import { Grid, Group, Space } from '@mantine/core';
+
+import { Header, SignupRequest } from 'src/features';
+import fitnessBackground from 'src/assets/images/landing/landing_page_fitness.svg';
+
+import { useDesktopLandingPageStyles } from './DesktopLandingPage.styles';
+
+interface IDesktopLandingPageProps {
+  handleSignup: (e: React.FormEvent) => void;
+  setSignupEmail: (signupEmail: string) => void;
+}
+
+const DesktopLandingPageComponent = ({ handleSignup, setSignupEmail }: IDesktopLandingPageProps): ReactElement => {
+  const { t } = useTranslation('landing');
+
+  const { classes } = useDesktopLandingPageStyles();
+
+  return (
+    <div className={classes.container}>
+      <Header />
+      <>
+        <Grid className={classes.body} gutter={0}>
+          <Grid.Col sm={5}>
+            <Group direction='column' align='center' spacing={0} style={{ marginTop: '2rem' }}>
+              <h1 className={classes.header}>
+                <Trans t={t} i18nKey='FIRST_HEADER'>
+                  <strong className={classes.headerPrefix}>Track</strong> your fitness journey.
+                </Trans>
+              </h1>
+              <Space h='lg' />
+              <h1 className={classes.header}>
+                <Trans t={t} i18nKey='SECOND_HEADER'>
+                  <strong className={classes.headerPrefix}>Start</strong> today for free.
+                </Trans>
+              </h1>
+              <Space h='xl' />
+              <SignupRequest handleSignup={handleSignup} setSignupEmail={setSignupEmail} />
+            </Group>
+          </Grid.Col>
+          <Grid.Col sm={7}>
+            <img
+              src={fitnessBackground}
+              alt={t('landing:FITNESS_BACKGROUND_IMAGE_ALT')}
+              className={classes.fitnessBackground}
+            />
+          </Grid.Col>
+        </Grid>
+        <div className={classes.mountainBackground} />
+        <div className={classes.mountainBackgroundGround} />
+      </>
+    </div>
+  );
+};
+
+export const DesktopLandingPage = memo(DesktopLandingPageComponent);

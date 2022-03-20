@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useIsMounted } from './useIsMounted';
 
 interface IUseRequestInput<T> {
   request: () => Promise<T>;
+  executeRightAway?: boolean;
+  onSuccess: ((data: T) => Promise<void>) | ((data: T) => void);
 }
 
 interface IUseRequestApi<T> {
@@ -17,24 +20,43 @@ interface IUseRequestApi<T> {
  *
  * @TODO replace with React Query at a later point
  */
-export const useRequest = <T>({ request }: IUseRequestInput<T>): IUseRequestApi<T> => {
+export const useRequest = <T>({
+  executeRightAway = true,
+  onSuccess,
+  request,
+}: IUseRequestInput<T>): IUseRequestApi<T> => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [data, setData] = useState<T | null>(null);
 
-  const handleRequestExecution = async (): Promise<T | undefined> => {
+  const isMounted = useIsMounted();
+
+  const handleRequestExecution = useCallback(async (): Promise<T | undefined> => {
     try {
+      if (!isMounted) return; // no need to send request if component is being unmounted
+
       setIsLoading(true);
 
       const data = await request();
+
+      if (!isMounted.current) return; // no need to set state or call onSuccess if component is being unmounted
       setData(data);
       setIsLoading(false);
 
+      onSuccess(data);
+
       return data;
     } catch (err) {
+      setIsLoading(false);
       setError(err as Error);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (executeRightAway) {
+      handleRequestExecution();
+    }
+  }, [handleRequestExecution]);
 
   return {
     data,

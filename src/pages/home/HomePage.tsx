@@ -1,22 +1,87 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Row, Col } from 'reactstrap';
-import Calendar from 'rc-calendar';
-import Model, { IMuscleStats, IExerciseData } from 'react-body-highlighter';
-import Skeleton from 'react-loading-skeleton';
+import { Button, Container, Grid } from '@mantine/core';
 
 import { AddRoutineModal, Dialog, NoRoutinePlaceholder, VisualizationPanel, WorkoutCard } from 'src/features';
-import { EModal, selectModal, showAddRoutineModal, showDeleteRoutineDialog } from 'src/slices/modal/modalSlice';
-import { selectLoading, doneLoading } from 'src/slices/general/loadingSlice';
-import { EVisualization, IRoutineObject } from '../types';
 import { retrieveRoutines, deleteRoutine } from 'src/http/routine';
 import { auth } from 'src/auth/firebase';
+import { EModal, modalShown, selectModal } from 'src/slices/modal/modalSlice';
 import { refreshData } from 'src/slices/general/refreshSlice';
+import { selectLoading, doneLoading } from 'src/slices/general/loadingSlice';
 import { exists, isNil } from 'src/utils';
-import { defaultRoutineObject } from './utils';
+import { EDay, IRoutine } from 'src/types';
+import { ClickableIcon, ScrollToTop, ThemedSkeleton } from 'src/shared/components';
 
-import 'rc-calendar/assets/index.css';
-import './homepage.scss';
+import { defaultRoutineObject } from './utils';
+import { EVisualization } from './types';
+
+import 'react-loading-skeleton/dist/skeleton.css';
+
+export const WORKOUT_CARDS = [
+  {
+    title: 'MON',
+    contentTitle: 'Monday',
+    day: EDay.MONDAY,
+    backgroundColor: 'rgba(113, 104, 193, 0.13)',
+    iconColor: 'rgba(113, 104, 193, 0.75)',
+    textColor: '#7168c1',
+    text: "Placeholder for list of this day's exercises",
+  },
+  {
+    title: 'TUES',
+    contentTitle: 'Tuesday',
+    day: EDay.TUESDAY,
+    backgroundColor: '#388ccd29',
+    iconColor: '#388ccdab',
+    textColor: '#388ccd',
+    text: 'Bicep Curl, Dumbbell Rows, Bicep Machine, Barbell Curl',
+  },
+  {
+    title: 'WED',
+    contentTitle: 'Wednesday',
+    day: EDay.WEDNESDAY,
+    backgroundColor: 'rgba(84, 174, 110, 0.25)',
+    iconColor: 'rgba(84, 174, 110, 0.74)',
+    textColor: 'rgb(84, 174, 110)',
+    text: 'Air bike, Ab Wheel, Sit-ups, Crunches',
+  },
+  {
+    title: 'THUR',
+    contentTitle: 'Thursday',
+    day: EDay.THURSDAY,
+    backgroundColor: '#FFEFB3',
+    iconColor: '#e6b707ab',
+    textColor: '#e6b707',
+    text: 'Running, jogging, sitting, slapping',
+  },
+  {
+    title: 'FRI',
+    contentTitle: 'Friday',
+    day: EDay.FRIDAY,
+    backgroundColor: '#FFD9C7',
+    iconColor: '#ff7231b8',
+    textColor: '#FF7231',
+    text: 'Push-ups, Incline Bench-press, Decline Press Machine',
+  },
+  {
+    title: 'SAT',
+    contentTitle: 'Saturday',
+    day: EDay.SATURDAY,
+    backgroundColor: '#B6EDDE',
+    iconColor: '#32c89f99',
+    textColor: '#32C89F',
+    text: 'Push-ups, Incline Bench-press, Decline Press Machine',
+  },
+  {
+    title: 'SUN',
+    contentTitle: 'Sunday',
+    day: EDay.SUNDAY,
+    backgroundColor: '#5a626842',
+    iconColor: '#5a6268ab',
+    textColor: '#5A6268',
+    text: 'Push-ups, Incline Bench-press, Decline Press Machine',
+  },
+];
 
 export const HomePage = () => {
   const dispatch = useDispatch();
@@ -26,10 +91,11 @@ export const HomePage = () => {
 
   const [visualization, setVisualization] = useState(EVisualization.CALENDAR);
 
-  const [routine, setRoutine] = useState<IRoutineObject | null>(defaultRoutineObject);
+  const [routine, setRoutine] = useState<IRoutine | null>(defaultRoutineObject);
 
   const initializeRoutine = React.useCallback(
     async (token: string) => {
+      dispatch(doneLoading());
       const { data } = await retrieveRoutines(token);
       const { routines, selectedRoutine } = data;
 
@@ -44,7 +110,7 @@ export const HomePage = () => {
       if (routinesObject.length <= 0) {
         setRoutine(null);
       } else {
-        setRoutine(routinesObject.find((routine: any) => routine._id === selectedRoutine));
+        // setRoutine(routinesObject.find((routine: any) => routine._id === selectedRoutine));
       }
 
       dispatch(doneLoading());
@@ -64,7 +130,7 @@ export const HomePage = () => {
   const handleDelete = React.useCallback(async () => {
     try {
       if (routine) {
-        await deleteRoutine(routine._id);
+        await deleteRoutine(routine.id);
       }
 
       dispatch(refreshData());
@@ -72,36 +138,6 @@ export const HomePage = () => {
       console.log(err);
     }
   }, [dispatch, routine]);
-
-  const handleClick = ({ muscle, data }: IMuscleStats) => {
-    const { exercises, frequency } = data;
-
-    const message = `You clicked the ${muscle}! You've worked out this muscle ${frequency} times through the following exercises: ${JSON.stringify(
-      exercises
-    )}`;
-    alert(message);
-  };
-
-  const renderVisualization = React.useCallback(() => {
-    const data: IExerciseData[] = [
-      { name: 'Bench Press', muscles: ['chest', 'triceps', 'front-deltoids'] },
-      { name: 'Push Ups', muscles: ['chest'] },
-    ];
-
-    switch (visualization) {
-      case EVisualization.CALENDAR:
-        return <Calendar style={{ height: '100%', width: '100%', minWidth: '20.5rem', zIndex: 1 }} />;
-      case EVisualization.GRAPH:
-        return <div>{/* @TODO */}</div>;
-      default:
-        return (
-          <div className='container'>
-            <Model data={data} type='posterior' style={{ margin: '0 2rem' }} onClick={handleClick} />
-            <Model data={data} style={{ margin: '0 2rem' }} onClick={handleClick} />
-          </div>
-        );
-    }
-  }, [visualization]);
 
   const handleModal = React.useCallback(() => {
     switch (modalState) {
@@ -124,102 +160,64 @@ export const HomePage = () => {
   return (
     <>
       {handleModal()}
-
-      <Container fluid='lg'>
+      <Container size='lg' pb={'6rem'}>
         {routine ? (
           <>
             <div style={{ margin: '1.5rem 0' }}>
               <div style={{ color: '#666', fontWeight: 800, fontSize: '1.7rem', marginBottom: '0.5rem' }}>
-                <span style={{ cursor: 'pointer' }}>ROUTINE</span>
-                <i className='fas fa-caret-down' style={{ cursor: 'pointer', margin: '0 1.5rem 0 0.5rem' }}></i>
-                <i className='fas fa-info-circle icon--blue'></i>
-                <i className='fas fa-plus-circle icon--green' onClick={() => dispatch(showAddRoutineModal())}></i>
-                <i className='fas fa-times-circle icon--red' onClick={() => dispatch(showDeleteRoutineDialog())}></i>
+                <Button variant='subtle' size='xl' compact rightIcon={<i className='fas fa-caret-down' />}>
+                  ROUTINE
+                </Button>
+                <ClickableIcon
+                  className='fas fa-info-circle'
+                  aria-label='get information about the current routine'
+                  margin='0 0.7rem 0 0'
+                  color='blue'
+                  onClick={() => dispatch(modalShown(EModal.ROUTINE_INFO))}
+                />
+                <ClickableIcon
+                  className='fas fa-plus-circle'
+                  aria-label='add a new routine'
+                  margin='0 0.7rem 0 0'
+                  color='green'
+                  onClick={() => dispatch(modalShown(EModal.ADD_ROUTINE))}
+                />
+                <ClickableIcon
+                  className='fas fa-times-circle'
+                  aria-label='delete the current routine'
+                  margin='0 0.7rem 0 0'
+                  color='red'
+                  onClick={() => dispatch(modalShown(EModal.DELETE_ROUTINE))}
+                />
               </div>
-              <span style={{ color: '#8d8d8d', fontWeight: 600, fontSize: '1.5rem' }}>
-                {loadingState ? <Skeleton width={'70%'} /> : routine.name}
-              </span>
+
+              {loadingState ? (
+                <ThemedSkeleton width='15rem' height='2rem' />
+              ) : (
+                <span style={{ color: '#8d8d8d', fontWeight: 600, fontSize: '1.5rem' }}>
+                  {'Zertovsky Heavy Chest Routine'}
+                </span>
+              )}
             </div>
 
             <VisualizationPanel setVisualization={setVisualization} visualization={visualization} />
 
-            <div className='visualization-wrapper'>{renderVisualization()}</div>
-            <Row style={{ justifyContent: 'center' }}>
-              <Col sm={12} style={{ justifyContent: 'center', padding: '2rem' }}>
-                <Row>
+            <Grid grow gutter='xl'>
+              {WORKOUT_CARDS.map((card) => (
+                <Grid.Col span={6} key={card.title}>
                   <WorkoutCard
-                    backgroundColor='rgba(113, 104, 193, 0.13)'
-                    iconColor='rgba(113, 104, 193, 0.75)'
-                    textColor='#7168c1'
-                    day='MON'
-                    data={routine.workouts['monday']}
-                    title={routine.workouts['monday'].name || 'Monday'}
-                    text="Placeholder for list of this day's exercises"
-                    // text='Bench Press, Incline Benchpress, Decline Benchpress, Chest Flies'
+                    backgroundColor={card.backgroundColor}
+                    iconColor={card.iconColor}
+                    textColor={card.textColor}
+                    day={card.title}
+                    data={routine.workouts[card.day]}
+                    title={card.contentTitle}
+                    text={card.text}
                   />
-                  <WorkoutCard
-                    backgroundColor='#388ccd29'
-                    iconColor='#388ccdab'
-                    textColor='#388ccd'
-                    day='TUES'
-                    data={routine.workouts['tuesday']}
-                    title={routine.workouts['tuesday'].name || 'Tuesday'}
-                    // text='Bicep Curl, Dumbbell Rows, Bicep Machine, Barbell Curl'
-                  />
-                </Row>
-                <Row>
-                  <WorkoutCard
-                    backgroundColor='rgba(84, 174, 110, 0.25)'
-                    iconColor='rgba(84, 174, 110, 0.74)'
-                    textColor='rgb(84, 174, 110)'
-                    day='WED'
-                    data={routine.workouts['wednesday']}
-                    title={routine.workouts['wednesday'].name || 'Wednesday'}
-                    // text='Air bike, Ab Wheel, Sit-ups, Crunches'
-                  />
-                  <WorkoutCard
-                    backgroundColor='#FFEFB3'
-                    iconColor='#e6b707ab'
-                    textColor='#e6b707'
-                    day='THUR'
-                    data={routine.workouts['thursday']}
-                    title={routine.workouts['thursday'].name || 'Thursday'}
-                    // text='Bicep Curl, Dumbbell Rows, Bicep Machine, Barbell Curl'
-                  />
-                </Row>
-                <Row>
-                  <WorkoutCard
-                    backgroundColor='#FFD9C7'
-                    iconColor='#ff7231b8'
-                    textColor='#FF7231'
-                    day='FRI'
-                    data={routine.workouts['friday']}
-                    title={routine.workouts['friday'].name || 'Friday'}
-                    // text='Push-ups, Incline Benchpress, Decline Press Machine'
-                  />
-                  <WorkoutCard
-                    backgroundColor='#B6EDDE'
-                    iconColor='#32c89f99'
-                    textColor='#32C89F'
-                    day='SAT'
-                    data={routine.workouts['saturday']}
-                    title={routine.workouts['saturday'].name || 'Saturday'}
-                    // text='Hammer Curls, Bicep Curls, Rope Pull'
-                  />
-                </Row>
-                <Row>
-                  <WorkoutCard
-                    backgroundColor='#5a626842'
-                    iconColor='#5a6268ab'
-                    textColor='#5A6268'
-                    day='SUN'
-                    data={routine.workouts['sunday']}
-                    title={routine.workouts['sunday'].name || 'Sunday'}
-                    // text=''
-                  />
-                </Row>
-              </Col>
-            </Row>
+                </Grid.Col>
+              ))}
+            </Grid>
+            <ScrollToTop />
           </>
         ) : (
           <NoRoutinePlaceholder />

@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/core';
 
-export const useStyles = createStyles((theme) => ({
+export const useLoginModalStyles = createStyles((theme) => ({
   header: {
     fontSize: '2.5rem',
   },

@@ -1,1 +1,2 @@
-export * from './default-page-loader';
+export * from './running-loader';
+export * from './skeleton';

@@ -1,0 +1,11 @@
+/* Global style classes that can used throughout project */
+
+/* Augmentations */
+
+.input-error {
+  border: 1px solid red !important;
+}
+
+.clickable {
+  cursor: pointer;
+}

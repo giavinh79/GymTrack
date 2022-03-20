@@ -1,38 +1,33 @@
 import React, { ReactElement, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Group, Modal, PasswordInput, Space, TextInput, Title } from '@mantine/core';
+import { Button, Group, PasswordInput, Space, Text, TextInput, Title } from '@mantine/core';
+import { useNotifications } from '@mantine/notifications';
 import { signInWithEmailAndPassword } from '@firebase/auth';
 import { useTranslation } from 'react-i18next';
 import capitalize from 'lodash/capitalize';
 
+import { EnhancedModal, Logo } from 'src/shared/components';
 import { auth } from 'src/auth/firebase';
 import { register } from 'src/http/auth';
 import { MIN_PASSWORD_LENGTH } from 'src/shared/constants';
-
-import { Logo } from 'src/shared/components';
+import { useIsMounted } from 'src/shared/hooks/useIsMounted';
 
 interface ISignupModalProps {
-  setDisplaySignupModal: (type: boolean) => void;
+  onClose: () => void;
   signupEmail: string;
 }
 
-export const SignupModal = ({ setDisplaySignupModal, signupEmail }: ISignupModalProps): ReactElement => {
-  const navigate = useNavigate();
+export const SignupModal = ({ onClose, signupEmail }: ISignupModalProps): ReactElement => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const isMounted = useIsMounted();
 
   const [email, setEmail] = useState(signupEmail);
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-
-  const [isModalOpen, setIsModalOpen] = useState(true);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  const handleCloseModal = (): void => {
-    setIsModalOpen(false);
-    setTimeout(() => {
-      setDisplaySignupModal(false);
-    }, 200);
-  };
+  const notifications = useNotifications();
 
   const handleSubmit = async (e: React.FormEvent<any>): Promise<void> => {
     try {
@@ -45,7 +40,13 @@ export const SignupModal = ({ setDisplaySignupModal, signupEmail }: ISignupModal
       localStorage.setItem('expectSignIn', '1');
       navigate('/home');
     } catch (err) {
-      console.log(err);
+      if (isMounted.current) {
+        setIsLoggingIn(false);
+        notifications.showNotification({
+          message: 'Error signing up, please try again.',
+          autoClose: true,
+        });
+      }
     }
   };
 
@@ -57,7 +58,7 @@ export const SignupModal = ({ setDisplaySignupModal, signupEmail }: ISignupModal
   };
 
   return (
-    <Modal opened={isModalOpen} onClose={handleCloseModal} centered size='500px' padding={35}>
+    <EnhancedModal onClose={onClose} centered size='500px' padding={35}>
       <form onSubmit={handleSubmit}>
         <Group position='center' direction='column'>
           <Logo />
@@ -104,11 +105,11 @@ export const SignupModal = ({ setDisplaySignupModal, signupEmail }: ISignupModal
             <i className='fas fa-check' style={{ color: 'green' }} />
           ) : (
             <>
-              <p className='text--small' role='alert'>
+              <Text size='xs' color='dimmed' mr='sm'>
                 {isPasswordTooShort()
                   ? t('landing:SIGNUP.MODAL.PASSWORD_MIN_LENGTH_WARNING')
                   : t('landing:SIGNUP.MODAL.PASSWORDS_ARE_DIFFERENT')}
-              </p>
+              </Text>
               <i className='fas fa-times' style={{ color: 'red' }} />
             </>
           )}
@@ -123,12 +124,14 @@ export const SignupModal = ({ setDisplaySignupModal, signupEmail }: ISignupModal
             isPasswordVerified()
               ? {
                   backgroundImage: 'linear-gradient(-225deg, #691d8c 0%, #7918f2 48%, #4801ff 100%)',
+                  border: 'transparent',
                 }
               : {}
-          }>
+          }
+        >
           {t('landing:SIGNUP.MODAL.SUBMIT_BUTTON')}
         </Button>
       </form>
-    </Modal>
+    </EnhancedModal>
   );
 };

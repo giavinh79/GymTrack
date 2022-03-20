@@ -1,27 +1,27 @@
-import React, { ReactElement, useState } from 'react';
+import React, { memo, ReactElement, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from '@firebase/auth';
-import { Alert, Button, Group, Modal, Space, Text, TextInput, Title } from '@mantine/core';
+import { Alert, Button, Group, Space, Text, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/hooks';
 import { useTranslation } from 'react-i18next';
 
+import { EnhancedModal } from 'src/shared/components';
 import { auth } from 'src/auth/firebase';
 
-import { useStyles } from './LoginModal.styles';
+import { useLoginModalStyles } from './LoginModal.styles';
 
 interface ILoginModalProps {
-  showLoginModal: boolean;
-  setShowLoginModal: (type: boolean) => void;
+  onClose: () => void;
 }
 
-export const LoginModal = ({ showLoginModal, setShowLoginModal }: ILoginModalProps): ReactElement => {
-  const navigate = useNavigate();
+const LoginModal = memo(({ onClose }: ILoginModalProps): ReactElement => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const [serverError, setServerError] = useState(false);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  const { classes } = useStyles();
+  const { classes } = useLoginModalStyles();
 
   const form = useForm<{ email: string; password: string }>({
     initialValues: {
@@ -39,13 +39,9 @@ export const LoginModal = ({ showLoginModal, setShowLoginModal }: ILoginModalPro
       navigate('/home');
     } catch (err) {
       setServerError(true);
+      setIsLoggingIn(false);
       console.log(err);
     }
-  };
-
-  const handleCloseModal = (): void => {
-    setShowLoginModal(false);
-    form.reset();
   };
 
   const isFormDirty = (): boolean => {
@@ -53,7 +49,7 @@ export const LoginModal = ({ showLoginModal, setShowLoginModal }: ILoginModalPro
   };
 
   return (
-    <Modal opened={showLoginModal} onClose={handleCloseModal} centered padding={35}>
+    <EnhancedModal onClose={onClose} centered padding={35}>
       <form onSubmit={handleSubmit} autoComplete='on'>
         {serverError && (
           <Alert color='red' className='animate__fadeInDown login-form__alert'>
@@ -76,7 +72,7 @@ export const LoginModal = ({ showLoginModal, setShowLoginModal }: ILoginModalPro
           placeholder={t('landing:LOGIN.MODAL.EMAIL_PLACEHOLDER')}
           required
           classNames={{
-            input: serverError ? 'animate__animated animate__shakeX input-error' : '',
+            input: serverError ? 'animate__animated animate__shakeX border-error' : '',
           }}
           data-autofocus
           onFocus={() => setServerError(false)}
@@ -91,13 +87,13 @@ export const LoginModal = ({ showLoginModal, setShowLoginModal }: ILoginModalPro
           placeholder={t('landing:LOGIN.MODAL.PASSWORD_PLACEHOLDER')}
           required
           classNames={{
-            input: serverError ? 'animate__animated animate__shakeX input-error' : '',
+            input: serverError ? 'animate__animated animate__shakeX border-error' : '',
           }}
           onFocus={() => setServerError(false)}
         />
         <Space h='md' />
         <Group position='right' spacing='xs'>
-          <Link to={'/todo'} target='_blank'>
+          <Link to={'/todo'} target='_blank' style={{ textDecoration: 'none' }}>
             <Text color='red' size='xs'>
               {t('landing:LOGIN.MODAL.FORGOT_PASSWORD')}
             </Text>
@@ -109,6 +105,8 @@ export const LoginModal = ({ showLoginModal, setShowLoginModal }: ILoginModalPro
           {t('landing:LOGIN.MODAL.PRIMARY_BUTTON')}
         </Button>
       </form>
-    </Modal>
+    </EnhancedModal>
   );
-};
+});
+
+export { LoginModal };
