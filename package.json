@@ -72,7 +72,7 @@
     "@types/reactstrap": "^8.7.2",
     "@types/recharts": "^1.8.23",
     "@vitejs/plugin-react": "1.2.0",
-    "prettier": "^2.5.1",
+    "prettier": "^2.6.1",
     "sass": "^1.49.9",
     "vite": "2.8.6",
     "vite-plugin-svgr": "^1.0.1",
