@@ -73,7 +73,7 @@
     "@types/recharts": "^1.8.23",
     "@vitejs/plugin-react": "1.2.0",
     "prettier": "^2.5.1",
-    "sass": "^1.49.9",
+    "sass": "^1.49.10",
     "vite": "2.8.6",
     "vite-plugin-svgr": "^1.0.1",
     "vite-tsconfig-paths": "^3.4.1",
