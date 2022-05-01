@@ -10,7 +10,7 @@
     "@mantine/hooks": "^4.0.7",
     "@mantine/notifications": "^4.0.7",
     "@reduxjs/toolkit": "^1.8.0",
-    "@sentry/react": "^6.18.2",
+    "@sentry/react": "^6.19.7",
     "@sentry/tracing": "^6.18.2",
     "animate.css": "^4.1.1",
     "axios": "0.26.1",
