@@ -1,19 +1,21 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import loginModalReducer from '../slices/auth/loginSlice';
-import authReducer from '../slices/auth/authSlice';
-import modalReducer from '../slices/modal/modalSlice';
-import loadingReducer from '../slices/general/loadingSlice';
-import routinesReducer from '../slices/gym/routinesSlice';
-import refreshReducer from '../slices/general/refreshSlice';
+import authReducer from 'src/slices/auth/authSlice';
+import modalReducer from 'src/slices/modal/modalSlice';
+import loadingRoutinesReducer from 'src/slices/gym/routine/routinesLoadingSlice';
+import routinesReducer from 'src/slices/gym/routine/routinesSlice';
+import refreshReducer from 'src/slices/general/refreshSlice';
 
 export const store = configureStore({
   reducer: {
-    login: loginModalReducer,
     auth: authReducer,
+
+    // general
     modal: modalReducer,
-    loading: loadingReducer,
-    routines: routinesReducer,
     refresh: refreshReducer,
+
+    // routines
+    loadingRoutines: loadingRoutinesReducer,
+    routines: routinesReducer,
   },
 });
 

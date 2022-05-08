@@ -3,32 +3,22 @@ import { useSelector } from 'react-redux';
 import { Group, Space } from '@mantine/core';
 
 import { EVisualization } from 'src/pages/home/types';
-import { selectLoading } from 'src/slices/general/loadingSlice';
 import { RunningLoader } from 'src/shared/components';
+import { selectRoutinesLoading } from 'src/slices/gym/routine/routinesLoadingSlice';
 import { lazyImport } from 'src/utils';
 
-const { Models } = lazyImport(() => import('src/features/home/visualization/sub-components/Models'), 'Models');
+import { ActivityCalendar, PanelIcon } from './sub-components';
+import { useVisualizationPanelStyles } from './VisualizationPanel.styles';
 
-import { ActivityCalendar } from './sub-components/calendar/Calendar';
-import { PanelIcon, useVisualizationPanelStyles } from './VisualizationPanel.styles';
+const { Models } = lazyImport(() => import('src/features/home/visualization/sub-components/model/Models'), 'Models');
 
 interface IVisualizationPanelProps {
   setVisualization: (type: EVisualization) => void;
   visualization: EVisualization;
 }
 
-// const VISUALIZATION = {
-//   [EVisualization.CALENDAR]: (
-//     <Suspense fallback={<RunningLoader height='326px' />}>
-//       <ActivityCalendar />
-//     </Suspense>
-//   ),
-//   [EVisualization.GRAPH]: null,
-//   [EVisualization.CALENDAR]: '',
-// };
-
 export const VisualizationPanel = ({ setVisualization, visualization }: IVisualizationPanelProps): ReactElement => {
-  const isLoading = useSelector(selectLoading);
+  const isLoading = useSelector(selectRoutinesLoading);
 
   const { classes } = useVisualizationPanelStyles();
 
@@ -50,11 +40,9 @@ export const VisualizationPanel = ({ setVisualization, visualization }: IVisuali
         return <div>{/* @TODO */}</div>;
       default:
         return (
-          // <div className='container'>
           <Suspense fallback={<RunningLoader height='600px' />}>
             <Models />
           </Suspense>
-          // </div>
         );
     }
   };
@@ -64,20 +52,20 @@ export const VisualizationPanel = ({ setVisualization, visualization }: IVisuali
       <Space h='xl' />
       <Group position='right' className={classes.panel} spacing={0}>
         <PanelIcon
-          aria-label='calendar'
-          className='fas fa-calendar-day'
+          ariaLabel='calendar'
+          iconClassName='fas fa-calendar-day'
           selected={visualization === EVisualization.CALENDAR}
           onClick={() => handleClick(EVisualization.CALENDAR)}
         />
         <PanelIcon
-          aria-label='body model'
-          className={`fas fa-child ${classes.panelIcon}`}
+          ariaLabel='body model'
+          iconClassName='fas fa-child'
           selected={visualization === EVisualization.MODEL}
           onClick={() => handleClick(EVisualization.MODEL)}
         />
         <PanelIcon
-          aria-label='graphs'
-          className={`fas fa-chart-bar ${classes.panelIcon}`}
+          ariaLabel='graphs'
+          iconClassName='fas fa-chart-bar'
           selected={visualization === EVisualization.GRAPH}
           onClick={() => handleClick(EVisualization.GRAPH)}
         />

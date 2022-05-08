@@ -5,7 +5,8 @@ import { Logo, ThemeToggle } from '../common';
 
 const useStyles = createStyles((theme) => ({
   header: {
-    position: 'sticky',
+    position: 'fixed',
+    top: 0,
     borderBottom: 'transparent',
     width: '100%',
   },

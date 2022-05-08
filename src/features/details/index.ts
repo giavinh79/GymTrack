@@ -1,2 +1,1 @@
-export * from './Card';
-export * from './WorkoutList';
+export * from './workout-list';

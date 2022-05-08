@@ -14,12 +14,15 @@ const { DetailsPage } = lazyImport(() => import('src/pages'), 'DetailsPage');
 const useProtectedPageStyles = createStyles((theme) => ({
   pageContainer: {
     padding: '1rem',
+    marginTop: 0,
     marginLeft: '5rem',
-    width: 'fit-content',
+    width: 'calc(100% - 5rem)',
     backgroundColor: 'transparent',
 
     [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
+      marginTop: '3.5rem',
       marginLeft: 0,
+      width: '100%',
       backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[0],
     },
   },

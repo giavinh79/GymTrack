@@ -2,6 +2,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
+import { useColorScheme, useLocalStorage } from '@mantine/hooks';
 import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
 import mixpanel from 'mixpanel-browser';
@@ -11,7 +12,12 @@ import { theme } from 'src/styles/theme';
 import 'src/styles/global.css';
 
 function App() {
-  const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
+  const preferredColorScheme = useColorScheme();
+  const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
+    key: 'mantine-color-scheme',
+    defaultValue: preferredColorScheme,
+  });
+
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 

@@ -4,7 +4,9 @@ import { useIsMounted } from './useIsMounted';
 interface IUseRequestInput<T> {
   request: () => Promise<T>;
   executeRightAway?: boolean;
-  onSuccess: ((data: T) => Promise<void>) | ((data: T) => void);
+
+  onSuccess?: ((data: T) => Promise<void>) | ((data: T) => void);
+  onError?: ((error: Error) => Promise<void>) | ((error: Error) => void);
 }
 
 interface IUseRequestApi<T> {
@@ -19,10 +21,16 @@ interface IUseRequestApi<T> {
  * Custom hook that executes request and returns the different states (data, errors, loading)
  *
  * @TODO replace with React Query at a later point
+ * @example
+ * const { data, error, isLoading, execute } = useRequest({
+ *   request: fetchUsers,
+ *   onSuccess: () => alert('users have been fetched!')
+ * })
  */
 export const useRequest = <T>({
   executeRightAway = true,
   onSuccess,
+  onError,
   request,
 }: IUseRequestInput<T>): IUseRequestApi<T> => {
   const [isLoading, setIsLoading] = useState(false);
@@ -43,12 +51,13 @@ export const useRequest = <T>({
       setData(data);
       setIsLoading(false);
 
-      onSuccess(data);
+      onSuccess && onSuccess(data);
 
       return data;
     } catch (err) {
       setIsLoading(false);
       setError(err as Error);
+      isMounted && onError && onError(err as Error);
     }
   }, []);
 

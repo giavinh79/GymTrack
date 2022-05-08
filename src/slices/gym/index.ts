@@ -1,1 +1,1 @@
-export * from './routinesSlice';
+export * from './routine/routinesSlice';

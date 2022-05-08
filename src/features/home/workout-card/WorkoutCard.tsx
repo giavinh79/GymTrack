@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button, Text, Title } from '@mantine/core';
 
-import { selectLoading } from 'src/slices/general/loadingSlice';
+import { selectRoutinesLoading } from 'src/slices/gym/routine/routinesLoadingSlice';
 import { ThemedSkeleton } from 'src/shared/components';
 
 import { useWorkoutCardStyles } from './WorkoutCard.styles';
@@ -28,7 +28,7 @@ export const WorkoutCard: React.FC<IWorkoutCardProps> = ({
   title,
 }) => {
   const navigate = useNavigate();
-  const loadingState = useSelector(selectLoading);
+  const loadingState = useSelector(selectRoutinesLoading);
 
   const { classes } = useWorkoutCardStyles();
 
@@ -50,7 +50,7 @@ export const WorkoutCard: React.FC<IWorkoutCardProps> = ({
           </div>
         ) : (
           <>
-            <Title order={1} mb='sm'>
+            <Title mb='sm' style={{ fontWeight: 700 }}>
               {title}
             </Title>
             <Text color='dimmed' m='sm'>

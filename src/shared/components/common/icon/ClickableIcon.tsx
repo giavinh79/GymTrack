@@ -4,14 +4,16 @@ import { ReactElement } from 'react';
 type IconColor = 'blue' | 'green' | 'red';
 
 interface ClickableIconProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> {
+  iconStyle?: React.CSSProperties;
   children?: ReactElement | null;
   color?: IconColor;
-  onClick?: () => void;
+  onClick: () => void;
   margin?: string;
 }
 
 const useClickableIconStyles = createStyles((theme) => ({
   button: {
+    cursor: 'pointer',
     background: 'none',
     color: 'inherit',
     border: 'none',
@@ -22,35 +24,38 @@ const useClickableIconStyles = createStyles((theme) => ({
   },
 }));
 
+const mapColorToHex: Record<IconColor, string> = {
+  blue: '#6a99c5',
+  green: '#5aa45a',
+  red: '#d93030',
+};
+
 export const ClickableIcon = ({
   children = null,
   color,
-  margin,
+  iconStyle,
+  margin = '0 0.5rem',
   onClick,
+  style,
   ...rest
 }: ClickableIconProps): ReactElement => {
   const { classes } = useClickableIconStyles();
 
-  const mapColorToHex: Record<IconColor, string> = {
-    blue: '#6a99c5',
-    green: '#5aa45a',
-    red: '#d93030',
-  };
-
-  const customStyle = {
-    margin: margin ?? 0,
+  const iconStyles = {
+    ...iconStyle,
     ...(color ? { color: mapColorToHex[color] } : {}), // default value for color varies cross browser
   };
 
-  return onClick ? (
-    <button onClick={onClick} className={classes.button}>
-      <i {...rest} style={customStyle}>
+  return (
+    <button
+      onClick={onClick}
+      className={classes.button}
+      aria-label={rest['aria-label']}
+      style={{ margin: margin ?? 0, ...style }}
+    >
+      <i {...rest} style={iconStyles}>
         {children}
       </i>
     </button>
-  ) : (
-    <i {...rest} style={customStyle}>
-      {children}
-    </i>
   );
 };

@@ -30,7 +30,7 @@ export const useWorkoutCardStyles = createStyles((theme) => ({
     padding: '1rem',
   },
   dayAbbreviation: {
-    fontWeight: '800',
+    fontWeight: 800,
     fontSize: '3rem',
     borderRadius: '10px',
     minWidth: '10rem',

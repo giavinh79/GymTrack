@@ -1,7 +1,8 @@
-import { RootState } from '../../stores/rootStore';
 import { createSlice } from '@reduxjs/toolkit';
 
-const routinesSlice = createSlice({
+import { RootState } from 'src/stores/rootStore';
+
+export const routinesSlice = createSlice({
   name: 'gym.routines',
   initialState: [],
   reducers: {

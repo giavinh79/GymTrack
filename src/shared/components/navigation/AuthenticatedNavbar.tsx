@@ -10,7 +10,7 @@ import {
   Space,
   useMantineColorScheme,
 } from '@mantine/core';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { auth } from 'src/auth/firebase';
 
@@ -69,7 +69,9 @@ const useNavbarStyles = createStyles((theme) => ({
 }));
 
 export const AuthenticatedNavbar = (): ReactElement => {
+  const location = useLocation();
   const navigate = useNavigate();
+
   const [active, setActive] = useState<number>(0);
 
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
@@ -79,8 +81,7 @@ export const AuthenticatedNavbar = (): ReactElement => {
 
   const NAVBAR_ROUTES = [
     { icon: <i className='fas fa-home' />, label: 'Home', onClick: () => navigate('/home') },
-    { icon: <i className='fas fa-question' />, label: 'Help', onClick: () => navigate('/home/details/tues') }, // @TODO - update
-    { icon: <i className='fas fa-cogs' />, label: 'Settings', onClick: undefined },
+    { icon: <i className='fas fa-cogs' />, label: 'Settings', onClick: () => navigate('/home/details/tues') }, // @TODO - update
   ];
 
   const handleLogout = async () => {
