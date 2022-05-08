@@ -37,14 +37,9 @@ In the text editor of your choice, install the Prettier extension and adjust set
 - Production error tracking with [Sentry](https://sentry.io/)
 - Uses [Vite](https://vitejs.dev/) as a build tool over Webpack for significant performance increases
 
-## TODO REFACTORING AND OTHER
+## TODO
 
-Refactoring:
-
-- Further break down components
+- Add 404 error page not found for invalid routes
 - Replace majority of `navigate` with accessible links
 - Husky and some CI related stuff
-
-Other:
-
 - Add all text to translation files
