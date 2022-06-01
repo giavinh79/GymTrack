@@ -9,7 +9,7 @@
     "@mantine/notifications": "^4.2.3",
     "@reduxjs/toolkit": "^1.8.1",
     "@sentry/react": "^6.19.7",
-    "@sentry/tracing": "^6.19.7",
+    "@sentry/tracing": "^7.0.0",
     "animate.css": "4.1.1",
     "axios": "0.27.2",
     "firebase": "^9.8.0",
