@@ -1,4 +1,4 @@
-import { useMantineColorScheme, SegmentedControl, Group, Center, Box, createStyles } from '@mantine/core';
+import { Box, Center, createStyles, Group, SegmentedControl, useMantineColorScheme } from '@mantine/core';
 
 const useThemeToggleStyles = createStyles((theme) => ({
   label: {
@@ -20,6 +20,7 @@ export const ThemeToggle = () => {
       <SegmentedControl
         classNames={classes}
         value={colorScheme}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore * string values are the same as ColorScheme type
         onChange={toggleColorScheme}
         data={[

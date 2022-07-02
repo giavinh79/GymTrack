@@ -1,43 +1,43 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useState } from 'react';
+// import { useDispatch } from 'react-redux';
 
-import { modalHidden } from 'src/slices/modal/modalSlice';
-import { createRoutine } from 'src/http/routine';
-import { refreshData } from 'src/slices/general/refreshSlice';
+// import { createRoutine } from 'src/http/routine';
+// import { refreshData } from 'src/slices/general/refreshSlice';
+// import { modalHidden } from 'src/slices/modal/modalSlice';
 
 export const AddRoutineModal = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  // const [name, setName] = useState('');
+  // const [description, setDescription] = useState('');
 
-  const [modal, setModal] = useState(true);
+  // const [modal, setModal] = useState(true);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await createRoutine({ name, description });
-      dispatch(refreshData());
-      dispatch(modalHidden());
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   try {
+  //     await createRoutine({ name, description });
+  //     dispatch(refreshData());
+  //     dispatch(modalHidden());
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-  };
+  // const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setName(e.target.value);
+  // };
 
-  const handleDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDescription(e.target.value);
-  };
+  // const handleDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setDescription(e.target.value);
+  // };
 
-  const unmount = () => {
-    setModal((modal) => !modal);
-    setTimeout(() => {
-      dispatch(modalHidden());
-    }, 200);
-  };
+  // const unmount = () => {
+  //   setModal((modal) => !modal);
+  //   setTimeout(() => {
+  //     dispatch(modalHidden());
+  //   }, 200);
+  // };
 
   return (
     <></>

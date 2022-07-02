@@ -1,8 +1,13 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+
 import { useIsMounted } from './useIsMounted';
 
+interface RequestOptions {
+  signal: AbortSignal;
+}
+
 interface IUseRequestInput<T> {
-  request: () => Promise<T>;
+  request: (options: RequestOptions) => Promise<T>;
   executeRightAway?: boolean;
 
   onSuccess?: ((data: T) => Promise<void>) | ((data: T) => void);
@@ -37,6 +42,8 @@ export const useRequest = <T>({
   const [error, setError] = useState<Error | null>(null);
   const [data, setData] = useState<T | null>(null);
 
+  const abortControllerRef = useRef<AbortController>(new AbortController());
+
   const isMounted = useIsMounted();
 
   const handleRequestExecution = useCallback(async (): Promise<T | undefined> => {
@@ -45,7 +52,9 @@ export const useRequest = <T>({
 
       setIsLoading(true);
 
-      const data = await request();
+      const data = await request({
+        signal: abortControllerRef.current.signal,
+      });
 
       if (!isMounted.current) return; // no need to set state or call onSuccess if component is being unmounted
       setData(data);
@@ -59,13 +68,19 @@ export const useRequest = <T>({
       setError(err as Error);
       isMounted && onError && onError(err as Error);
     }
-  }, []);
+  }, [isMounted, request, onError, onSuccess]);
 
   useEffect(() => {
     if (executeRightAway) {
       handleRequestExecution();
     }
-  }, [handleRequestExecution]);
+  }, [handleRequestExecution, executeRightAway]);
+
+  useEffect(() => {
+    const abortControllerInstance = abortControllerRef.current;
+
+    return () => abortControllerInstance.abort();
+  }, []);
 
   return {
     data,
@@ -76,7 +91,7 @@ export const useRequest = <T>({
 };
 
 interface IUseMultipleRequestInput {
-  requests: Array<() => Promise<any>>;
+  requests: Array<() => Promise<unknown[]>>;
 }
 
 interface IUseMultipleRequestApi {

@@ -1,5 +1,5 @@
-import { createStyles, useMantineColorScheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
+import { createStyles, useMantineColorScheme } from '@mantine/core';
 
 interface ILogoProps {
   enableLink?: boolean;

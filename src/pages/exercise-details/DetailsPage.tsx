@@ -1,10 +1,10 @@
+// import { useLocation } from 'react-router';
 import { Container } from '@mantine/core';
-import { useLocation } from 'react-router';
 
 import { WorkoutList } from 'src/features/details/workout-list/WorkoutList';
 
 export const DetailsPage = () => {
-  const { pathname } = useLocation();
+  // const { pathname } = useLocation();
   // const day = pathname.substring(pathname.lastIndexOf('/') + 1, pathname.length);
 
   return (

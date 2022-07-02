@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, TextInput } from '@mantine/core';
 
 import { useSignupRequestStyles } from './SignupRequest.styles';
-import { useTranslation } from 'react-i18next';
 
 interface ISignupRequestProps {
   handleSignup: (e: React.FormEvent) => void;

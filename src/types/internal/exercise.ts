@@ -2,7 +2,7 @@ import { EDay } from './common';
 
 export interface IExercise {
   name?: string;
-  exercises: any[];
+  exercises: unknown[];
 }
 
 // Represents the exercises for a certain day

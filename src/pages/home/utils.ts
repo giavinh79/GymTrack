@@ -1,5 +1,5 @@
-import { IRoutine } from 'src/types/internal/routine';
 import { EDay } from 'src/types/internal/common';
+import { IRoutine } from 'src/types/internal/routine';
 
 export const defaultRoutineObject: IRoutine = {
   id: 'testId',

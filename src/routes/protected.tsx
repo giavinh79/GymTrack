@@ -4,9 +4,9 @@ import { createStyles } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { ErrorBoundary } from '@sentry/react';
 
-import { lazyImport } from 'src/utils';
-import { RunningLoader, ErrorFallback, AuthenticatedNavbar, AuthenticatedMobileNavbar } from 'src/shared/components';
 import { ROUTES } from 'src/routes/constants';
+import { AuthenticatedMobileNavbar, AuthenticatedNavbar, ErrorFallback, RunningLoader } from 'src/shared/components';
+import { lazyImport } from 'src/utils';
 
 const { HomePage } = lazyImport(() => import('src/pages'), 'HomePage');
 const { DetailsPage } = lazyImport(() => import('src/pages'), 'DetailsPage');

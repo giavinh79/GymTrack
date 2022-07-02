@@ -2,12 +2,12 @@ import { memo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mantine/core';
 
+import { Dialog } from 'src/features/dialog';
 import { ClickableIcon, ThemedSkeleton } from 'src/shared/components';
 import { EModal, modalShown, selectModal } from 'src/slices';
 import { selectRoutinesLoading } from 'src/slices/gym/routine/routinesLoadingSlice';
 
 import { AddRoutineModal } from '../AddRoutineModal';
-import { Dialog } from 'src/features/dialog';
 
 import { useRoutinePanelStyles } from './RoutinePanel.styles';
 

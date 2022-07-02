@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { RootState } from 'src/stores/rootStore';
 import { storeRoutines } from 'src/slices/gym/routine/routinesSlice';
+import { RootState } from 'src/stores/rootStore';
 
 const routinesLoadingSlice = createSlice({
   name: 'gym.routinesLoading',
@@ -11,7 +11,7 @@ const routinesLoadingSlice = createSlice({
     routinesLoaded: () => false,
   },
   extraReducers: (builder) => {
-    builder.addCase(storeRoutines, (state, action) => {
+    builder.addCase(storeRoutines, () => {
       return false;
     });
   },

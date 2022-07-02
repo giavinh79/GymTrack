@@ -1,7 +1,7 @@
-import { createStyles, Image, Text, useMantineColorScheme, useMantineTheme } from '@mantine/core';
-import { useListState } from '@mantine/hooks';
 import { ReactElement } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { createStyles, Text, useMantineTheme } from '@mantine/core';
+import { useListState } from '@mantine/hooks';
 
 import { ReactComponent as ExerciseAbBicycle } from 'src/assets/images/exercises/exercise_ab_bicycle.svg';
 import { ClickableIcon } from 'src/shared/components';

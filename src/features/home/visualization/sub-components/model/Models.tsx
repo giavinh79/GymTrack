@@ -1,5 +1,5 @@
-import { Group } from '@mantine/core';
 import Model, { IExerciseData, IMuscleStats } from 'react-body-highlighter';
+import { Group } from '@mantine/core';
 
 const data: IExerciseData[] = [
   { name: 'Bench Press', muscles: ['chest', 'triceps', 'front-deltoids'] },

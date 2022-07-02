@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import Skeleton, { SkeletonProps } from 'react-loading-skeleton';
+import { useMantineColorScheme, useMantineTheme } from '@mantine/core';
 
 /**
  * Wrapper around Skeleton component from react-loading-skeleton that responds to current theme

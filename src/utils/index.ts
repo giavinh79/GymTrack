@@ -1,8 +1,8 @@
 import { lazy } from 'react';
-import isNil from 'lodash/isNil'; // lodash is CommonJS and not tree-shakeable with named imports :(
 import get from 'lodash/get';
-import pick from 'lodash/pick';
+import isNil from 'lodash/isNil'; // lodash is CommonJS and not tree-shakeable with named imports :(
 import omit from 'lodash/omit';
+import pick from 'lodash/pick';
 
 const exists = <T>(value: T | null | undefined): value is T => {
   return !isNil(value);
@@ -13,7 +13,7 @@ const exists = <T>(value: T | null | undefined): value is T => {
  * @example
  * const { HomePage } = lazyImport(() => import('src/pages'), 'HomePage');
  */
-const lazyImport = <T extends React.ComponentType<any>, I extends { [K2 in K]: T }, K extends keyof I>(
+const lazyImport = <T extends React.ComponentType<unknown>, I extends { [K2 in K]: T }, K extends keyof I>(
   factory: () => Promise<I>,
   name: K
 ): I => {
@@ -48,4 +48,4 @@ const isSameDay = (dayOne: Date, dayTwo: Date) => {
   );
 };
 
-export { exists, get, isNil, isSameDay, lazyLoadCss, lazyImport, omit, pick };
+export { exists, get, isNil, isSameDay, lazyImport, lazyLoadCss, omit, pick };

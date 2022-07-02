@@ -1,12 +1,12 @@
 import React, { memo, ReactElement, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from '@firebase/auth';
 import { Alert, Button, Group, Space, Text, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/hooks';
-import { useTranslation } from 'react-i18next';
 
-import { EnhancedModal } from 'src/shared/components';
 import { auth } from 'src/auth/firebase';
+import { EnhancedModal } from 'src/shared/components';
 
 import { useLoginModalStyles } from './LoginModal.styles';
 
@@ -14,7 +14,7 @@ interface ILoginModalProps {
   onClose: () => void;
 }
 
-const LoginModal = memo(({ onClose }: ILoginModalProps): ReactElement => {
+const LoginModal = memo(function LoginModal({ onClose }: ILoginModalProps): ReactElement {
   const { t } = useTranslation();
   const navigate = useNavigate();
 

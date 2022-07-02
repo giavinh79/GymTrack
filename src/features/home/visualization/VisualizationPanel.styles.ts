@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/core';
 
-export const useVisualizationPanelStyles = createStyles((_) => ({
+export const useVisualizationPanelStyles = createStyles(() => ({
   visualizationWrapper: {
     margin: 0,
   },

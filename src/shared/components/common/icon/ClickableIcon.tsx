@@ -1,5 +1,5 @@
-import { createStyles } from '@mantine/core';
 import { ReactElement } from 'react';
+import { createStyles } from '@mantine/core';
 
 type IconColor = 'blue' | 'green' | 'red';
 
@@ -11,7 +11,7 @@ interface ClickableIconProps extends React.DetailedHTMLProps<React.HTMLAttribute
   margin?: string;
 }
 
-const useClickableIconStyles = createStyles((theme) => ({
+const useClickableIconStyles = createStyles(() => ({
   button: {
     cursor: 'pointer',
     background: 'none',

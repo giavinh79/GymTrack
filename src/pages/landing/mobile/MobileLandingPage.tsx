@@ -1,11 +1,11 @@
 import { FormEvent, memo, ReactElement } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
+import { Group, Title } from '@mantine/core';
 
-import { Header, SignupRequest } from 'src/features';
 import fitnessBackground from 'src/assets/images/landing/landing_page_fitness.svg';
+import { Header, SignupRequest } from 'src/features';
 
 import { useMobileLandingPageStyles } from './MobileLandingPage.styles';
-import { Group, Title } from '@mantine/core';
 
 interface IMobileLandingPageProps {
   handleSignup: (e: FormEvent) => void;

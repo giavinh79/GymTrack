@@ -1,16 +1,16 @@
 import { ReactElement, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
-  Navbar,
   Center,
-  Tooltip,
-  UnstyledButton,
   createStyles,
   Group,
-  ThemeIcon,
+  Navbar,
   Space,
+  ThemeIcon,
+  Tooltip,
+  UnstyledButton,
   useMantineColorScheme,
 } from '@mantine/core';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 import { auth } from 'src/auth/firebase';
 
@@ -69,7 +69,6 @@ const useNavbarStyles = createStyles((theme) => ({
 }));
 
 export const AuthenticatedNavbar = (): ReactElement => {
-  const location = useLocation();
   const navigate = useNavigate();
 
   const [active, setActive] = useState<number>(0);

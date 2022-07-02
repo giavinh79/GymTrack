@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
-import { createStyles, Header, Group, Container, Burger } from '@mantine/core';
+import { Burger, Container, createStyles, Group, Header } from '@mantine/core';
 import { useBooleanToggle } from '@mantine/hooks';
+
 import { Logo, ThemeToggle } from '../common';
 
 const useStyles = createStyles((theme) => ({
@@ -75,7 +76,7 @@ const useStyles = createStyles((theme) => ({
 export const AuthenticatedMobileNavbar = (): ReactElement => {
   const [opened, toggleOpened] = useBooleanToggle(false);
   // const [active, setActive] = useState(links[0].link);
-  const { classes, cx } = useStyles();
+  const { classes } = useStyles();
 
   //   const location = useLocation();
   //   const navigate = useNavigate();

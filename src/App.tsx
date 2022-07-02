@@ -1,14 +1,15 @@
+import { StrictMode, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import { ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core';
-import { NotificationsProvider } from '@mantine/notifications';
 import { useColorScheme, useLocalStorage } from '@mantine/hooks';
+import { NotificationsProvider } from '@mantine/notifications';
 import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
 import mixpanel from 'mixpanel-browser';
 
 import { AppRoutes } from 'src/routes';
 import { theme } from 'src/styles/theme';
+
 import 'src/styles/global.css';
 
 function App() {
@@ -43,15 +44,17 @@ function App() {
 
   return (
     <div className='app-wrapper'>
-      <BrowserRouter>
-        <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-          <MantineProvider withNormalizeCSS withGlobalStyles theme={{ ...theme, colorScheme }}>
-            <NotificationsProvider autoClose={4000}>
-              <AppRoutes />
-            </NotificationsProvider>
-          </MantineProvider>
-        </ColorSchemeProvider>
-      </BrowserRouter>
+      <StrictMode>
+        <BrowserRouter>
+          <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+            <MantineProvider withNormalizeCSS withGlobalStyles theme={{ ...theme, colorScheme }}>
+              <NotificationsProvider autoClose={4000}>
+                <AppRoutes />
+              </NotificationsProvider>
+            </MantineProvider>
+          </ColorSchemeProvider>
+        </BrowserRouter>
+      </StrictMode>
     </div>
   );
 }

@@ -2,8 +2,8 @@ import React, { memo, ReactElement } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Grid, Group, Space, Title } from '@mantine/core';
 
-import { Header, SignupRequest } from 'src/features';
 import fitnessBackground from 'src/assets/images/landing/landing_page_fitness.svg';
+import { Header, SignupRequest } from 'src/features';
 
 import { useDesktopLandingPageStyles } from './DesktopLandingPage.styles';
 

@@ -3,15 +3,17 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button, Text, Title } from '@mantine/core';
 
-import { selectRoutinesLoading } from 'src/slices/gym/routine/routinesLoadingSlice';
 import { ThemedSkeleton } from 'src/shared/components';
+import { selectRoutinesLoading } from 'src/slices/gym/routine/routinesLoadingSlice';
 
 import { useWorkoutCardStyles } from './WorkoutCard.styles';
 
 interface IWorkoutCardProps {
   backgroundColor: string;
   day: string;
-  data: any;
+  data: {
+    exercises: unknown[];
+  };
   iconColor: string;
   textColor: string;
   text?: string;

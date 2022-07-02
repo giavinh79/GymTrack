@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { isNil, exists } from 'src/utils';
+import { exists, isNil } from 'src/utils';
 
 interface IUseVisibleInput {
   ref: React.MutableRefObject<null>;

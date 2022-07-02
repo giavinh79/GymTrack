@@ -1,2 +1,2 @@
-export * from './AuthenticatedNavbar';
 export * from './AuthenticatedMobileNavbar';
+export * from './AuthenticatedNavbar';

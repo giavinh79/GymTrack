@@ -1,5 +1,5 @@
-import { Button, Container, createStyles, Group, Space, Text, Title } from '@mantine/core';
 import { useDispatch } from 'react-redux';
+import { Button, Container, createStyles, Group, Space, Text, Title } from '@mantine/core';
 
 import emptySvg from 'src/assets/images/common/empty.svg';
 import { EModal, modalShown } from 'src/slices';
@@ -32,8 +32,9 @@ export const NoRoutinePlaceholder = () => {
           <Button
             color='green'
             radius='lg'
-            leftIcon={<i className='fas fa-plus' onClick={() => dispatch(modalShown(EModal.ADD_ROUTINE))} />}
+            leftIcon={<i className='fas fa-plus' />}
             uppercase
+            onClick={() => dispatch(modalShown(EModal.ADD_ROUTINE))}
           >
             Create
           </Button>

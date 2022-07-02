@@ -1,14 +1,14 @@
 import React, { ReactElement, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from '@firebase/auth';
 import { Button, Group, PasswordInput, Space, Text, TextInput, Title } from '@mantine/core';
 import { useNotifications } from '@mantine/notifications';
-import { signInWithEmailAndPassword } from '@firebase/auth';
-import { useTranslation } from 'react-i18next';
 import capitalize from 'lodash/capitalize';
 
-import { EnhancedModal, Logo } from 'src/shared/components';
 import { auth } from 'src/auth/firebase';
 import { register } from 'src/http/auth';
+import { EnhancedModal, Logo } from 'src/shared/components';
 import { MIN_PASSWORD_LENGTH } from 'src/shared/constants';
 import { useIsMounted } from 'src/shared/hooks/useIsMounted';
 
@@ -29,7 +29,7 @@ export const SignupModal = ({ onClose, signupEmail }: ISignupModalProps): ReactE
 
   const notifications = useNotifications();
 
-  const handleSubmit = async (e: React.FormEvent<any>): Promise<void> => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     try {
       e.preventDefault();
       setIsLoggingIn(true);

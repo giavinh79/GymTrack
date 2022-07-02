@@ -1,9 +1,9 @@
 import { memo, ReactElement, useEffect, useState } from 'react';
-import { Modal, ModalProps } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
+import { Modal, ModalProps } from '@mantine/core';
 
-import { EModal, modalHidden, selectModal } from 'src/slices';
 import { useIsMounted } from 'src/shared/hooks/useIsMounted';
+import { EModal, modalHidden, selectModal } from 'src/slices';
 
 interface IEnhancedModalProps extends Omit<ModalProps, 'onClose' | 'opened'> {
   onClose?: () => void;
@@ -12,7 +12,7 @@ interface IEnhancedModalProps extends Omit<ModalProps, 'onClose' | 'opened'> {
 /**
  * EnhancedModal component is a project-specific wrapper around the Mantine modal that automates boilerplate around opening and closing states
  */
-const EnhancedModal = memo((props: IEnhancedModalProps): ReactElement => {
+const EnhancedModal = memo(function EnhancedModal(props: IEnhancedModalProps): ReactElement {
   const [isOpen, setIsOpen] = useState(false);
 
   const isMounted = useIsMounted();
@@ -32,7 +32,7 @@ const EnhancedModal = memo((props: IEnhancedModalProps): ReactElement => {
     return () => {
       if (modal !== EModal.NONE) dispatch(modalHidden());
     };
-  }, []);
+  }, [dispatch, isMounted, modal]);
 
   const modalProps = {
     ...props,
@@ -43,7 +43,7 @@ const EnhancedModal = memo((props: IEnhancedModalProps): ReactElement => {
     },
   };
 
-  return <Modal {...modalProps}></Modal>;
+  return <Modal {...modalProps} />;
 });
 
 export { EnhancedModal };

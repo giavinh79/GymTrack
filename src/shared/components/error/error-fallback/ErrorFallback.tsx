@@ -1,6 +1,7 @@
-import { Header } from 'src/features';
-import tiredFromWorkoutPicture from 'src/assets/images/common/workout-tired-error.png';
 import { createStyles } from '@mantine/core';
+
+import tiredFromWorkoutPicture from 'src/assets/images/common/workout-tired-error.png';
+import { Header } from 'src/features';
 
 const useErrorFallbackStyles = createStyles((theme) => ({
   container: {
@@ -31,7 +32,7 @@ export const ErrorFallback = () => {
     <div className={classes.container}>
       <Header />
       <div className={classes.errorWrapper}>
-        <strong>Sorry! It looks like we're having some issues - our team has been notified.</strong>
+        <strong>Sorry! It looks like we are having some issues - our team has been notified.</strong>
         <br />
         <span>
           Please refresh and try again. Email

@@ -33,7 +33,7 @@ export const useDesktopLandingPageStyles = createStyles((theme) => ({
     height: '35rem',
     width: '100%',
     top: '7rem',
-    zIndex: '-1',
+    zIndex: -1,
 
     backgroundColor: '#bdbdbd',
     clipPath: 'polygon(44% 63%, 61% 14%, 81% 71%, 91% 55%, 100% 78%, 100% 100%, 100% 100%, 18% 100%, 37% 51%)',

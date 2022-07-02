@@ -41,5 +41,5 @@ In the text editor of your choice, install the Prettier extension and adjust set
 
 - Add 404 error page not found for invalid routes
 - Replace majority of `navigate` with accessible links
-- Husky and some CI related stuff
+- Husky and some CI related stuff (husky prettify commits, on CI add ts linting)
 - Add all text to translation files

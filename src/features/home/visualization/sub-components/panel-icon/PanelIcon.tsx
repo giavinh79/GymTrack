@@ -1,4 +1,4 @@
-import { createStyles } from '@mantine/core';
+import { Button, createStyles } from '@mantine/core';
 
 interface PanelIconProps {
   ariaLabel: string;
@@ -21,5 +21,9 @@ const usePanelIconStyles = createStyles((_, { disabled, selected }: Pick<PanelIc
 export const PanelIcon = ({ ariaLabel, disabled = false, iconClassName, onClick, selected }: PanelIconProps) => {
   const { classes } = usePanelIconStyles({ disabled, selected });
 
-  return <i aria-label={ariaLabel} className={`${iconClassName} ${classes.icon}`} onClick={onClick} />;
+  return (
+    <Button variant='subtle' onClick={onClick}>
+      <i aria-label={ariaLabel} className={`${iconClassName} ${classes.icon}`} />
+    </Button>
+  );
 };

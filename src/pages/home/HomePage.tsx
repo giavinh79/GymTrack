@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Container, Grid } from '@mantine/core';
 
+import { auth } from 'src/auth/firebase';
 import { NoRoutinePlaceholder, RoutinePanel, VisualizationPanel, WorkoutCard } from 'src/features';
 import { retrieveRoutines } from 'src/http/routine';
-import { auth } from 'src/auth/firebase';
-import { doneLoading } from 'src/slices/general/loadingSlice';
-import { exists, isNil } from 'src/utils';
-import { EDay, IRoutine } from 'src/types';
 import { ScrollToTop } from 'src/shared/components';
+import { doneLoading } from 'src/slices/general/loadingSlice';
+import { EDay, IRoutine } from 'src/types';
+import { exists, isNil } from 'src/utils';
 
-import { defaultRoutineObject } from './utils';
 import { EVisualization } from './types';
+import { defaultRoutineObject } from './utils';
 
 import 'react-loading-skeleton/dist/skeleton.css';
 

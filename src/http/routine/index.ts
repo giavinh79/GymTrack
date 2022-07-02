@@ -1,6 +1,8 @@
 import axios from 'axios';
+
 import { auth } from '../../auth/firebase';
 import { CONFIG } from '../../config';
+
 import { IRoutineData } from './types';
 
 const createRoutine = async (data: object) => {
@@ -9,7 +11,7 @@ const createRoutine = async (data: object) => {
       auth.onAuthStateChanged(async (user) => {
         if (user) {
           const token = await user.getIdToken();
-          await axios.put(`${CONFIG.API_ENDPOINT}/api/routine`, { ...data, token: token });
+          await axios.put(`${CONFIG.API_ENDPOINT}/routine`, { ...data, token: token });
           resolve(null);
         }
       });
@@ -25,7 +27,7 @@ const deleteRoutine = async (id: string) => {
       auth.onAuthStateChanged(async (user) => {
         if (user) {
           const token = await user.getIdToken();
-          await axios.delete(`${CONFIG.API_ENDPOINT}/api/routine`, { data: { id, token } });
+          await axios.delete(`${CONFIG.API_ENDPOINT}/routine`, { data: { id, token } });
           resolve(null);
         }
       });
@@ -36,7 +38,7 @@ const deleteRoutine = async (id: string) => {
 };
 
 const retrieveRoutines = async (token: string): Promise<IRoutineData> => {
-  return axios.get(`${CONFIG.API_ENDPOINT}/api/routine?token=${token}`);
+  return axios.get(`${CONFIG.API_ENDPOINT}/routine?token=${token}`);
 };
 
 export { createRoutine, deleteRoutine, retrieveRoutines };
