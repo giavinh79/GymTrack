@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { Burger, Container, createStyles, Group, Header } from '@mantine/core';
-import { useBooleanToggle } from '@mantine/hooks';
+import { useDisclosure } from '@mantine/hooks';
 
 import { Logo, ThemeToggle } from '../common';
 
@@ -74,7 +74,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export const AuthenticatedMobileNavbar = (): ReactElement => {
-  const [opened, toggleOpened] = useBooleanToggle(false);
+  const [opened, handlers] = useDisclosure(false);
   // const [active, setActive] = useState(links[0].link);
   const { classes } = useStyles();
 
@@ -104,7 +104,7 @@ export const AuthenticatedMobileNavbar = (): ReactElement => {
   return (
     <Header height={56} className={classes.header}>
       <Container className={classes.inner}>
-        <Burger opened={opened} onClick={() => toggleOpened()} size='sm' className={classes.burger} />
+        <Burger opened={opened} onClick={() => handlers.open()} size='sm' className={classes.burger} />
         <Group className={classes.links} spacing={5}>
           colol
         </Group>

@@ -2,8 +2,8 @@ import React, { memo, ReactElement, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from '@firebase/auth';
-import { Alert, Button, Group, Space, Text, TextInput, Title } from '@mantine/core';
-import { useForm } from '@mantine/hooks';
+import { Alert, Button, Group, Space, Stack, Text, TextInput, Title } from '@mantine/core';
+import { useForm } from '@mantine/form';
 
 import { auth } from 'src/auth/firebase';
 import { EnhancedModal } from 'src/shared/components';
@@ -56,13 +56,13 @@ const LoginModal = memo(function LoginModal({ onClose }: ILoginModalProps): Reac
             {t('landing:LOGIN.MODAL.ERROR.AUTH')}
           </Alert>
         )}
-        <Group position='center' direction='column'>
+        <Stack align='center'>
           <Title order={1} className={classes.header}>
             {t('landing:LOGIN.MODAL.HEADER')}
           </Title>
           <i className={`fas fa-users ${classes.userIcon}`} />
           <Space h='xl' />
-        </Group>
+        </Stack>
         <TextInput
           {...form.getInputProps('email')}
           id='loginEmail'

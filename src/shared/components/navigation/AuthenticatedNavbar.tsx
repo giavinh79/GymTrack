@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import {
   Center,
   createStyles,
-  Group,
   Navbar,
   Space,
+  Stack,
   ThemeIcon,
   Tooltip,
   UnstyledButton,
@@ -103,7 +103,7 @@ export const AuthenticatedNavbar = (): ReactElement => {
       </Center>
       <Space h='xl' />
       <Navbar.Section grow mt={50}>
-        <Group direction='column' align='center' spacing={0}>
+        <Stack align='center' spacing={0}>
           {NAVBAR_ROUTES.map((link, index) => (
             <NavbarLink
               {...link}
@@ -115,17 +115,17 @@ export const AuthenticatedNavbar = (): ReactElement => {
               }}
             />
           ))}
-        </Group>
+        </Stack>
       </Navbar.Section>
       <Navbar.Section>
-        <Group direction='column' align='center' spacing={0}>
+        <Stack align='center' spacing={0}>
           <NavbarLink
             icon={<i className={isDarkTheme ? 'fas fa-moon' : 'fas fa-sun'} />}
             label='Change theme'
             onClick={() => toggleColorScheme()}
           />
           <NavbarLink icon={<i className='fas fa-sign-out-alt' />} label='Logout' onClick={handleLogout} />
-        </Group>
+        </Stack>
       </Navbar.Section>
     </Navbar>
   );

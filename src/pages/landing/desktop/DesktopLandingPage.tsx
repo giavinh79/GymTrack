@@ -1,6 +1,6 @@
 import React, { memo, ReactElement } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { Grid, Group, Space, Title } from '@mantine/core';
+import { Grid, Space, Stack, Title } from '@mantine/core';
 
 import fitnessBackground from 'src/assets/images/landing/landing_page_fitness.svg';
 import { Header, SignupRequest } from 'src/features';
@@ -23,7 +23,7 @@ const DesktopLandingPageComponent = ({ handleSignup, setSignupEmail }: IDesktopL
       <>
         <Grid className={classes.body} gutter={0}>
           <Grid.Col sm={5}>
-            <Group direction='column' align='center' spacing={0} style={{ marginTop: '2rem' }}>
+            <Stack align='center' spacing={0} style={{ marginTop: '2rem' }}>
               <Title className={classes.header}>
                 <Trans t={t} i18nKey='FIRST_HEADER'>
                   <strong className={classes.headerPrefix}>Track</strong> your fitness journey.
@@ -37,7 +37,7 @@ const DesktopLandingPageComponent = ({ handleSignup, setSignupEmail }: IDesktopL
               </Title>
               <Space h='xl' />
               <SignupRequest handleSignup={handleSignup} setSignupEmail={setSignupEmail} />
-            </Group>
+            </Stack>
           </Grid.Col>
           <Grid.Col sm={7}>
             <img

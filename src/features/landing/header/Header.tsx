@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Center, Space } from '@mantine/core';
 
-import { LoginModal } from 'src/features';
+import { LoginModal } from 'src/features/authentication';
 import { Logo, ThemeToggle } from 'src/shared/components';
 import { EModal, modalHidden, modalShown, selectModal } from 'src/slices';
 

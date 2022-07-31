@@ -13,7 +13,8 @@ const exists = <T>(value: T | null | undefined): value is T => {
  * @example
  * const { HomePage } = lazyImport(() => import('src/pages'), 'HomePage');
  */
-const lazyImport = <T extends React.ComponentType<unknown>, I extends { [K2 in K]: T }, K extends keyof I>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const lazyImport = <T extends React.ComponentType<any>, I extends { [K2 in K]: T }, K extends keyof I>(
   factory: () => Promise<I>,
   name: K
 ): I => {

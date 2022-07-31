@@ -2,8 +2,8 @@ import React, { ReactElement, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from '@firebase/auth';
-import { Button, Group, PasswordInput, Space, Text, TextInput, Title } from '@mantine/core';
-import { useNotifications } from '@mantine/notifications';
+import { Button, Group, PasswordInput, Space, Stack, Text, TextInput, Title } from '@mantine/core';
+import { showNotification } from '@mantine/notifications';
 import capitalize from 'lodash/capitalize';
 
 import { auth } from 'src/auth/firebase';
@@ -27,8 +27,6 @@ export const SignupModal = ({ onClose, signupEmail }: ISignupModalProps): ReactE
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  const notifications = useNotifications();
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     try {
       e.preventDefault();
@@ -42,7 +40,7 @@ export const SignupModal = ({ onClose, signupEmail }: ISignupModalProps): ReactE
     } catch (err) {
       if (isMounted.current) {
         setIsLoggingIn(false);
-        notifications.showNotification({
+        showNotification({
           message: 'Error signing up, please try again.',
           autoClose: true,
         });
@@ -60,10 +58,10 @@ export const SignupModal = ({ onClose, signupEmail }: ISignupModalProps): ReactE
   return (
     <EnhancedModal onClose={onClose} centered size='500px' padding={35}>
       <form onSubmit={handleSubmit}>
-        <Group position='center' direction='column'>
+        <Stack align='center'>
           <Logo />
           <Title order={1}>{t('landing:SIGNUP.MODAL.TITLE')}</Title>
-        </Group>
+        </Stack>
         <Space h='xl' />
         <TextInput
           type='email'

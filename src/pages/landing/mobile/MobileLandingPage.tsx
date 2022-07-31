@@ -1,6 +1,6 @@
 import { FormEvent, memo, ReactElement } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { Group, Title } from '@mantine/core';
+import { Stack, Title } from '@mantine/core';
 
 import fitnessBackground from 'src/assets/images/landing/landing_page_fitness.svg';
 import { Header, SignupRequest } from 'src/features';
@@ -21,13 +21,13 @@ export const MobileLandingPageComponent = ({ handleSignup, setSignupEmail }: IMo
     <div className={classes.container}>
       <Header />
       <>
-        <Group direction='column' className={classes.body}>
+        <Stack className={classes.body}>
           <img
             src={fitnessBackground}
             alt={t('landing:FITNESS_BACKGROUND_IMAGE_ALT')}
             className={classes.fitnessBackground}
           />
-          <Group align='center' direction='column' className={classes.content}>
+          <Stack align='center' className={classes.content}>
             <Title className={classes.header}>
               <Trans t={t} i18nKey='FIRST_HEADER'>
                 <strong className={classes.headerPrefix}>Track</strong> your fitness journey.
@@ -39,8 +39,8 @@ export const MobileLandingPageComponent = ({ handleSignup, setSignupEmail }: IMo
               </Trans>
             </Title>
             <SignupRequest handleSignup={handleSignup} setSignupEmail={setSignupEmail} />
-          </Group>
-        </Group>
+          </Stack>
+        </Stack>
       </>
     </div>
   );
