@@ -8,6 +8,8 @@ import { ROUTES } from 'src/routes/constants';
 import { AuthenticatedMobileNavbar, AuthenticatedNavbar, ErrorFallback, RunningLoader } from 'src/shared/components';
 import { lazyImport } from 'src/utils';
 
+import { useInitializeApp } from './hooks';
+
 const { HomePage } = lazyImport(() => import('src/pages'), 'HomePage');
 const { DetailsPage } = lazyImport(() => import('src/pages'), 'DetailsPage');
 
@@ -32,13 +34,19 @@ const ProtectedPage = () => {
   const { classes } = useProtectedPageStyles();
   const matches = useMediaQuery(`(min-width: 769px)`);
 
+  const { loading } = useInitializeApp();
+
   return (
     <ErrorBoundary fallback={<ErrorFallback />}>
       {matches ? <AuthenticatedNavbar /> : <AuthenticatedMobileNavbar />}
       <Suspense fallback={<RunningLoader transparentBng={false} />}>
-        <div className={classes.pageContainer}>
-          <Outlet />
-        </div>
+        {loading ? (
+          <RunningLoader transparentBng={false} />
+        ) : (
+          <div className={classes.pageContainer}>
+            <Outlet />
+          </div>
+        )}
       </Suspense>
     </ErrorBoundary>
   );

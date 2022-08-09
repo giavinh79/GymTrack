@@ -2,12 +2,13 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useIsMounted } from './useIsMounted';
 
-interface RequestOptions {
+interface RequestOptions<S> {
+  data?: S;
   signal: AbortSignal;
 }
 
-interface IUseRequestInput<T> {
-  request: (options: RequestOptions) => Promise<T>;
+interface IUseRequestInput<T, S> {
+  request: (options: RequestOptions<S>) => Promise<T>;
   executeRightAway?: boolean;
 
   onSuccess?: ((data: T) => Promise<void>) | ((data: T) => void);
@@ -25,19 +26,19 @@ interface IUseRequestApi<T> {
 /**
  * Custom hook that executes request and returns the different states (data, errors, loading)
  *
- * @TODO replace with React Query at a later point
+ * @deprecated (use RTK Query)
  * @example
  * const { data, error, isLoading, execute } = useRequest({
  *   request: fetchUsers,
  *   onSuccess: () => alert('users have been fetched!')
  * })
  */
-export const useRequest = <T>({
+export const useRequest = <T, S>({
   executeRightAway = true,
   onSuccess,
   onError,
   request,
-}: IUseRequestInput<T>): IUseRequestApi<T> => {
+}: IUseRequestInput<T, S>): IUseRequestApi<T> => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [data, setData] = useState<T | null>(null);
@@ -46,29 +47,33 @@ export const useRequest = <T>({
 
   const isMounted = useIsMounted();
 
-  const handleRequestExecution = useCallback(async (): Promise<T | undefined> => {
-    try {
-      if (!isMounted) return; // no need to send request if component is being unmounted
+  const handleRequestExecution = useCallback(
+    async (body?: S): Promise<T | undefined> => {
+      try {
+        if (!isMounted) return; // no need to send request if component is being unmounted
 
-      setIsLoading(true);
+        setIsLoading(true);
 
-      const data = await request({
-        signal: abortControllerRef.current.signal,
-      });
+        const data = await request({
+          data: body,
+          signal: abortControllerRef.current.signal,
+        });
 
-      if (!isMounted.current) return; // no need to set state or call onSuccess if component is being unmounted
-      setData(data);
-      setIsLoading(false);
+        if (!isMounted.current) return; // no need to set state or call onSuccess if component is being unmounted
+        setData(data);
+        setIsLoading(false);
 
-      onSuccess && onSuccess(data);
+        onSuccess && onSuccess(data);
 
-      return data;
-    } catch (err) {
-      setIsLoading(false);
-      setError(err as Error);
-      isMounted && onError && onError(err as Error);
-    }
-  }, [isMounted, request, onError, onSuccess]);
+        return data;
+      } catch (err) {
+        setIsLoading(false);
+        setError(err as Error);
+        isMounted && onError && onError(err as Error);
+      }
+    },
+    [isMounted, request, onError, onSuccess]
+  );
 
   useEffect(() => {
     if (executeRightAway) {
@@ -104,7 +109,7 @@ interface IUseMultipleRequestApi {
 /**
  * Custom hook that executes multiple requests concurrently and just returns a loading or error state (does not return data)
  *
- * @TODO replace with React Query at a later point
+ * @deprecated (use RTK Query)
  */
 export const useMultipleRequest = ({ requests }: IUseMultipleRequestInput): IUseMultipleRequestApi => {
   const [isLoading, setIsLoading] = useState(false);

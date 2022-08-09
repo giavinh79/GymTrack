@@ -1,81 +1,110 @@
-// import { useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { Button, Modal, Space, Textarea, TextInput, Title } from '@mantine/core';
+import { useForm } from '@mantine/form';
+import { showNotification } from '@mantine/notifications';
 
-// import { createRoutine } from 'src/http/routine';
-// import { refreshData } from 'src/slices/general/refreshSlice';
-// import { modalHidden } from 'src/slices/modal/modalSlice';
+import { useCreateRoutineMutation } from 'src/services/routine';
+import { modalHidden } from 'src/slices/modal/modalSlice';
 
 export const AddRoutineModal = () => {
-  // const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
 
-  // const [name, setName] = useState('');
-  // const [description, setDescription] = useState('');
+  const [createRoutine, { isLoading }] = useCreateRoutineMutation();
 
-  // const [modal, setModal] = useState(true);
+  const form = useForm<{ name: string; description: string }>({
+    initialValues: {
+      name: '',
+      description: '',
+    },
+  });
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   try {
-  //     await createRoutine({ name, description });
-  //     dispatch(refreshData());
-  //     dispatch(modalHidden());
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  // const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setName(e.target.value);
-  // };
-
-  // const handleDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setDescription(e.target.value);
-  // };
-
-  // const unmount = () => {
-  //   setModal((modal) => !modal);
-  //   setTimeout(() => {
-  //     dispatch(modalHidden());
-  //   }, 200);
-  // };
+    try {
+      const { name, description } = form.values;
+      await createRoutine({ name, description });
+      // will need to sync query keys of create routine and get routines to force refresh of new routine
+      dispatch(modalHidden());
+    } catch (err) {
+      showNotification({
+        icon: <i className='fas fa-exclamation' />,
+        id: 'create-routine-error',
+        title: 'Error creating a routine',
+        message: 'Please try again in a few seconds or contact our support if you continue having issues.',
+      });
+      throw err; // for Sentry
+    }
+  };
 
   return (
-    <></>
-    // <Modal isOpen={modal} toggle={unmount} centered>
-    //   <Form className='login-form' onSubmit={handleSubmit}>
-    //     <div className='container--column'>
-    //       <p className='text--large' style={{ color: '#736E9E', fontWeight: 500 }}>
-    //         New Routine
-    //       </p>
-    //       {/* <i className='fas fa-users' style={{ fontSize: '3rem', marginBottom: '2rem' }}></i> */}
-    //     </div>
-    //     <FormGroup>
-    //       <Label for='routine-name'>Name</Label>
-    //       <Input
-    //         type='text'
-    //         name='routine-name'
-    //         id='routine-name'
-    //         required
-    //         placeholder='name'
-    //         value={name}
-    //         onChange={handleName}
-    //       />
-    //     </FormGroup>
-    //     <FormGroup>
-    //       <Label for='exampleDescription'>Description (optional)</Label>
-    //       <Input
-    //         name='description'
-    //         id='description'
-    //         type='textarea'
-    //         placeholder='description'
-    //         value={description}
-    //         onChange={handleDescription}
-    //       />
-    //     </FormGroup>
-    //     <Button className='login-form__button' type='submit' disabled={name.length === 0}>
-    //       Create
-    //     </Button>
-    //   </Form>
-    // </Modal>
+    <Modal centered opened onClose={() => dispatch(modalHidden())}>
+      <form onSubmit={handleSubmit}>
+        <Title order={1}>New Routine</Title>
+        {/* <p className='text--large' style={{ color: '#736E9E', fontWeight: 500 }}>
+            New Routine
+          </p> */}
+        <Space h='md' />
+        <TextInput
+          {...form.getInputProps('name')}
+          type='text'
+          id='routine-name'
+          name='routine-name'
+          label={t('Name')}
+          placeholder={t('Name')}
+          required
+          // classNames={{
+          //   input: serverError ? 'animate__animated animate__shakeX border-error' : '',
+          // }}
+          // onFocus={() => setServerError(false)}
+        />
+        <Space h='md' />
+        <Textarea
+          {...form.getInputProps('description')}
+          id='routine-name'
+          name='routine-name'
+          label={t('Description (optional)')}
+          placeholder={t('Description')}
+          required
+          minRows={3}
+          // classNames={{
+          //   input: serverError ? 'animate__animated animate__shakeX border-error' : '',
+          // }}
+          // onFocus={() => setServerError(false)}
+        />
+        <Space h='xl' />
+        {/* <FormGroup>
+          <Label for='routine-name'>Name</Label>
+          <Input
+            type='text'
+            name='routine-name'
+            id='routine-name'
+            required
+            placeholder='name'
+            value={name}
+            onChange={handleName}
+          />
+        </FormGroup> */}
+        {/* <FormGroup>
+          <Label for='exampleDescription'>Description (optional)</Label>
+          <Input
+            name='description'
+            id='description'
+            type='textarea'
+            placeholder='description'
+            value={description}
+            onChange={handleDescription}
+          />
+        </FormGroup> */}
+        <Button type='submit' disabled={form.values.name?.length === 0} fullWidth loading={isLoading}>
+          {t('Create')}
+        </Button>
+        {/* <Button className='login-form__button' type='submit' disabled={name.length === 0}>
+          Create
+        </Button> */}
+      </form>
+    </Modal>
   );
 };

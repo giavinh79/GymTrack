@@ -7,7 +7,7 @@ import { showNotification } from '@mantine/notifications';
 import capitalize from 'lodash/capitalize';
 
 import { auth } from 'src/auth/firebase';
-import { register } from 'src/http/auth';
+import { register } from 'src/services/auth';
 import { EnhancedModal, Logo } from 'src/shared/components';
 import { MIN_PASSWORD_LENGTH } from 'src/shared/constants';
 import { useIsMounted } from 'src/shared/hooks/useIsMounted';

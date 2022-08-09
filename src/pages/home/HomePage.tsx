@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useCallback, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Container, Grid } from '@mantine/core';
 
-import { auth } from 'src/auth/firebase';
-import { NoRoutinePlaceholder, RoutinePanel, VisualizationPanel, WorkoutCard } from 'src/features';
-import { retrieveRoutines } from 'src/http/routine';
+import { AddRoutineModal, NoRoutinePlaceholder, RoutinePanel, VisualizationPanel, WorkoutCard } from 'src/features';
+// import { useGetUsersRoutinesQuery } from 'src/services/routine';
 import { ScrollToTop } from 'src/shared/components';
-import { doneLoading } from 'src/slices/general/loadingSlice';
-import { EDay, IRoutine } from 'src/types';
-import { exists, isNil } from 'src/utils';
+import { EModal, selectedRoutine, selectModal } from 'src/slices';
+import { EDay } from 'src/types';
 
 import { EVisualization } from './types';
-import { defaultRoutineObject } from './utils';
 
 import 'react-loading-skeleton/dist/skeleton.css';
 
@@ -82,50 +79,38 @@ export const WORKOUT_CARDS = [
 ];
 
 export const HomePage = () => {
-  const dispatch = useDispatch();
+  const modal = useSelector(selectModal);
+  // const context = useSelector(selectContext);
 
   const [visualization, setVisualization] = useState(EVisualization.CALENDAR);
+  // const { data: routines, isError, isLoading } = useGetUsersRoutinesQuery(context.user.id);
 
-  const [routine, setRoutine] = useState<IRoutine | null>(defaultRoutineObject);
+  const currentUserRoutine = useSelector(selectedRoutine);
 
-  const initializeRoutine = React.useCallback(
-    async (token: string) => {
-      dispatch(doneLoading());
-      const { data } = await retrieveRoutines(token);
-      const { routines, selectedRoutine } = data;
-
-      if (isNil(routines) || isNil(selectedRoutine)) {
-        setRoutine(null);
-        dispatch(doneLoading());
-        return;
-      }
-
-      const routinesObject = JSON.parse(routines);
-
-      if (routinesObject.length <= 0) {
-        setRoutine(null);
-      } else {
-        // setRoutine(routinesObject.find((routine: any) => routine._id === selectedRoutine));
-      }
-
-      dispatch(doneLoading());
-    },
-    [dispatch]
-  );
-
-  useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
-      if (exists(user)) {
-        const token = await user.getIdToken();
-        initializeRoutine(token);
-      }
-    });
-  }, [initializeRoutine]);
+  const handleModal = useCallback(() => {
+    switch (modal) {
+      case EModal.ADD_ROUTINE:
+        return <AddRoutineModal />;
+      // case EModal.DELETE_ROUTINE:
+      //   return (
+      //     <Dialog
+      //       type='delete'
+      //       title='Are you sure you want to delete this routine?'
+      //       text='This action is permanent and cannot be undone.'
+      //       onConfirm={() => ({})}
+      //     />
+      //   );
+      default:
+        return null;
+    }
+  }, [modal]);
 
   return (
     <>
+      {handleModal()}
+
       <Container size='lg' pb={'6rem'}>
-        {routine ? (
+        {currentUserRoutine ? (
           <>
             <RoutinePanel />
 
@@ -139,7 +124,7 @@ export const HomePage = () => {
                     iconColor={card.iconColor}
                     textColor={card.textColor}
                     day={card.title}
-                    data={routine.workouts[card.day]}
+                    data={currentUserRoutine?.workouts[card.day]}
                     title={card.contentTitle}
                     text={card.text}
                   />

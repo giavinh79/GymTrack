@@ -6,6 +6,7 @@ import { EModal, modalShown } from 'src/slices';
 
 const useNoRoutinePlaceHolderStyles = createStyles((theme) => ({
   header: {
+    fontWeight: 'bold',
     color: theme.colors.dark[3],
   },
   subHeader: {

@@ -30,16 +30,17 @@ In the text editor of your choice, install the Prettier extension and adjust set
 
 - React.js (w/ TypeScript)
 - [Redux Toolkit](https://redux-toolkit.js.org/) for global state management
+- [RTK Query](https://redux-toolkit.js.org/rtk-query/overview) for data fetching (request de-duplication, caching, optimistic updates...etc.)
 - [React Router](https://reactrouter.com/) for routing
 - [Mantine](https://mantine.dev/) for design & styling (UI component library with useful hooks)
 - [Font Awesome 5](https://fontawesome.com/v5/search) for icons
 - Internationalization with [react-i18next](https://react.i18next.com/)
 - Production error tracking with [Sentry](https://sentry.io/)
 - Uses [Vite](https://vitejs.dev/) as a build tool over Webpack for significant performance increases
+- Mixpanel for analytics
 
 ## TODO
 
-- Add 404 error page not found for invalid routes
-- Replace majority of `navigate` with accessible links
-- Husky and some CI related stuff (husky prettify commits, on CI add ts linting)
+- More features
 - Add all text to translation files
+- Testing

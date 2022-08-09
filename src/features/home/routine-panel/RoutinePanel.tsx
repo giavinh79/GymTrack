@@ -1,13 +1,10 @@
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mantine/core';
 
-import { Dialog } from 'src/features/dialog';
 import { ClickableIcon, ThemedSkeleton } from 'src/shared/components';
-import { EModal, modalShown, selectModal } from 'src/slices';
+import { EModal, modalShown } from 'src/slices';
 import { selectRoutinesLoading } from 'src/slices/gym/routine/routinesLoadingSlice';
-
-import { AddRoutineModal } from '../AddRoutineModal';
 
 import { useRoutinePanelStyles } from './RoutinePanel.styles';
 
@@ -15,31 +12,10 @@ const RoutinePanelComponent = () => {
   const { classes } = useRoutinePanelStyles();
 
   const dispatch = useDispatch();
-  const modalState = useSelector(selectModal);
   const loadingRoutinesState = useSelector(selectRoutinesLoading);
-
-  const handleModal = useCallback(() => {
-    switch (modalState) {
-      case EModal.ADD_ROUTINE:
-        return <AddRoutineModal />;
-      case EModal.DELETE_ROUTINE:
-        return (
-          <Dialog
-            type='delete'
-            title='Are you sure you want to delete this routine?'
-            text='This action is permanent and cannot be undone.'
-            onConfirm={() => ({})}
-          />
-        );
-      default:
-        return null;
-    }
-  }, [modalState]);
 
   return (
     <>
-      {handleModal()}
-
       <div className={classes.container}>
         <div className={classes.routineControlsWrapper}>
           <Button

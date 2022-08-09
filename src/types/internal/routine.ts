@@ -8,3 +8,7 @@ export interface IRoutine {
   creatorId: string;
   workouts: IWorkout;
 }
+
+export interface IUserRoutine extends IRoutine {
+  isSelected: boolean;
+}
