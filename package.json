@@ -5,7 +5,7 @@
   "dependencies": {
     "@mantine/core": "5.1.1",
     "@mantine/dates": "5.1.1",
-    "@mantine/form": "5.1.1",
+    "@mantine/form": "5.2.4",
     "@mantine/hooks": "5.1.1",
     "@mantine/notifications": "5.1.1",
     "@reduxjs/toolkit": "^1.8.3",
