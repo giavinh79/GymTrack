@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.4",
+    "@hello-pangea/dnd": "16.0.0",
     "@mantine/core": "5.2.4",
     "@mantine/dates": "^5.2.4",
     "@mantine/form": "5.2.4",
@@ -20,7 +21,6 @@
     "i18next-browser-languagedetector": "^6.1.5",
     "mixpanel-browser": "2.45.0",
     "react": "^18.2.0",
-    "react-beautiful-dnd": "^13.1.1",
     "react-body-highlighter": "^2.0.5",
     "react-dom": "^18.2.0",
     "react-i18next": "^11.18.5",

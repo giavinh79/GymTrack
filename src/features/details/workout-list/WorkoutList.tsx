@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
 import { createStyles, Text, useMantineTheme } from '@mantine/core';
 import { useListState } from '@mantine/hooks';
 
@@ -17,6 +17,7 @@ const useStyles = createStyles((theme) => ({
     paddingLeft: theme.spacing.xl - theme.spacing.md, // to offset drag handle
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.white,
     marginBottom: theme.spacing.sm,
+    cursor: 'grab',
   },
 
   itemDragging: {
