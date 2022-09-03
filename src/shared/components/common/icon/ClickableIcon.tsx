@@ -21,6 +21,9 @@ const useClickableIconStyles = createStyles(() => ({
     font: 'inherit',
     outline: 'inherit',
     margin: 'inherit',
+    ':hover, :focus': {
+      filter: 'brightness(50%)',
+    },
   },
 }));
 

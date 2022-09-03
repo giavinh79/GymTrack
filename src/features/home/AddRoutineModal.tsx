@@ -1,16 +1,18 @@
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, Modal, Space, Textarea, TextInput, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 
 import { useCreateRoutineMutation } from 'src/services/routine';
+import { selectContext, setSelectedRoutine } from 'src/slices';
 import { modalHidden } from 'src/slices/modal/modalSlice';
 
 export const AddRoutineModal = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
+  const context = useSelector(selectContext);
   const [createRoutine, { isLoading }] = useCreateRoutineMutation();
 
   const form = useForm<{ name: string; description: string }>({
@@ -25,9 +27,11 @@ export const AddRoutineModal = () => {
 
     try {
       const { name, description } = form.values;
-      await createRoutine({ name, description });
-      // will need to sync query keys of create routine and get routines to force refresh of new routine
+      const newRoutine = await createRoutine({ name, description, userId: context.user.id }).unwrap();
+
+      // should sync query keys of create routine and get routines to force refresh of new routine
       dispatch(modalHidden());
+      dispatch(setSelectedRoutine(newRoutine));
     } catch (err) {
       showNotification({
         icon: <i className='fas fa-exclamation' />,
@@ -43,9 +47,6 @@ export const AddRoutineModal = () => {
     <Modal centered opened onClose={() => dispatch(modalHidden())}>
       <form onSubmit={handleSubmit}>
         <Title order={1}>New Routine</Title>
-        {/* <p className='text--large' style={{ color: '#736E9E', fontWeight: 500 }}>
-            New Routine
-          </p> */}
         <Space h='md' />
         <TextInput
           {...form.getInputProps('name')}
@@ -55,10 +56,6 @@ export const AddRoutineModal = () => {
           label={t('Name')}
           placeholder={t('Name')}
           required
-          // classNames={{
-          //   input: serverError ? 'animate__animated animate__shakeX border-error' : '',
-          // }}
-          // onFocus={() => setServerError(false)}
         />
         <Space h='md' />
         <Textarea
@@ -69,41 +66,11 @@ export const AddRoutineModal = () => {
           placeholder={t('Description')}
           required
           minRows={3}
-          // classNames={{
-          //   input: serverError ? 'animate__animated animate__shakeX border-error' : '',
-          // }}
-          // onFocus={() => setServerError(false)}
         />
         <Space h='xl' />
-        {/* <FormGroup>
-          <Label for='routine-name'>Name</Label>
-          <Input
-            type='text'
-            name='routine-name'
-            id='routine-name'
-            required
-            placeholder='name'
-            value={name}
-            onChange={handleName}
-          />
-        </FormGroup> */}
-        {/* <FormGroup>
-          <Label for='exampleDescription'>Description (optional)</Label>
-          <Input
-            name='description'
-            id='description'
-            type='textarea'
-            placeholder='description'
-            value={description}
-            onChange={handleDescription}
-          />
-        </FormGroup> */}
         <Button type='submit' disabled={form.values.name?.length === 0} fullWidth loading={isLoading}>
           {t('Create')}
         </Button>
-        {/* <Button className='login-form__button' type='submit' disabled={name.length === 0}>
-          Create
-        </Button> */}
       </form>
     </Modal>
   );

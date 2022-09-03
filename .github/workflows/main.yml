@@ -12,7 +12,11 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install modules
         run: yarn
+      - name: Check formatting
+        run: yarn prettier
       - name: Run tests
         run: yarn test
-      - name: Formats files with Prettier
-        run: yarn prettier:fix
+      - name: Check lint
+        run: yarn lint
+      - name: Check build
+        run: yarn build

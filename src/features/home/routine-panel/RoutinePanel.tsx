@@ -1,18 +1,21 @@
 import { memo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Button } from '@mantine/core';
 
 import { ClickableIcon, ThemedSkeleton } from 'src/shared/components';
-import { EModal, modalShown } from 'src/slices';
+import { EModal, modalShown, selectedRoutine } from 'src/slices';
 import { selectRoutinesLoading } from 'src/slices/gym/routine/routinesLoadingSlice';
+import { useAppDispatch, useAppSelector } from 'src/stores/hooks';
 
 import { useRoutinePanelStyles } from './RoutinePanel.styles';
 
 const RoutinePanelComponent = () => {
   const { classes } = useRoutinePanelStyles();
 
-  const dispatch = useDispatch();
-  const loadingRoutinesState = useSelector(selectRoutinesLoading);
+  const dispatch = useAppDispatch();
+  const loadingRoutinesState = useAppSelector(selectRoutinesLoading);
+
+  const routine = useSelector(selectedRoutine);
 
   return (
     <>
@@ -50,9 +53,7 @@ const RoutinePanelComponent = () => {
         {loadingRoutinesState ? (
           <ThemedSkeleton width='15rem' height='2rem' />
         ) : (
-          <span style={{ color: '#8d8d8d', fontWeight: 600, fontSize: '1.5rem' }}>
-            {'Zertovsky Heavy Chest Routine'}
-          </span>
+          <span style={{ color: '#8d8d8d', fontWeight: 600, fontSize: '1.5rem' }}>{routine?.name}</span>
         )}
       </div>
     </>

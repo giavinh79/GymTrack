@@ -1,4 +1,4 @@
-import { RouteObject } from 'react-router-dom';
+import { Navigate, RouteObject } from 'react-router-dom';
 import { ErrorBoundary } from '@sentry/react';
 
 import { LandingPage } from 'src/pages';
@@ -12,5 +12,16 @@ export const publicRoutes: RouteObject[] = [
         <LandingPage />
       </ErrorBoundary>
     ),
+    children: [
+      {
+        path: '.',
+        element: (
+          <ErrorBoundary fallback={<ErrorFallback />}>
+            <LandingPage />
+          </ErrorBoundary>
+        ),
+      },
+      { path: '*', element: <Navigate to='.' /> },
+    ],
   },
 ];

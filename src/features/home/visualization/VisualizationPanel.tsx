@@ -1,10 +1,10 @@
 import { ReactElement, Suspense } from 'react';
-import { useSelector } from 'react-redux';
 import { Group, Space } from '@mantine/core';
 
 import { EVisualization } from 'src/pages/home/types';
 import { RunningLoader } from 'src/shared/components';
 import { selectRoutinesLoading } from 'src/slices/gym/routine/routinesLoadingSlice';
+import { useAppSelector } from 'src/stores/hooks';
 import { lazyImport } from 'src/utils';
 
 import { ActivityCalendar, PanelIcon } from './sub-components';
@@ -18,7 +18,7 @@ interface IVisualizationPanelProps {
 }
 
 export const VisualizationPanel = ({ setVisualization, visualization }: IVisualizationPanelProps): ReactElement => {
-  const isLoading = useSelector(selectRoutinesLoading);
+  const isLoading = useAppSelector(selectRoutinesLoading);
 
   const { classes } = useVisualizationPanelStyles();
 

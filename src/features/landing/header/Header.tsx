@@ -1,11 +1,12 @@
 import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Button, Center, Space } from '@mantine/core';
 
 import { LoginModal } from 'src/features/authentication';
 import { Logo, ThemeToggle } from 'src/shared/components';
 import { EModal, modalHidden, modalShown, selectModal } from 'src/slices';
+import { useAppSelector } from 'src/stores/hooks';
 
 import { useHeaderStyles } from './Header.styles';
 
@@ -13,7 +14,7 @@ export const Header = (): ReactElement => {
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
-  const modal = useSelector(selectModal);
+  const modal = useAppSelector(selectModal);
 
   const { classes } = useHeaderStyles();
 

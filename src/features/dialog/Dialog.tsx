@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { EnhancedModal } from 'src/shared/components';
 import { modalHidden } from 'src/slices/modal/modalSlice';
 
 interface IDialogProps {
@@ -46,7 +48,7 @@ export const Dialog: FunctionComponent<IDialogProps> = ({ title, text, type = 'i
   };
 
   return (
-    <></>
+    <EnhancedModal></EnhancedModal>
     // <Modal isOpen={open} toggle={handleClose} className='dialog' centered>
     //   <ModalBody>
     //     <div>

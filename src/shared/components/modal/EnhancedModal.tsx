@@ -1,9 +1,9 @@
 import { memo, ReactElement, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Modal, ModalProps } from '@mantine/core';
 
 import { useIsMounted } from 'src/shared/hooks/useIsMounted';
 import { EModal, modalHidden, selectModal } from 'src/slices';
+import { useAppDispatch, useAppSelector } from 'src/stores/hooks';
 
 interface IEnhancedModalProps extends Omit<ModalProps, 'onClose' | 'opened'> {
   onClose?: () => void;
@@ -17,8 +17,8 @@ const EnhancedModal = memo(function EnhancedModal(props: IEnhancedModalProps): R
 
   const isMounted = useIsMounted();
 
-  const modal = useSelector(selectModal);
-  const dispatch = useDispatch();
+  const modal = useAppSelector(selectModal);
+  const dispatch = useAppDispatch();
 
   const handleCloseModal = (): void => {
     isMounted && setIsOpen(false);
@@ -39,7 +39,7 @@ const EnhancedModal = memo(function EnhancedModal(props: IEnhancedModalProps): R
     opened: isOpen,
     onClose: () => {
       handleCloseModal();
-      props.onClose && setTimeout(props.onClose, 150);
+      props.onClose ? setTimeout(props.onClose, 150) : dispatch(modalHidden());
     },
   };
 

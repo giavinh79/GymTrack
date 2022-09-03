@@ -1,36 +1,26 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button, Text, Title } from '@mantine/core';
+import { capitalize } from 'lodash';
 
+import { IWorkoutCard } from 'src/pages/home/constants';
 import { ThemedSkeleton } from 'src/shared/components';
 import { selectRoutinesLoading } from 'src/slices/gym/routine/routinesLoadingSlice';
+import { useAppSelector } from 'src/stores/hooks';
+import { IExercise } from 'src/types';
 
 import { useWorkoutCardStyles } from './WorkoutCard.styles';
 
 interface IWorkoutCardProps {
-  backgroundColor: string;
-  day: string;
-  data: {
-    exercises: unknown[];
-  };
-  iconColor: string;
-  textColor: string;
-  text?: string;
-  title: string;
+  card: IWorkoutCard;
+  exercises: IExercise[];
 }
 
-export const WorkoutCard: React.FC<IWorkoutCardProps> = ({
-  backgroundColor,
-  day,
-  data: { exercises },
-  iconColor,
-  textColor: color,
-  text,
-  title,
-}) => {
+export const WorkoutCard: React.FC<IWorkoutCardProps> = ({ card, exercises }: IWorkoutCardProps) => {
+  const { backgroundColor, day, iconColor, textColor: color, text, title } = card;
+
   const navigate = useNavigate();
-  const loadingState = useSelector(selectRoutinesLoading);
+  const loadingState = useAppSelector(selectRoutinesLoading);
 
   const { classes } = useWorkoutCardStyles();
 
@@ -42,7 +32,7 @@ export const WorkoutCard: React.FC<IWorkoutCardProps> = ({
   return (
     <div className={classes.card}>
       <div className={classes.dayAbbreviation} style={{ color, backgroundColor }}>
-        <p>{day}</p>
+        <p>{title}</p>
         <i className='fas fa-dumbbell' style={{ color: iconColor }} />
       </div>
       <div className={classes.cardInfo}>
@@ -53,10 +43,10 @@ export const WorkoutCard: React.FC<IWorkoutCardProps> = ({
         ) : (
           <>
             <Title mb='sm' style={{ fontWeight: 700 }}>
-              {title}
+              {capitalize(day)}
             </Title>
             <Text color='dimmed' m='sm'>
-              {exercises.length === 0 ? "Placeholder for list of this day's exercises" : text}
+              {exercises.length === 0 ? 'Rest Day' : text}
             </Text>
           </>
         )}

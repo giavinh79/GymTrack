@@ -1,12 +1,16 @@
 import { IWorkout } from './exercise';
 
 export interface IRoutine {
-  id: string;
+  id: number;
   name: string;
-  date: string;
-  description: string;
-  creatorId: string;
-  workouts: IWorkout;
+  creatorId: number;
+
+  createdAt: string;
+  description?: string;
+  imageId?: number;
+  rating?: number;
+
+  workout: IWorkout;
 }
 
 export interface IUserRoutine extends IRoutine {

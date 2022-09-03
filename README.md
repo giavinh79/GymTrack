@@ -26,6 +26,8 @@ In the text editor of your choice, install the Prettier extension and adjust set
 
 `Exercise`: An individual type of exercise (i.e. bench-press, chin-ups, push-ups, bicep curl... etc.)
 
+`Set`: A series of repetitions performed sequentially (i.e. when doing push-ups, a set could represent 50 reps which means you did 50 pushups in one go)
+
 ## Tech Stack & Features
 
 - React.js (w/ TypeScript)
@@ -44,3 +46,4 @@ In the text editor of your choice, install the Prettier extension and adjust set
 - More features
 - Add all text to translation files
 - Testing
+- Typed useSelector and useDispatch

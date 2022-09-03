@@ -7,5 +7,5 @@ export interface IExercise {
 
 // Represents the exercises for a certain day
 export type IWorkout = {
-  [key in EDay]: IExercise;
+  [key in EDay]: IExercise[];
 };

@@ -3,24 +3,33 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { getProtectedBaseQuery } from 'src/services';
 import type { IRoutine, IUserRoutine } from 'src/types/internal/routine';
 
+type CreateRoutineMutationArgs = Pick<IRoutine, 'name' | 'description'> & { userId: string };
+
 export const routineApi = createApi({
   reducerPath: 'routineApi',
   baseQuery: getProtectedBaseQuery(),
   endpoints: (builder) => ({
-    createRoutine: builder.mutation<IRoutine, Partial<IRoutine>>({
-      query: (routine) => ({
-        url: 'routine',
+    createRoutine: builder.mutation<IUserRoutine, CreateRoutineMutationArgs>({
+      query: ({ name, description, userId }) => ({
+        url: `user/${userId}/routine`,
         method: 'PUT',
-        body: routine,
+        body: {
+          name,
+          description,
+        },
       }),
     }),
     deleteRoutine: builder.mutation<number, number>({
-      query: () => 'routine',
+      query: (routineId) => `routine/${routineId}`,
     }),
     getUsersRoutines: builder.query<IUserRoutine[], string>({
       query: (userId: string) => `user/${userId}/routines`,
     }),
+    getSelectedUserRoutine: builder.query<IUserRoutine, string>({
+      query: (userId: string) => `user/${userId}/routine/selected`,
+    }),
   }),
 });
 
-export const { useCreateRoutineMutation, useLazyGetUsersRoutinesQuery } = routineApi;
+export const { useCreateRoutineMutation, useLazyGetSelectedUserRoutineQuery, useLazyGetUsersRoutinesQuery } =
+  routineApi;
