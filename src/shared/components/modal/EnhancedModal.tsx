@@ -13,7 +13,7 @@ interface IEnhancedModalProps extends Omit<ModalProps, 'onClose' | 'opened'> {
  * EnhancedModal component is a project-specific wrapper around the Mantine modal that automates boilerplate around opening and closing states
  */
 const EnhancedModal = memo(function EnhancedModal(props: IEnhancedModalProps): ReactElement {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const isMounted = useIsMounted();
 
