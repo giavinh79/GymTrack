@@ -70,6 +70,7 @@ const LoginModal = memo(function LoginModal({ onClose }: ILoginModalProps): Reac
           name='username'
           label={t('landing:LOGIN.MODAL.EMAIL_LABEL')}
           placeholder={t('landing:LOGIN.MODAL.EMAIL_PLACEHOLDER')}
+          autoComplete='username'
           required
           classNames={{
             input: serverError ? 'animate__animated animate__shakeX border-error' : '',
@@ -85,6 +86,7 @@ const LoginModal = memo(function LoginModal({ onClose }: ILoginModalProps): Reac
           name='password'
           label={t('landing:LOGIN.MODAL.PASSWORD_LABEL')}
           placeholder={t('landing:LOGIN.MODAL.PASSWORD_PLACEHOLDER')}
+          autoComplete='current-password'
           required
           classNames={{
             input: serverError ? 'animate__animated animate__shakeX border-error' : '',
