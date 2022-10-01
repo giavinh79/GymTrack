@@ -63,7 +63,7 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-router-dom": "^5.3.3",
     "@types/recharts": "^1.8.23",
-    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
     "@typescript-eslint/parser": "^5.36.1",
     "@vitejs/plugin-react": "2.0.1",
     "eslint": "^8.23.0",
