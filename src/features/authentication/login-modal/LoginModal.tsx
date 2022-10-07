@@ -10,11 +10,7 @@ import { EnhancedModal } from 'src/shared/components';
 
 import { useLoginModalStyles } from './LoginModal.styles';
 
-interface ILoginModalProps {
-  onClose: () => void;
-}
-
-const LoginModal = memo(function LoginModal({ onClose }: ILoginModalProps): ReactElement {
+const LoginModal = memo(function LoginModal(): ReactElement {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -49,8 +45,8 @@ const LoginModal = memo(function LoginModal({ onClose }: ILoginModalProps): Reac
   };
 
   return (
-    <EnhancedModal onClose={onClose} centered padding={35}>
-      <form onSubmit={handleSubmit} autoComplete='on'>
+    <EnhancedModal onSubmit={handleSubmit} centered padding={35}>
+      <form autoComplete='on'>
         {serverError && (
           <Alert color='red' className='animate__fadeInDown login-form__alert'>
             {t('landing:LOGIN.MODAL.ERROR.AUTH')}

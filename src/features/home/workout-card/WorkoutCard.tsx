@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Text, Title } from '@mantine/core';
-import { capitalize } from 'lodash';
+import capitalize from 'lodash/capitalize';
 
 import { IWorkoutCard } from 'src/pages/home/constants';
 import { ThemedSkeleton } from 'src/shared/components';

@@ -13,11 +13,10 @@ import { MIN_PASSWORD_LENGTH } from 'src/shared/constants';
 import { useIsMounted } from 'src/shared/hooks/useIsMounted';
 
 interface ISignupModalProps {
-  onClose: () => void;
   signupEmail: string;
 }
 
-export const SignupModal = ({ onClose, signupEmail }: ISignupModalProps): ReactElement => {
+export const SignupModal = ({ signupEmail }: ISignupModalProps): ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const isMounted = useIsMounted();
@@ -27,7 +26,7 @@ export const SignupModal = ({ onClose, signupEmail }: ISignupModalProps): ReactE
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleSubmit = async (e: React.FormEvent<HTMLDivElement>): Promise<void> => {
     try {
       e.preventDefault();
       setIsLoggingIn(true);
@@ -36,6 +35,7 @@ export const SignupModal = ({ onClose, signupEmail }: ISignupModalProps): ReactE
       await signInWithEmailAndPassword(auth, email, password);
 
       localStorage.setItem('expectSignIn', '1');
+      // manually call
       navigate('/home');
     } catch (err) {
       if (isMounted.current) {
@@ -56,8 +56,8 @@ export const SignupModal = ({ onClose, signupEmail }: ISignupModalProps): ReactE
   };
 
   return (
-    <EnhancedModal onClose={onClose} centered size='500px' padding={35}>
-      <form onSubmit={handleSubmit}>
+    <EnhancedModal onSubmit={handleSubmit} centered size='500px' padding={35}>
+      <form>
         <Stack align='center'>
           <Logo />
           <Title order={1}>{t('landing:SIGNUP.MODAL.TITLE')}</Title>
@@ -126,6 +126,7 @@ export const SignupModal = ({ onClose, signupEmail }: ISignupModalProps): ReactE
                 }
               : {}
           }
+          // @TODO - when disabled, make button text color white instead
         >
           {t('landing:SIGNUP.MODAL.SUBMIT_BUTTON')}
         </Button>

@@ -3,5 +3,11 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": true
   },
-  "cSpell.words": ["pangea"]
+  "cSpell.words": [
+    "DEADLIFT",
+    "pangea"
+  ],
+  "i18n-ally.localesPaths": [
+    "src/locales"
+  ]
 }

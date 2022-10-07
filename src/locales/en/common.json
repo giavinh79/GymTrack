@@ -8,5 +8,8 @@
     "CANCEL": "Cancel",
     "YES": "Yes",
     "NO": "No"
+  },
+  "ERROR": {
+    "GENERAL": "Error. Try refreshing."
   }
 }

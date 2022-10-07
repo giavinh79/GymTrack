@@ -3,16 +3,19 @@ import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 import commonTranslationsEN from './en/common.json';
+import domainTranslationsEN from './en/domain.json';
 import landingTranslationsEN from './en/landing.json';
 
 export enum Translations {
   EN = 'en',
+  FR = 'fr',
 }
 
 // translation files
 const resources = {
   [Translations.EN]: {
     common: commonTranslationsEN,
+    domain: domainTranslationsEN,
     landing: landingTranslationsEN,
   },
 };

@@ -20,7 +20,7 @@ export const Header = (): ReactElement => {
 
   return (
     <>
-      {modal === EModal.LOGIN && <LoginModal onClose={() => dispatch(modalHidden())} />}
+      {modal === EModal.LOGIN && <LoginModal />}
       <Center inline className={classes.container}>
         <Logo enableLink />
         <div className={classes.rightSection}>

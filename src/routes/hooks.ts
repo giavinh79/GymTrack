@@ -7,12 +7,15 @@ import * as Sentry from '@sentry/react';
 import { auth } from 'src/auth/firebase';
 import { useLazyGetSelectedUserRoutineQuery } from 'src/services/routine';
 import { ERROR } from 'src/shared/constants';
+import { useIsMounted } from 'src/shared/hooks/useIsMounted';
 import { setContext, setSelectedRoutine } from 'src/slices';
 import { isNil } from 'src/utils';
 
 // Fetch user and user routine information and store in global state for protected pages
 export const useInitializeApp = (): { loading: boolean } => {
   const [loading, setLoading] = useState(true);
+
+  const isMounted = useIsMounted();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -43,8 +46,17 @@ export const useInitializeApp = (): { loading: boolean } => {
 
       const { data: selectedRoutine, isError } = await getSelectedUserRoutine(context.user.id);
 
+      if (!isMounted.current) {
+        return;
+      }
+
       if (isError) {
-        showNotification({ title: 'Error', message: ERROR.GENERIC, color: 'red' });
+        showNotification({
+          id: 'get-selected-user-routine-error',
+          title: 'Error',
+          message: ERROR.GENERIC,
+          color: 'red',
+        });
         return setLoading(false);
         // @TODO manually let Sentry know w/ captureException
       }
@@ -57,7 +69,7 @@ export const useInitializeApp = (): { loading: boolean } => {
     });
 
     return () => unsubscribe();
-  }, [dispatch, getSelectedUserRoutine, loading, navigate]);
+  }, [dispatch, getSelectedUserRoutine, loading, navigate, isMounted]);
 
   return {
     loading,

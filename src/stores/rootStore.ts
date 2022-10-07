@@ -1,5 +1,6 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 
+import { exerciseApi } from 'src/services/exercise';
 import { routineApi } from 'src/services/routine';
 import contextReducer from 'src/slices/context/contextSlice';
 import loadingRoutinesReducer from 'src/slices/gym/routine/routinesLoadingSlice';
@@ -10,6 +11,7 @@ export const store = configureStore({
   reducer: {
     // api
     [routineApi.reducerPath]: routineApi.reducer,
+    [exerciseApi.reducerPath]: exerciseApi.reducer,
 
     context: contextReducer,
 
@@ -20,7 +22,7 @@ export const store = configureStore({
     loadingRoutines: loadingRoutinesReducer,
     routines: routinesReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(routineApi.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([routineApi.middleware, exerciseApi.middleware]),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -1,0 +1,14 @@
+{
+  "EXERCISE": {
+    "AIR_BIKE": "Vélo pneumatique",
+    "BARBELL_DEADLIFT": "Soulevé de terre à la barre",
+    "BARBELL_LYING_TRICEPS_EXTENSION": "Extension des triceps allongés avec haltères",
+    "BARBELL_SHOULDER_PRESS": "Presse à épaules avec haltères",
+    "BARBELL_SQUATS": "Squats d'haltères",
+    "BENCH_PRESS": "Banc de Presse",
+    "BICEPS_CURL": "Courbure des biceps",
+    "DIPS": "Trempettes",
+    "STANDING_LEG_CURLS": "Curls des jambes debout",
+    "WIDE_GRIP_LAT_PULL_DOWN": "Pulldown Lat à prise large"
+  }
+}

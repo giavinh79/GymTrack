@@ -4,7 +4,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import { SignupModal } from 'src/features';
 import { DesktopLandingPage } from 'src/pages/landing/desktop/DesktopLandingPage';
 import { MobileLandingPage } from 'src/pages/landing/mobile/MobileLandingPage';
-import { EModal, modalHidden, modalShown, selectModal } from 'src/slices';
+import { EModal, modalShown, selectModal } from 'src/slices';
 import { useAppDispatch, useAppSelector } from 'src/stores/hooks';
 
 export const LandingPage = () => {
@@ -28,7 +28,7 @@ export const LandingPage = () => {
       ) : (
         <MobileLandingPage handleSignup={handleSignup} setSignupEmail={setSignupEmail} />
       )}
-      {modal === EModal.SIGNUP && <SignupModal signupEmail={signupEmail} onClose={() => dispatch(modalHidden())} />}
+      {modal === EModal.SIGNUP && <SignupModal signupEmail={signupEmail} />}
     </>
   );
 };

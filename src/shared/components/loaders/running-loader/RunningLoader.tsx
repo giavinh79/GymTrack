@@ -5,9 +5,10 @@ import { Runner } from './Runner';
 interface IRunningLoaderProps {
   height?: string;
   transparentBng?: boolean;
+  margin?: string;
 }
 
-export const RunningLoader = ({ height = 'inherit', transparentBng = true }: IRunningLoaderProps) => {
+export const RunningLoader = ({ height = 'inherit', margin, transparentBng = true }: IRunningLoaderProps) => {
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
 
@@ -23,8 +24,10 @@ export const RunningLoader = ({ height = 'inherit', transparentBng = true }: IRu
     <Center
       style={{
         width: '100%',
+        minHeight: '45px',
         height,
         backgroundColor: getBackgroundColor(),
+        ...(margin ? { margin } : {}),
       }}
     >
       <Runner />

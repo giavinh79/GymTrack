@@ -1,0 +1,34 @@
+{
+  "NAVIGATION": {},
+  "FIRST_HEADER": "<0>Track</0> your fitness journey.",
+  "SECOND_HEADER": "<0>Start</0> today for free.",
+  "FITNESS_BACKGROUND_IMAGE_ALT": "Girl jogging with phone",
+  "SIGNUP": {
+    "BUTTON": "SIGN UP TODAY",
+    "EMAIL_PLACEHOLDER": "Email",
+    "MODAL": {
+      "TITLE": "Let's Get Started",
+      "EMAIL": "Email",
+      "PASSWORD": "Password",
+      "PASSWORD_PLACEHOLDER": "Enter password",
+      "SUBMIT_BUTTON": "Sign Up",
+      "CONFIRM_PASSWORD": "Confirm Password",
+      "PASSWORDS_ARE_DIFFERENT": "PASSWORDS ENTERED ARE DIFFERENT",
+      "PASSWORD_MIN_LENGTH_WARNING": "PASSWORD MUST BE AT LEAST 6 CHARACTERS"
+    }
+  },
+  "LOGIN": {
+    "MODAL": {
+      "HEADER": "Welcome",
+      "PRIMARY_BUTTON": "Login",
+      "FORGOT_PASSWORD": "FORGOT PASSWORD?",
+      "PASSWORD_LABEL": "Password",
+      "PASSWORD_PLACEHOLDER": "password",
+      "EMAIL_LABEL": "Email",
+      "EMAIL_PLACEHOLDER": "email",
+      "ERROR": {
+        "AUTH": "Invalid credentials, please try again."
+      }
+    }
+  }
+}

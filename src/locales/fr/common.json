@@ -1,0 +1,15 @@
+{
+  "NAME": "GymTrack",
+  "AUTH": {
+    "LOGIN": "Connexion"
+  },
+  "BUTTON": {
+    "CONFIRM": "Confirmer",
+    "CANCEL": "Annuler",
+    "YES": "Oui",
+    "NO": "Non"
+  },
+  "ERROR": {
+    "GENERAL": "Erreur. "
+  }
+}

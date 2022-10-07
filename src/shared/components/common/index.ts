@@ -1,3 +1,4 @@
+export * from './footer';
 export * from './icon';
 export * from './logo';
 export * from './scroll-to-top';

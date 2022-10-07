@@ -36,9 +36,9 @@ In the text editor of your choice, install the Prettier extension and adjust set
 - [React Router](https://reactrouter.com/) for routing
 - [Mantine](https://mantine.dev/) for design & styling (UI component library with useful hooks)
 - [Font Awesome 5](https://fontawesome.com/v5/search) for icons
-- Internationalization with [react-i18next](https://react.i18next.com/)
+- Internationalization with [react-i18next](https://react.i18next.com/) and https://translate.i18next.com/
 - Production error tracking with [Sentry](https://sentry.io/)
-- Uses [Vite](https://vitejs.dev/) as a build tool over Webpack for significant performance increases
+- Uses [Vite](https://vitejs.dev/) as a build tool over Webpack for significant development performance increases
 - Mixpanel for analytics
 
 ## TODO
@@ -46,4 +46,7 @@ In the text editor of your choice, install the Prettier extension and adjust set
 - More features
 - Add all text to translation files
 - Testing
-- Typed useSelector and useDispatch
+- Address all @TODOs in code
+- Re-consider a global modal approach with functions instead (and tradeoffs associated with this) - maybe just use Mantine's Modal Provider
+- Lazy load Sentry
+- Migrate to dnd-kit ?

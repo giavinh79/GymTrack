@@ -1,0 +1,14 @@
+{
+  "EXERCISE": {
+    "AIR_BIKE": "Air Bike",
+    "BARBELL_DEADLIFT": "Barbell Deadlift",
+    "BARBELL_LYING_TRICEPS_EXTENSION": "Barbell Lying Triceps Extension",
+    "BARBELL_SHOULDER_PRESS": "Barbell Shoulder Press",
+    "BARBELL_SQUATS": "Barbell Squats",
+    "BENCH_PRESS": "Bench Press",
+    "BICEPS_CURL": "Biceps Curl",
+    "DIPS": "Dips",
+    "STANDING_LEG_CURLS": "Standing Leg Curls",
+    "WIDE_GRIP_LAT_PULL_DOWN": "Wide Grip Lat Pulldown"
+  }
+}

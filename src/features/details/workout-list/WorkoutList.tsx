@@ -17,7 +17,6 @@ const useStyles = createStyles((theme) => ({
     paddingLeft: theme.spacing.xl - theme.spacing.md, // to offset drag handle
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.white,
     marginBottom: theme.spacing.sm,
-    cursor: 'grab',
   },
 
   itemDragging: {
@@ -39,6 +38,7 @@ const useStyles = createStyles((theme) => ({
     color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[6],
     padding: theme.spacing.md,
     fontSize: '1.5rem',
+    cursor: 'grab',
   },
 }));
 

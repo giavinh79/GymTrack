@@ -21,7 +21,7 @@ const useClickableIconStyles = createStyles(() => ({
     font: 'inherit',
     outline: 'inherit',
     margin: 'inherit',
-    ':hover, :focus': {
+    ':hover, :focus-visible': {
       filter: 'brightness(50%)',
     },
   },
@@ -55,6 +55,7 @@ export const ClickableIcon = ({
       className={classes.button}
       aria-label={rest['aria-label']}
       style={{ margin: margin ?? 0, ...style }}
+      type='button'
     >
       <i {...rest} style={iconStyles}>
         {children}
