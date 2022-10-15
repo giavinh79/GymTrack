@@ -1,13 +1,9 @@
 {
+  "editor.linkedEditing": true,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": true
   },
-  "cSpell.words": [
-    "DEADLIFT",
-    "pangea"
-  ],
-  "i18n-ally.localesPaths": [
-    "src/locales"
-  ]
+  "cSpell.words": ["DEADLIFT", "pangea"],
+  "i18n-ally.localesPaths": ["src/locales"]
 }
