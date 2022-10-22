@@ -5,6 +5,9 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import commonTranslationsEN from './en/common.json';
 import domainTranslationsEN from './en/domain.json';
 import landingTranslationsEN from './en/landing.json';
+import commonTranslationsFR from './fr/common.json';
+import domainTranslationsFR from './fr/domain.json';
+import landingTranslationsFR from './fr/landing.json';
 
 export enum Translations {
   EN = 'en',
@@ -17,6 +20,11 @@ const resources = {
     common: commonTranslationsEN,
     domain: domainTranslationsEN,
     landing: landingTranslationsEN,
+  },
+  [Translations.FR]: {
+    common: commonTranslationsFR,
+    domain: domainTranslationsFR,
+    landing: landingTranslationsFR,
   },
 };
 
