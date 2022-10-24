@@ -25,7 +25,7 @@ function App() {
   useEffect(() => {
     (async () => {
       if (window.location.hostname !== 'localhost') {
-        // initialize Sentry with public key
+        // initialize Sentry (error tracking) with public key
         Sentry.init({
           dsn: 'https://db739f10f70b4ec187cd546b19b38362@o1113987.ingest.sentry.io/6144880',
           integrations: [new Integrations.BrowserTracing()],

@@ -32,8 +32,6 @@ export const AddRoutineExerciseModal = () => {
       // send id, day, and order to server
       // server should have a user/:id/routine/:id/exercise PUT endpoint
       // server should just add it to routine_exercise table
-      // put isSelected to true
-      // any older routines that are selected become false
       // validate day and order
 
       // dispatch(modalHidden());
