@@ -89,12 +89,12 @@ export const AddRoutineExerciseModal = () => {
                   </Tabs.List>
 
                   <Tabs.Panel value='gallery' pt='xs'>
-                    <Text size='sm'>{selectedExercise?.description}</Text>
+                    <Text size='sm'>{selectedExercise.description}</Text>
                     <Space h='md' />
                     <Center>
                       <img
                         src={selectedExercise?.image.url}
-                        alt={t(`domain:EXERCISE.${selectedExercise?.name}`)}
+                        alt={t(`domain:EXERCISE.${selectedExercise.name}`) ?? ''}
                         style={{
                           width: '100%',
                           objectFit: 'contain',

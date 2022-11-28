@@ -68,3 +68,4 @@ Install:
 - Migrate to dnd-kit ?
 - Increase performance on load (reduce initial bundle size load with code splitting w/ Vite.js dynamic imports, [Partytown](https://partytown.builder.io/), replacing Font Awesome at some point...etc.
 - Storybook v7
+- Get rid of Lodash and replace with native functions or create util functions
