@@ -60,7 +60,7 @@ Install:
 ## TODO
 
 - Complete routine start and update features
-- Internationalize all text
+- Internationalize all text + add plugin to auto-import internationalization files based on file location
 - Add component tests w/ React Testing Library
 - Address all @TODOs in code
 - Re-consider a global modal approach with functions instead (and tradeoffs associated with this) - maybe just use Mantine's Modal Provider
