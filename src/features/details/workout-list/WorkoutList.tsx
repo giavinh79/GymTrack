@@ -1,13 +1,14 @@
 import { ReactElement } from 'react';
+import { useTranslation } from 'react-i18next';
 import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
-import { createStyles, Text, useMantineTheme } from '@mantine/core';
+import { createStyles, Text } from '@mantine/core';
 import { useListState } from '@mantine/hooks';
 
-import { ReactComponent as ExerciseAbBicycle } from 'src/assets/images/exercises/exercise_ab_bicycle.svg';
 import { ClickableIcon } from 'src/shared/components';
+import { IExercise } from 'src/types';
 
 const useStyles = createStyles((theme) => ({
-  item: {
+  exercise: {
     display: 'flex',
     position: 'relative',
     alignItems: 'center',
@@ -17,6 +18,14 @@ const useStyles = createStyles((theme) => ({
     paddingLeft: theme.spacing.xl - theme.spacing.md, // to offset drag handle
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.white,
     marginBottom: theme.spacing.sm,
+  },
+
+  exerciseImage: {
+    width: '50px',
+    objectFit: 'contain',
+    height: '50px',
+    borderRadius: '6px',
+    backgroundColor: '#e8e8e8',
   },
 
   itemDragging: {
@@ -42,48 +51,41 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-interface WorkoutCardData {
-  name: string;
-  symbol: string;
-  sets: number;
-  reps: number;
+interface IDndListHandleProps {
+  data: IExercise[];
 }
 
-interface DndListHandleProps {
-  data: WorkoutCardData[];
-}
-
-export const WorkoutList = ({ data }: DndListHandleProps): ReactElement => {
+export const WorkoutList = ({ data }: IDndListHandleProps): ReactElement => {
   const { classes, cx } = useStyles();
-  const [state, handlers] = useListState<WorkoutCardData>(data);
+  const [state, handlers] = useListState<IExercise>(data);
 
-  const theme = useMantineTheme();
+  const { t } = useTranslation();
 
-  const items = state.map((item, index) => (
-    <Draggable key={item.symbol} index={index} draggableId={item.symbol}>
+  const exercises = state.map((exercise, index) => (
+    <Draggable key={exercise.id} index={index} draggableId={exercise.name}>
       {(provided, snapshot) => (
         <div
-          className={cx(classes.item, { [classes.itemDragging]: snapshot.isDragging })}
+          className={cx(classes.exercise, { [classes.itemDragging]: snapshot.isDragging })}
           ref={provided.innerRef}
           {...provided.draggableProps}
         >
           <div {...provided.dragHandleProps} className={classes.dragHandle}>
             <i className='fas fa-grip-horizontal' />
           </div>
-          <ExerciseAbBicycle width='4rem' fill={theme.colors.violet[6]} />
-          <div style={{ textAlign: 'left', marginLeft: '1.5rem' }}>
-            <Text>{item.name}</Text>
+          <img src={exercise.image.url} alt='' className={classes.exerciseImage} />
+          <div style={{ textAlign: 'left', marginLeft: '1rem' }}>
+            <Text>{t(`domain:EXERCISE.${exercise.name}`)}</Text>
             <Text color='dimmed' size='sm'>
-              Sets: {item.sets} • Reps: {item.reps}
+              {exercise.description} • <strong>Sets:</strong> {exercise.sets.length}
             </Text>
           </div>
           <ClickableIcon
             className='far fa-times-circle'
-            // color='red'
+            color='red'
             onClick={() => ({})}
             style={{
               position: 'absolute',
-              top: 0,
+              top: 5,
               right: 0,
             }}
           />
@@ -101,7 +103,7 @@ export const WorkoutList = ({ data }: DndListHandleProps): ReactElement => {
       <Droppable droppableId='dnd-list' direction='vertical'>
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
-            {items}
+            {exercises}
             {provided.placeholder}
           </div>
         )}

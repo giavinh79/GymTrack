@@ -1,40 +1,69 @@
 import { useState } from 'react';
 import Model, { IExerciseData, Muscle } from 'react-body-highlighter';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import { Button, Center, Group, Modal, NumberInput, Space, Tabs, Text, Title } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import kebabCase from 'lodash/kebabCase';
 
-import { useGetExercisesQuery } from 'src/services/exercise';
+import { useAddRoutineExerciseMutation, useGetExercisesQuery } from 'src/services/exercise';
 import { ClickableIcon, RunningLoader } from 'src/shared/components';
+import { DEFAULT_REPS, EXERCISE_VALUE_TYPE_TO_ID } from 'src/shared/constants/domain';
 import { modalHidden } from 'src/slices/modal/modalSlice';
-import { IExercise } from 'src/types';
+import { useAppDispatch, useAppSelector } from 'src/stores/hooks';
+import { EDay, IExercise } from 'src/types';
 
 import { ExerciseDropdown } from './ExerciseDropdown';
 
-export const AddRoutineExerciseModal = () => {
+interface IAddRoutineExerciseModalProps {
+  day: EDay;
+}
+
+export const AddRoutineExerciseModal = ({ day }: IAddRoutineExerciseModalProps) => {
   const [selectedExercise, setSelectedExercise] = useState<IExercise | undefined>();
-  const [numOfSets, setNumOfSets] = useState<number | undefined>(3);
+  const [numOfSets, setNumOfSets] = useState<number>(3);
   const [modelView, setModelView] = useState<'posterior' | 'anterior'>('anterior');
 
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { data: exercises, isFetching } = useGetExercisesQuery();
+  const [addRoutineExercise, { isLoading }] = useAddRoutineExerciseMutation();
+
+  const [userId, selectedRoutine] = useAppSelector((state) => [state.context.user.id, state.routines.selectedRoutine]);
+
+  const createDefaultSets = () => {
+    const sets = [];
+
+    for (let i = 0; i < numOfSets; i++) {
+      sets.push({
+        exerciseValueTypeId: EXERCISE_VALUE_TYPE_TO_ID.REPS,
+        numReps: DEFAULT_REPS,
+      });
+    }
+
+    return sets;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      console.log(selectedExercise);
-      // Your routine does not have any exercises. Press the "Add Exercise" button below to get started!
-      // send id, day, and order to server
-      // server should have a user/:id/routine/:id/exercise PUT endpoint
-      // server should just add it to routine_exercise table
-      // validate day and order
-
-      // dispatch(modalHidden());
+      if (userId && selectedRoutine?.id && selectedExercise) {
+        await addRoutineExercise({
+          routineId: selectedRoutine.id,
+          userId,
+          exerciseId: selectedExercise.id,
+          addRoutineExercisePayload: {
+            day,
+            exerciseOrder: selectedRoutine.workout[day].length + 1,
+            sets: createDefaultSets(),
+          },
+        });
+        dispatch(modalHidden());
+        // @TODO trigger cache invalidation of selected user routine
+        // do I really even need to store the API result in a new slice?
+        // should be able to just grab it from that API file `services/routine.ts`
+      }
     } catch (err) {
       showNotification({
         icon: <i className='fas fa-exclamation' />,
@@ -134,14 +163,14 @@ export const AddRoutineExerciseModal = () => {
                   min={1}
                   defaultValue={3}
                   label='Number of Sets'
-                  onChange={(value) => setNumOfSets(value)}
+                  onChange={(value) => setNumOfSets(value ?? 3)}
                 />
               </>
             )}
           </>
         )}
         <Space h='xl' />
-        <Button type='submit' disabled={isAddButtonDisabled()} fullWidth loading={false}>
+        <Button type='submit' disabled={isAddButtonDisabled()} fullWidth loading={isLoading}>
           {t('Add')}
         </Button>
       </form>

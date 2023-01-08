@@ -2,12 +2,17 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { getProtectedBaseQuery } from 'src/services';
 import { showError } from 'src/shared/notifications';
-import { IExercise } from 'src/types';
+import { EDay, IExercise, ISet } from 'src/types';
 
 interface AddRoutineExerciseMutationArgs {
   userId: string;
-  routineId: string;
-  exercise: IExercise;
+  routineId: number;
+  exerciseId: number;
+  addRoutineExercisePayload: {
+    day: EDay;
+    exerciseOrder: number;
+    sets: Partial<Omit<ISet, 'id'>>[];
+  };
 }
 
 export const exerciseApi = createApi({
@@ -15,10 +20,13 @@ export const exerciseApi = createApi({
   baseQuery: getProtectedBaseQuery(),
   endpoints: (builder) => ({
     addRoutineExercise: builder.mutation<IExercise, AddRoutineExerciseMutationArgs>({
-      query: ({ userId, routineId, exercise }) => ({
-        url: `user/${userId}/routine/${routineId}`,
+      query: ({ userId, routineId, exerciseId, addRoutineExercisePayload }) => ({
+        url: `user/${userId}/routine/${routineId}/exercise/${exerciseId}`,
         method: 'PUT',
-        body: exercise,
+        body: {
+          ...addRoutineExercisePayload,
+          day: addRoutineExercisePayload.day.toUpperCase(),
+        },
       }),
     }),
     getExercises: builder.query<IExercise[], void>({
@@ -37,4 +45,4 @@ export const exerciseApi = createApi({
   }),
 });
 
-export const { useGetExercisesQuery } = exerciseApi;
+export const { useAddRoutineExerciseMutation, useGetExercisesQuery } = exerciseApi;

@@ -1,7 +1,7 @@
 import { EDay } from './common';
 
 interface IImage {
-  url?: string;
+  url: string;
   fileId?: string;
 }
 
@@ -10,29 +10,37 @@ interface IExerciseMuscles {
   name: string;
 }
 
-interface IExerciseValueTypeUnit {
+export interface IExerciseValueTypeUnit {
   id: number;
   name: string;
 }
 
-interface IExerciseValueType {
+export interface IExerciseValueType {
   id: number;
   name: string;
 
   exerciseValueTypeUnits: IExerciseValueTypeUnit[];
 }
 
+export interface ISet {
+  id: number;
+  numReps: number;
+  value: string;
+  exerciseValueTypeId: number;
+  exerciseValueTypeUnitId: number;
+}
+
 export interface IExercise {
   id: number;
   name: string;
   description?: string;
-  defaultExerciseValueType?: number;
+  exerciseOrder: number;
   creatorId?: number;
   imageId?: number;
 
   image: IImage;
-  exerciseValueType: IExerciseValueType;
   musclesUsed: IExerciseMuscles[];
+  sets: ISet[];
 }
 
 // Represents the exercises for a certain day

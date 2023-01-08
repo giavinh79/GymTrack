@@ -11,7 +11,7 @@ import { lazyImport } from 'src/utils';
 import { useInitializeApp } from './hooks';
 
 const { HomePage } = lazyImport(() => import('src/pages'), 'HomePage');
-const { DetailsPage } = lazyImport(() => import('src/pages'), 'DetailsPage');
+const { ExerciseDetailsPage } = lazyImport(() => import('src/pages'), 'ExerciseDetailsPage');
 
 const useProtectedPageStyles = createStyles((theme) => ({
   pageContainer: {
@@ -58,7 +58,7 @@ export const protectedRoutes: RouteObject[] = [
     element: <ProtectedPage />,
     children: [
       { path: '', element: <HomePage />, index: true },
-      { path: 'details/*', element: <DetailsPage /> },
+      { path: 'details/*', element: <ExerciseDetailsPage /> },
       { path: '*', element: <Navigate to='.' /> },
     ],
   },
