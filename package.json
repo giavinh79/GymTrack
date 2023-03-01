@@ -10,7 +10,7 @@
     "@mantine/form": "5.10.0",
     "@mantine/hooks": "5.10.0",
     "@mantine/notifications": "5.10.0",
-    "@reduxjs/toolkit": "^1.9.1",
+    "@reduxjs/toolkit": "^1.9.3",
     "@sentry/react": "^7.29.0",
     "@sentry/tracing": "^7.29.0",
     "animate.css": "4.1.1",
