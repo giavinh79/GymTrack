@@ -4,7 +4,7 @@
 
 Simple & for fun [React.js](https://reactjs.org/), [TypeScript](https://www.typescriptlang.org/), and [Redux](https://redux-toolkit.js.org/) application for tracking and managing a user's fitness journey. This frontend application deploys automatically on merges to master via Netlify: https://gymtrack.netlify.app
 
-The backend was made in Node.js ([Express.js](https://expressjs.com/)) but is being deprecated for a Spring Boot version here: https://github.com/GV79/GymTrackApiV2
+The backend was made in Node.js ([Express.js](https://expressjs.com/)) but is being deprecated for a Spring Boot version here: https://github.com/giavinh79/GymTrackApiV2
 
 ![image](https://user-images.githubusercontent.com/24909563/159189357-b88bdbd4-331f-4f5e-9938-0851813ab132.png)
 
