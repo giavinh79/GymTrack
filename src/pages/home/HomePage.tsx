@@ -2,8 +2,9 @@ import { ReactElement, useCallback, useState } from 'react';
 import { Container, Grid } from '@mantine/core';
 
 import { AddRoutineModal, NoRoutinePlaceholder, RoutinePanel, VisualizationPanel, WorkoutCard } from 'src/features';
+import { useGetSelectedUserRoutineQuery } from 'src/services/routine';
 import { ScrollToTop } from 'src/shared/components';
-import { EModal, selectedRoutine, selectModal } from 'src/slices';
+import { EModal, selectContext, selectModal } from 'src/slices';
 import { useAppSelector } from 'src/stores/hooks';
 
 import { WORKOUT_CARDS } from './constants';
@@ -16,7 +17,8 @@ export const HomePage = (): ReactElement => {
 
   const [visualization, setVisualization] = useState(EVisualization.CALENDAR);
 
-  const currentUserRoutine = useAppSelector(selectedRoutine);
+  const context = useAppSelector(selectContext);
+  const { data: routine } = useGetSelectedUserRoutineQuery(context.user.id);
 
   const handleModal = useCallback(() => {
     switch (modal) {
@@ -41,7 +43,7 @@ export const HomePage = (): ReactElement => {
       {handleModal()}
 
       <Container size='lg' pb={'6rem'}>
-        {currentUserRoutine ? (
+        {routine ? (
           <>
             <RoutinePanel />
 
@@ -50,7 +52,7 @@ export const HomePage = (): ReactElement => {
             <Grid grow gutter='xl'>
               {WORKOUT_CARDS.map((card) => (
                 <Grid.Col span={6} key={card.title}>
-                  <WorkoutCard card={card} exercises={currentUserRoutine.workout?.[card.day] ?? []} />
+                  <WorkoutCard card={card} exercises={routine.workout?.[card.day] ?? []} />
                 </Grid.Col>
               ))}
             </Grid>

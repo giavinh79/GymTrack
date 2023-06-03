@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 import { createStyles } from '@mantine/core';
 
 type IconColor = 'blue' | 'green' | 'red';

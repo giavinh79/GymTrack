@@ -1,12 +1,4 @@
 import { lazy } from 'react';
-import get from 'lodash/get';
-import isNil from 'lodash/isNil'; // lodash is CommonJS and not tree-shakeable with named imports :(
-import omit from 'lodash/omit';
-import pick from 'lodash/pick';
-
-const exists = <T>(value: T | null | undefined): value is T => {
-  return !isNil(value);
-};
 
 /**
  * named imports for React.lazy: https://github.com/facebook/react/issues/14603#issuecomment-726551598
@@ -49,4 +41,17 @@ const isSameDay = (dayOne: Date, dayTwo: Date) => {
   );
 };
 
-export { exists, get, isNil, isSameDay, lazyImport, lazyLoadCss, omit, pick };
+/**
+ * Re-orders a list given the source index (item to move) and the destination index (where to move that item)
+ * @returns new re-ordered list
+ */
+const reorderList = <T>(list: T[], sourceIndex: number, destinationIndex: number): T[] => {
+  const clone = structuredClone(list) as T[];
+  const item = list[sourceIndex];
+
+  clone.splice(sourceIndex, 1);
+  clone.splice(destinationIndex, 0, item);
+  return clone;
+};
+
+export { isSameDay, lazyImport, lazyLoadCss, reorderList };

@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 
-import { exists, isNil } from 'src/utils';
-
 interface IUseVisibleInput {
   ref: React.MutableRefObject<null>;
   rootMargin: string;
@@ -14,7 +12,7 @@ export const useVisible = ({ ref, rootMargin = '0px' }: IUseVisibleInput): boole
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (isNil(ref?.current)) {
+    if (!ref?.current) {
       return;
     }
 
@@ -24,7 +22,7 @@ export const useVisible = ({ ref, rootMargin = '0px' }: IUseVisibleInput): boole
     observer.observe(refValue);
 
     return () => {
-      if (exists(refValue)) {
+      if (refValue) {
         observer.unobserve(refValue);
       }
     };

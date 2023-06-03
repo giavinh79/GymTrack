@@ -4,10 +4,11 @@ import { Navigate } from 'react-router-dom';
 import { Button, Container, createStyles, Divider, Group, Space, Title } from '@mantine/core';
 import capitalize from 'lodash/capitalize';
 
-import { AddRoutineExerciseModal } from 'src/features/details/modal/AddRoutineExerciseModal';
-import { WorkoutList } from 'src/features/details/workout-list/WorkoutList';
+import { AddRoutineExerciseModal } from 'src/features/exercise-details/modal/AddRoutineExerciseModal';
+import { WorkoutList } from 'src/features/exercise-details/workout-list/WorkoutList';
+import { useGetSelectedUserRoutineQuery } from 'src/services/routine';
 import { StickyFooter } from 'src/shared/components';
-import { EModal, modalShown, selectedRoutine, selectModal } from 'src/slices';
+import { EModal, modalShown } from 'src/slices';
 import { useAppDispatch, useAppSelector } from 'src/stores/hooks';
 import { EDay } from 'src/types';
 
@@ -32,8 +33,8 @@ export const ExerciseDetailsPage = (): ReactElement => {
   const { classes } = useStyles();
 
   const dispatch = useAppDispatch();
-  const modal = useAppSelector(selectModal);
-  const routine = useAppSelector(selectedRoutine);
+  const [context, modal] = useAppSelector((state) => [state.context, state.modal]);
+  const { data: routine } = useGetSelectedUserRoutineQuery(context.user.id);
 
   const { pathname } = useLocation();
   const day = deriveDay(pathname);
@@ -55,7 +56,7 @@ export const ExerciseDetailsPage = (): ReactElement => {
         <Space h='lg' />
         <Divider my='xs' label='Exercises' labelPosition='center' />
         <Space h='lg' />
-        <WorkoutList data={routine.workout?.[day] ?? []} />
+        <WorkoutList day={day} data={routine.workout?.[day] ?? []} />
         <StickyFooter>
           <Group position='right'>
             <Button color='violet' onClick={() => dispatch(modalShown(EModal.ADD_ROUTINE_EXERCISE))}>

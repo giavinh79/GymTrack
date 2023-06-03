@@ -3,8 +3,6 @@ import { Group, Space } from '@mantine/core';
 
 import { EVisualization } from 'src/pages/home/types';
 import { RunningLoader } from 'src/shared/components';
-import { selectRoutinesLoading } from 'src/slices/gym/routine/routinesLoadingSlice';
-import { useAppSelector } from 'src/stores/hooks';
 import { lazyImport } from 'src/utils';
 
 import { ActivityCalendar, PanelIcon } from './sub-components';
@@ -18,14 +16,10 @@ interface IVisualizationPanelProps {
 }
 
 export const VisualizationPanel = ({ setVisualization, visualization }: IVisualizationPanelProps): ReactElement => {
-  const isLoading = useAppSelector(selectRoutinesLoading);
-
   const { classes } = useVisualizationPanelStyles();
 
   const handleClick = (visualization: EVisualization) => {
-    if (!isLoading) {
-      setVisualization(visualization);
-    }
+    setVisualization(visualization);
   };
 
   const renderVisualization = (): ReactElement => {

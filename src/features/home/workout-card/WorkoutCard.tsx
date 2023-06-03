@@ -4,23 +4,25 @@ import { Button, Text, Title } from '@mantine/core';
 import capitalize from 'lodash/capitalize';
 
 import { IWorkoutCard } from 'src/pages/home/constants';
+import { useGetSelectedUserRoutineQuery } from 'src/services/routine';
 import { ThemedSkeleton } from 'src/shared/components';
-import { selectRoutinesLoading } from 'src/slices/gym/routine/routinesLoadingSlice';
+import { selectContext } from 'src/slices';
 import { useAppSelector } from 'src/stores/hooks';
-import { IExercise } from 'src/types';
+import { IRoutineDayExercise } from 'src/types';
 
 import { useWorkoutCardStyles } from './WorkoutCard.styles';
 
 interface IWorkoutCardProps {
   card: IWorkoutCard;
-  exercises: IExercise[];
+  exercises: IRoutineDayExercise[];
 }
 
 export const WorkoutCard: React.FC<IWorkoutCardProps> = ({ card, exercises }: IWorkoutCardProps) => {
   const { backgroundColor, day, iconColor, textColor: color, text, title } = card;
 
   const navigate = useNavigate();
-  const loadingState = useAppSelector(selectRoutinesLoading);
+  const context = useAppSelector(selectContext);
+  const { isFetching } = useGetSelectedUserRoutineQuery(context.user.id);
 
   const { classes } = useWorkoutCardStyles();
 
@@ -36,7 +38,7 @@ export const WorkoutCard: React.FC<IWorkoutCardProps> = ({ card, exercises }: IW
         <i className='fas fa-dumbbell' style={{ color: iconColor }} />
       </div>
       <div className={classes.cardInfo}>
-        {loadingState ? (
+        {isFetching ? (
           <div className={classes.skeletonContainer}>
             <ThemedSkeleton count={4} />
           </div>
@@ -50,13 +52,7 @@ export const WorkoutCard: React.FC<IWorkoutCardProps> = ({ card, exercises }: IW
             </Text>
           </>
         )}
-        <Button
-          color='green'
-          size='lg'
-          loading={loadingState}
-          onClick={handleDetails}
-          className={classes.detailsButton}
-        >
+        <Button color='green' size='lg' loading={isFetching} onClick={handleDetails} className={classes.detailsButton}>
           Details
         </Button>
       </div>

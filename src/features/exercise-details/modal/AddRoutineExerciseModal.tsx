@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import Model, { IExerciseData, Muscle } from 'react-body-highlighter';
 import { useTranslation } from 'react-i18next';
-import { Button, Center, Group, Modal, NumberInput, Space, Tabs, Text, Title } from '@mantine/core';
+import { Alert, Button, Center, Group, Modal, NumberInput, Space, Tabs, Text, Title } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import kebabCase from 'lodash/kebabCase';
 
 import { useAddRoutineExerciseMutation, useGetExercisesQuery } from 'src/services/exercise';
+import { useGetSelectedUserRoutineQuery } from 'src/services/routine';
 import { ClickableIcon, RunningLoader } from 'src/shared/components';
 import { DEFAULT_REPS, EXERCISE_VALUE_TYPE_TO_ID } from 'src/shared/constants/domain';
 import { modalHidden } from 'src/slices/modal/modalSlice';
@@ -20,8 +21,8 @@ interface IAddRoutineExerciseModalProps {
 
 export const AddRoutineExerciseModal = ({ day }: IAddRoutineExerciseModalProps) => {
   const [selectedExercise, setSelectedExercise] = useState<IExercise | undefined>();
-  const [numOfSets, setNumOfSets] = useState<number>(3);
   const [modelView, setModelView] = useState<'posterior' | 'anterior'>('anterior');
+  const [numOfSets, setNumOfSets] = useState(3);
 
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
@@ -29,40 +30,31 @@ export const AddRoutineExerciseModal = ({ day }: IAddRoutineExerciseModalProps) 
   const { data: exercises, isFetching } = useGetExercisesQuery();
   const [addRoutineExercise, { isLoading }] = useAddRoutineExerciseMutation();
 
-  const [userId, selectedRoutine] = useAppSelector((state) => [state.context.user.id, state.routines.selectedRoutine]);
+  const [userId] = useAppSelector((state) => [state.context.user.id]);
+  const { data: routine } = useGetSelectedUserRoutineQuery(userId);
 
-  const createDefaultSets = () => {
-    const sets = [];
-
-    for (let i = 0; i < numOfSets; i++) {
-      sets.push({
-        exerciseValueTypeId: EXERCISE_VALUE_TYPE_TO_ID.REPS,
-        numReps: DEFAULT_REPS,
-      });
-    }
-
-    return sets;
-  };
+  const createDefaultSets = () =>
+    Array.from(Array(3), () => ({
+      exerciseValueTypeId: EXERCISE_VALUE_TYPE_TO_ID.REPS,
+      numReps: DEFAULT_REPS,
+    }));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      if (userId && selectedRoutine?.id && selectedExercise) {
+      if (userId && routine?.id && selectedExercise) {
         await addRoutineExercise({
-          routineId: selectedRoutine.id,
+          routineId: routine.id,
           userId,
           exerciseId: selectedExercise.id,
           addRoutineExercisePayload: {
             day,
-            exerciseOrder: selectedRoutine.workout[day].length + 1,
+            exerciseOrder: routine.workout[day].length + 1,
             sets: createDefaultSets(),
           },
         });
         dispatch(modalHidden());
-        // @TODO trigger cache invalidation of selected user routine
-        // do I really even need to store the API result in a new slice?
-        // should be able to just grab it from that API file `services/routine.ts`
       }
     } catch (err) {
       showNotification({
@@ -86,7 +78,10 @@ export const AddRoutineExerciseModal = ({ day }: IAddRoutineExerciseModalProps) 
     ];
   };
 
-  const isAddButtonDisabled = () => selectedExercise == null && numOfSets == null;
+  const isExerciseAlreadyInRoutine = routine?.workout[day].some(
+    (e) => selectedExercise && e.exerciseId === selectedExercise.id
+  );
+  const isAddButtonDisabled = (selectedExercise == null && numOfSets == null) || isExerciseAlreadyInRoutine;
 
   return (
     <Modal centered opened onClose={() => dispatch(modalHidden())}>
@@ -170,7 +165,15 @@ export const AddRoutineExerciseModal = ({ day }: IAddRoutineExerciseModalProps) 
           </>
         )}
         <Space h='xl' />
-        <Button type='submit' disabled={isAddButtonDisabled()} fullWidth loading={isLoading}>
+        {isExerciseAlreadyInRoutine && (
+          <>
+            <Alert icon={<i className='fas fa-exclamation-circle' />} color='red' variant='filled'>
+              This exercise is already added to the routine
+            </Alert>
+            <Space h='sm' />
+          </>
+        )}
+        <Button type='submit' disabled={isAddButtonDisabled} fullWidth loading={isLoading}>
           {t('Add')}
         </Button>
       </form>

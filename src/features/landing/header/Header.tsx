@@ -5,7 +5,7 @@ import { Button, Center, Space } from '@mantine/core';
 
 import { LoginModal } from 'src/features/authentication';
 import { Logo, ThemeToggle } from 'src/shared/components';
-import { EModal, modalHidden, modalShown, selectModal } from 'src/slices';
+import { EModal, modalShown, selectModal } from 'src/slices';
 import { useAppSelector } from 'src/stores/hooks';
 
 import { useHeaderStyles } from './Header.styles';

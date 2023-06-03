@@ -8,6 +8,7 @@ type CreateRoutineMutationArgs = Pick<IRoutine, 'name' | 'description'> & { user
 export const routineApi = createApi({
   reducerPath: 'routineApi',
   baseQuery: getProtectedBaseQuery(),
+  tagTypes: ['SelectedRoutine'],
   endpoints: (builder) => ({
     createRoutine: builder.mutation<IUserRoutine, CreateRoutineMutationArgs>({
       query: ({ name, description, userId }) => ({
@@ -18,6 +19,7 @@ export const routineApi = createApi({
           description,
         },
       }),
+      invalidatesTags: ['SelectedRoutine'],
     }),
     deleteRoutine: builder.mutation<number, number>({
       query: (routineId) => `routine/${routineId}`,
@@ -27,9 +29,14 @@ export const routineApi = createApi({
     }),
     getSelectedUserRoutine: builder.query<IUserRoutine, string>({
       query: (userId: string) => `user/${userId}/routine/selected`,
+      providesTags: ['SelectedRoutine'],
     }),
   }),
 });
 
-export const { useCreateRoutineMutation, useLazyGetSelectedUserRoutineQuery, useLazyGetUsersRoutinesQuery } =
-  routineApi;
+export const {
+  useCreateRoutineMutation,
+  useGetSelectedUserRoutineQuery,
+  useLazyGetSelectedUserRoutineQuery,
+  useLazyGetUsersRoutinesQuery,
+} = routineApi;

@@ -2,7 +2,7 @@ import { forwardRef, ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Group, Select, Text } from '@mantine/core';
 
-import { IExercise } from 'src/types';
+import type { IExercise } from 'src/types';
 
 interface IItemProps extends React.ComponentPropsWithoutRef<'div'> {
   image?: string;
@@ -34,7 +34,7 @@ interface IExerciseDropdownProps {
 }
 
 export const ExerciseDropdown = ({ exercises, setSelectedExercise }: IExerciseDropdownProps): ReactElement => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['common']);
 
   const mapExerciseToSelectData = () => {
     const dropdownData = exercises.map((exercise) => ({
@@ -45,7 +45,6 @@ export const ExerciseDropdown = ({ exercises, setSelectedExercise }: IExerciseDr
     }));
 
     dropdownData.sort((dataA, dataB) => dataA.label.localeCompare(dataB.label));
-
     return dropdownData;
   };
 

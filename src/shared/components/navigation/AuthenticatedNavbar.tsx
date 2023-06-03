@@ -1,5 +1,5 @@
 import { ReactElement, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Center,
   createStyles,
@@ -97,9 +97,11 @@ export const AuthenticatedNavbar = (): ReactElement => {
   return (
     <Navbar width={{ base: 80 }} p='md' className={classes.navbar}>
       <Center>
-        <ThemeIcon variant='light' radius='xl' size='xl' color='violet'>
-          <i className='fas fa-running' />
-        </ThemeIcon>
+        <Link to='/home' style={{ cursor: 'pointer' }}>
+          <ThemeIcon variant='light' radius='xl' size='xl' color='violet'>
+            <i className='fas fa-running' />
+          </ThemeIcon>
+        </Link>
       </Center>
       <Space h='xl' />
       <Navbar.Section grow mt={50}>

@@ -2,10 +2,13 @@ import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
 import { createStyles, Text } from '@mantine/core';
-import { useListState } from '@mantine/hooks';
 
+import { useUpdateRoutineExercisesMutation } from 'src/services/exercise';
+import { useGetSelectedUserRoutineQuery } from 'src/services/routine';
 import { ClickableIcon } from 'src/shared/components';
-import { IExercise } from 'src/types';
+import { useAppSelector } from 'src/stores/hooks';
+import { EDay, IRoutineDayExercise } from 'src/types';
+import { reorderList } from 'src/utils';
 
 const useStyles = createStyles((theme) => ({
   exercise: {
@@ -52,17 +55,22 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface IDndListHandleProps {
-  data: IExercise[];
+  data: IRoutineDayExercise[];
+  day: EDay;
 }
 
-export const WorkoutList = ({ data }: IDndListHandleProps): ReactElement => {
+export const WorkoutList = ({ day, data }: IDndListHandleProps): ReactElement => {
   const { classes, cx } = useStyles();
-  const [state, handlers] = useListState<IExercise>(data);
+
+  const userId = useAppSelector((state) => state.context.user.id);
+  const { data: routine } = useGetSelectedUserRoutineQuery(userId);
+
+  const [updateRoutineExercises] = useUpdateRoutineExercisesMutation();
 
   const { t } = useTranslation();
 
-  const exercises = state.map((exercise, index) => (
-    <Draggable key={exercise.id} index={index} draggableId={exercise.name}>
+  const exercises = data.map((exercise) => (
+    <Draggable key={exercise.id} index={exercise.exerciseOrder} draggableId={`${exercise.id}`}>
       {(provided, snapshot) => (
         <div
           className={cx(classes.exercise, { [classes.itemDragging]: snapshot.isDragging })}
@@ -76,7 +84,8 @@ export const WorkoutList = ({ data }: IDndListHandleProps): ReactElement => {
           <div style={{ textAlign: 'left', marginLeft: '1rem' }}>
             <Text>{t(`domain:EXERCISE.${exercise.name}`)}</Text>
             <Text color='dimmed' size='sm'>
-              {exercise.description} • <strong>Sets:</strong> {exercise.sets.length}
+              {exercise.description} • <strong style={{ fontVariantNumeric: 'tabular-nums' }}>Sets:</strong>{' '}
+              {exercise.sets.length}
             </Text>
           </div>
           <ClickableIcon
@@ -94,13 +103,32 @@ export const WorkoutList = ({ data }: IDndListHandleProps): ReactElement => {
     </Draggable>
   ));
 
+  const updateExerciseOrders = async (sourceIndex: number, destinationIndex: number) => {
+    if (routine?.id) {
+      const updatedExercises = reorderList(data, sourceIndex, destinationIndex).map((routineExercise, index) => ({
+        id: routineExercise.id,
+        exerciseId: routineExercise.exerciseId,
+        exerciseOrder: index + 1, // exercise order starts at 1
+        day,
+      })); // re-map exercise orders
+
+      await updateRoutineExercises({
+        routineId: routine.id,
+        userId: userId,
+        updateRoutineExercisesPayload: updatedExercises,
+      });
+    }
+  };
+
   return (
     <DragDropContext
-      onDragEnd={({ destination, source }) =>
-        handlers.reorder({ from: source.index, to: destination?.index ?? source.index })
-      }
+      onDragEnd={async ({ destination, source }) => {
+        if (destination?.index) {
+          await updateExerciseOrders(source.index - 1, destination.index - 1);
+        }
+      }}
     >
-      <Droppable droppableId='dnd-list' direction='vertical'>
+      <Droppable droppableId='exercises-dnd-list' direction='vertical'>
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
             {exercises}

@@ -30,10 +30,11 @@ export interface ISet {
   exerciseValueTypeUnitId: number;
 }
 
-export interface IExercise {
+export interface IRoutineDayExercise {
   id: number;
   name: string;
   description?: string;
+  exerciseId: number;
   exerciseOrder: number;
   creatorId?: number;
   imageId?: number;
@@ -43,7 +44,26 @@ export interface IExercise {
   sets: ISet[];
 }
 
+export interface IExercise {
+  id: number;
+  name: string;
+  description: string;
+  exerciseValueType: IExerciseValueType;
+  creatorId: number;
+  createdAt: string;
+  musclesUsed: IExerciseMuscles[];
+  image: IImage;
+}
+
+export interface IRoutineExercise {
+  exercise: IExercise;
+  day: string;
+  exerciseOrder: number;
+  id: number;
+  sets: ISet[];
+}
+
 // Represents the exercises for a certain day
 export type IWorkout = {
-  [key in EDay]: IExercise[];
+  [key in EDay]: IRoutineDayExercise[];
 };

@@ -1,10 +1,9 @@
 import { memo } from 'react';
-import { useSelector } from 'react-redux';
 import { Button } from '@mantine/core';
 
+import { useGetSelectedUserRoutineQuery } from 'src/services/routine';
 import { ClickableIcon, ThemedSkeleton } from 'src/shared/components';
-import { EModal, modalShown, selectedRoutine } from 'src/slices';
-import { selectRoutinesLoading } from 'src/slices/gym/routine/routinesLoadingSlice';
+import { EModal, modalShown, selectContext } from 'src/slices';
 import { useAppDispatch, useAppSelector } from 'src/stores/hooks';
 
 import { useRoutinePanelStyles } from './RoutinePanel.styles';
@@ -13,9 +12,9 @@ const RoutinePanelComponent = () => {
   const { classes } = useRoutinePanelStyles();
 
   const dispatch = useAppDispatch();
-  const loadingRoutinesState = useAppSelector(selectRoutinesLoading);
 
-  const routine = useSelector(selectedRoutine);
+  const context = useAppSelector(selectContext);
+  const { data: routine, isFetching } = useGetSelectedUserRoutineQuery(context.user.id);
 
   return (
     <>
@@ -50,7 +49,7 @@ const RoutinePanelComponent = () => {
           />
         </div>
 
-        {loadingRoutinesState ? (
+        {isFetching ? (
           <ThemedSkeleton width='15rem' height='2rem' />
         ) : (
           <span style={{ color: '#8d8d8d', fontWeight: 600, fontSize: '1.5rem' }}>{routine?.name}</span>

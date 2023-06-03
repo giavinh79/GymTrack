@@ -8,8 +8,7 @@ import { auth } from 'src/auth/firebase';
 import { useLazyGetSelectedUserRoutineQuery } from 'src/services/routine';
 import { ERROR } from 'src/shared/constants';
 import { useIsMounted } from 'src/shared/hooks/useIsMounted';
-import { setContext, setSelectedRoutine } from 'src/slices';
-import { isNil } from 'src/utils';
+import { setContext } from 'src/slices';
 
 // Fetch user and user routine information and store in global state for protected pages
 export const useInitializeApp = (): { loading: boolean } => {
@@ -23,7 +22,7 @@ export const useInitializeApp = (): { loading: boolean } => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      if (isNil(user)) {
+      if (!user) {
         return navigate('/');
       }
 
@@ -33,6 +32,7 @@ export const useInitializeApp = (): { loading: boolean } => {
       }
 
       const accessToken = await user.getIdToken();
+
       const context = {
         user: {
           email: user.email ?? '',
@@ -44,7 +44,7 @@ export const useInitializeApp = (): { loading: boolean } => {
       };
       dispatch(setContext(context));
 
-      const { data: selectedRoutine, isError } = await getSelectedUserRoutine(context.user.id);
+      const { isError } = await getSelectedUserRoutine(context.user.id); // load and cache current routine
 
       if (!isMounted.current) {
         return;
@@ -61,11 +61,8 @@ export const useInitializeApp = (): { loading: boolean } => {
         // @TODO manually let Sentry know w/ captureException
       }
 
-      dispatch(setSelectedRoutine(selectedRoutine));
       setLoading(false);
-
-      // for better debugging
-      Sentry.setUser({ id: context.user.id, email: context.user.email });
+      Sentry.setUser({ id: context.user.id, email: context.user.email }); // for better debugging
     });
 
     return () => unsubscribe();

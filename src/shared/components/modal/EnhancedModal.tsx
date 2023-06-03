@@ -12,6 +12,8 @@ interface IEnhancedModalProps extends Omit<ModalProps, 'onClose' | 'opened' | 'o
 
 /**
  * EnhancedModal component is a project-specific wrapper around the Mantine modal that automates boilerplate around opening and closing states
+ * This also helps ensure that animations & transitions for opening and closing the modal are displayed correctly
+ * (we first toggle the modal display state followed up by toggling the state in the parent component that renders the modal)
  */
 const EnhancedModal = memo(function EnhancedModal(props: IEnhancedModalProps): ReactElement {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,9 +32,11 @@ const EnhancedModal = memo(function EnhancedModal(props: IEnhancedModalProps): R
 
   useEffect(() => {
     // animate the modal in
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       isMounted.current && setIsOpen(true);
     }, 50);
+
+    return () => clearTimeout(timeout);
   }, [dispatch, isMounted, modal]);
 
   const modalProps = {

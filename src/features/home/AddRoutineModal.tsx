@@ -5,7 +5,7 @@ import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
 
 import { useCreateRoutineMutation } from 'src/services/routine';
-import { selectContext, setSelectedRoutine } from 'src/slices';
+import { selectContext } from 'src/slices';
 import { modalHidden } from 'src/slices/modal/modalSlice';
 
 export const AddRoutineModal = () => {
@@ -27,11 +27,9 @@ export const AddRoutineModal = () => {
 
     try {
       const { name, description } = form.values;
-      const newRoutine = await createRoutine({ name, description, userId: context.user.id }).unwrap();
 
-      // should sync query keys of create routine and get routines to force refresh of new routine
+      await createRoutine({ name, description, userId: context.user.id }).unwrap();
       dispatch(modalHidden());
-      dispatch(setSelectedRoutine(newRoutine));
     } catch (err) {
       showNotification({
         icon: <i className='fas fa-exclamation' />,

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { useLocation, useNavigate, useRoutes } from 'react-router-dom';
 
 import { auth } from 'src/auth/firebase';
@@ -6,7 +6,7 @@ import { auth } from 'src/auth/firebase';
 import { protectedRoutes } from './protected';
 import { publicRoutes } from './public';
 
-export const AppRoutes = () => {
+export const AppRoutes = (): ReactElement | null => {
   const element = useRoutes([...publicRoutes, ...protectedRoutes]);
 
   const { pathname } = useLocation();

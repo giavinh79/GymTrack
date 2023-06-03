@@ -2,7 +2,7 @@
 import { FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { EnhancedModal } from 'src/shared/components';
+// import { EnhancedModal } from 'src/shared/components';
 import { modalHidden } from 'src/slices/modal/modalSlice';
 
 interface IDialogProps {
@@ -48,7 +48,18 @@ export const Dialog: FunctionComponent<IDialogProps> = ({ title, text, type = 'i
   };
 
   return (
-    <EnhancedModal></EnhancedModal>
+    // <EnhancedModal></EnhancedModal>
+    <dialog id='dialog'>
+      <form method='dialog'>
+        Are you sure you want to do this?
+        <button value='cancel' formMethod='dialog'>
+          Cancel
+        </button>
+        <button id='confirmBtn' value='default'>
+          Confirm
+        </button>
+      </form>
+    </dialog>
     // <Modal isOpen={open} toggle={handleClose} className='dialog' centered>
     //   <ModalBody>
     //     <div>

@@ -1,5 +1,4 @@
 export * from './authentication';
-export * from './details';
-// export * from './dialog';
+export * from './exercise-details';
 export * from './home';
 export * from './landing';
