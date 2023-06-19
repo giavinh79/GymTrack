@@ -33,7 +33,8 @@ export const ExerciseDetailsPage = (): ReactElement => {
   const { classes } = useStyles();
 
   const dispatch = useAppDispatch();
-  const [context, modal] = useAppSelector((state) => [state.context, state.modal]);
+  const context = useAppSelector((state) => state.context);
+  const modal = useAppSelector((state) => state.modal);
   const { data: routine } = useGetSelectedUserRoutineQuery(context.user.id);
 
   const { pathname } = useLocation();
