@@ -19,6 +19,7 @@
     "history": "^5.3.0",
     "i18next": "^23.1.0",
     "i18next-browser-languagedetector": "^7.0.2",
+    "i18next-http-backend": "^2.2.1",
     "mixpanel-browser": "2.47.0",
     "react": "^18.2.0",
     "react-body-highlighter": "^2.0.5",

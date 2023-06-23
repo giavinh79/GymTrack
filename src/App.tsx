@@ -1,4 +1,4 @@
-import { StrictMode, useEffect } from 'react';
+import { StrictMode, Suspense, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core';
 import { useColorScheme, useLocalStorage } from '@mantine/hooks';
@@ -9,6 +9,8 @@ import mixpanel from 'mixpanel-browser';
 
 import { AppRoutes } from 'src/routes';
 import { theme } from 'src/styles/theme';
+
+import { RunningLoader } from './shared/components';
 
 import 'src/styles/global.css';
 
@@ -49,7 +51,9 @@ function App() {
           <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
             <MantineProvider withNormalizeCSS withGlobalStyles theme={{ ...theme, colorScheme }}>
               <NotificationsProvider autoClose={4000}>
-                <AppRoutes />
+                <Suspense fallback={<RunningLoader />}>
+                  <AppRoutes />
+                </Suspense>
               </NotificationsProvider>
             </MantineProvider>
           </ColorSchemeProvider>

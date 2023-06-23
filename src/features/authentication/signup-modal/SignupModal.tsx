@@ -17,7 +17,7 @@ interface ISignupModalProps {
 }
 
 export const SignupModal = ({ signupEmail }: ISignupModalProps): ReactElement => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['landing']);
   const navigate = useNavigate();
   const isMounted = useIsMounted();
 
@@ -48,7 +48,7 @@ export const SignupModal = ({ signupEmail }: ISignupModalProps): ReactElement =>
     }
   };
 
-  const isPasswordTooShort = () =>
+  const isPasswordTooShort = (): boolean =>
     password.length < MIN_PASSWORD_LENGTH || passwordConfirm.length < MIN_PASSWORD_LENGTH;
 
   const isPasswordVerified = (): boolean => {

@@ -1,6 +1,5 @@
 import { showNotification } from '@mantine/notifications';
-
-import i18n from 'src/locales/i18n';
+import i18n from 'i18next';
 
 interface IShowErrorApi {
   id: string;

@@ -11,7 +11,7 @@ import { ClickableIcon, RunningLoader } from 'src/shared/components';
 import { DEFAULT_REPS, EXERCISE_VALUE_TYPE_TO_ID } from 'src/shared/constants/domain';
 import { modalHidden } from 'src/slices/modal/modalSlice';
 import { useAppDispatch, useAppSelector } from 'src/stores/hooks';
-import { EDay, IExercise } from 'src/types';
+import { EDay, Exercise, IExercise } from 'src/types';
 
 import { ExerciseDropdown } from './ExerciseDropdown';
 
@@ -24,7 +24,7 @@ export const AddRoutineExerciseModal = ({ day }: IAddRoutineExerciseModalProps) 
   const [modelView, setModelView] = useState<'posterior' | 'anterior'>('anterior');
   const [numOfSets, setNumOfSets] = useState(3);
 
-  const { t } = useTranslation();
+  const { t } = useTranslation(['common', 'domain']);
   const dispatch = useAppDispatch();
 
   const { data: exercises, isFetching } = useGetExercisesQuery();
@@ -118,7 +118,7 @@ export const AddRoutineExerciseModal = ({ day }: IAddRoutineExerciseModalProps) 
                     <Center>
                       <img
                         src={selectedExercise?.image.url}
-                        alt={t(`domain:EXERCISE.${selectedExercise.name}`) ?? ''}
+                        alt={t(`domain:EXERCISE.${selectedExercise.name as Exercise}`)}
                         style={{
                           width: '100%',
                           objectFit: 'contain',
@@ -174,7 +174,7 @@ export const AddRoutineExerciseModal = ({ day }: IAddRoutineExerciseModalProps) 
           </>
         )}
         <Button type='submit' disabled={isAddButtonDisabled} fullWidth loading={isLoading}>
-          {t('Add')}
+          {t('common:ACTIONS.ADD')}
         </Button>
       </form>
     </Modal>

@@ -1,8 +1,8 @@
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
-// i18n internationalization/translations
-import './locales/i18n';
+// internationalization with i18next
+import './i18n';
 
 import { store } from './stores/rootStore';
 import App from './App';
@@ -11,9 +11,8 @@ import App from './App';
 import 'animate.css';
 import './index.css';
 
-const container = document.getElementById('root');
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const root = createRoot(container!);
+const container = document.getElementById('root') as HTMLElement;
+const root = createRoot(container);
 root.render(
   <Provider store={store}>
     <App />

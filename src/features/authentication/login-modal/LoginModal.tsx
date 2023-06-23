@@ -11,7 +11,7 @@ import { EnhancedModal } from 'src/shared/components';
 import { useLoginModalStyles } from './LoginModal.styles';
 
 const LoginModal = memo(function LoginModal(): ReactElement {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['landing']);
   const navigate = useNavigate();
 
   const [serverError, setServerError] = useState(false);

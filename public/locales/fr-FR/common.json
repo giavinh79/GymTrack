@@ -1,5 +1,8 @@
 {
   "NAME": "GymTrack",
+  "ACTIONS": {
+    "ADD": "Ajouter"
+  },
   "AUTH": {
     "LOGIN": "Connexion"
   },
