@@ -45,7 +45,7 @@
     "lint-i18n": "eslint --ext .json --format node_modules/eslint-plugin-i18n-json/formatter.js public/locales/",
     "lint-i18n:fix": "eslint --fix --ext .json --format node_modules/eslint-plugin-i18n-json/formatter.js public/locales/",
     "lint-staged": "lint-staged",
-    "prettier": "npm run prettier src --check",
+    "prettier": "prettier src --check",
     "prettier:fix": "npm run prettier -- --write",
     "type-check": "npx tsc --project tsconfig.json --noEmit",
     "test": "vitest --passWithNoTests",
