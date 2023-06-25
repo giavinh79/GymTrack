@@ -7,7 +7,7 @@ import { useUpdateRoutineExercisesMutation } from 'src/services/exercise';
 import { useGetSelectedUserRoutineQuery } from 'src/services/routine';
 import { ClickableIcon } from 'src/shared/components';
 import { useAppSelector } from 'src/stores/hooks';
-import { EDay, IRoutineDayExercise } from 'src/types';
+import { EDay, EExercise, IRoutineDayExercise } from 'src/types';
 import { reorderList } from 'src/utils';
 
 const useStyles = createStyles((theme) => ({
@@ -67,7 +67,7 @@ export const WorkoutList = ({ day, data }: IDndListHandleProps): ReactElement =>
 
   const [updateRoutineExercises] = useUpdateRoutineExercisesMutation();
 
-  const { t } = useTranslation();
+  const { t } = useTranslation(['domain']);
 
   const exercises = data.map((exercise) => (
     <Draggable key={exercise.id} index={exercise.exerciseOrder} draggableId={`${exercise.id}`}>
@@ -82,7 +82,7 @@ export const WorkoutList = ({ day, data }: IDndListHandleProps): ReactElement =>
           </div>
           <img src={exercise.image.url} alt='' className={classes.exerciseImage} />
           <div style={{ textAlign: 'left', marginLeft: '1rem' }}>
-            <Text>{t(`domain:EXERCISE.${exercise.name}`)}</Text>
+            <Text>{t(`domain:EXERCISE.${exercise.name as EExercise}`)}</Text>
             <Text color='dimmed' size='sm'>
               {exercise.description} • <strong style={{ fontVariantNumeric: 'tabular-nums' }}>Sets:</strong>{' '}
               {exercise.sets.length}
@@ -105,12 +105,13 @@ export const WorkoutList = ({ day, data }: IDndListHandleProps): ReactElement =>
 
   const updateExerciseOrders = async (sourceIndex: number, destinationIndex: number) => {
     if (routine?.id) {
+      // re-map exercise orders
       const updatedExercises = reorderList(data, sourceIndex, destinationIndex).map((routineExercise, index) => ({
         id: routineExercise.id,
         exerciseId: routineExercise.exerciseId,
         exerciseOrder: index + 1, // exercise order starts at 1
         day,
-      })); // re-map exercise orders
+      }));
 
       await updateRoutineExercises({
         routineId: routine.id,

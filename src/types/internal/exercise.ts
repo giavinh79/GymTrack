@@ -68,7 +68,7 @@ export type IWorkout = {
   [key in EDay]: IRoutineDayExercise[];
 };
 
-export enum Exercise {
+export enum EExercise {
   AIR_BIKE = 'AIR_BIKE',
   BARBELL_DEADLIFT = 'BARBELL_DEADLIFT',
   BARBELL_LYING_TRICEPS_EXTENSION = 'BARBELL_LYING_TRICEPS_EXTENSION',

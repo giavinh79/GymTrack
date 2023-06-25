@@ -11,7 +11,7 @@ import { ClickableIcon, RunningLoader } from 'src/shared/components';
 import { DEFAULT_REPS, EXERCISE_VALUE_TYPE_TO_ID } from 'src/shared/constants/domain';
 import { modalHidden } from 'src/slices/modal/modalSlice';
 import { useAppDispatch, useAppSelector } from 'src/stores/hooks';
-import { EDay, Exercise, IExercise } from 'src/types';
+import { EDay, EExercise, IExercise } from 'src/types';
 
 import { ExerciseDropdown } from './ExerciseDropdown';
 
@@ -118,7 +118,7 @@ export const AddRoutineExerciseModal = ({ day }: IAddRoutineExerciseModalProps) 
                     <Center>
                       <img
                         src={selectedExercise?.image.url}
-                        alt={t(`domain:EXERCISE.${selectedExercise.name as Exercise}`)}
+                        alt={t(`domain:EXERCISE.${selectedExercise.name as EExercise}`)}
                         style={{
                           width: '100%',
                           objectFit: 'contain',
