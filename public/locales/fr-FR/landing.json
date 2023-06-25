@@ -1,34 +1,34 @@
 {
-  "NAVIGATION": {},
   "FIRST_HEADER": "<0>Pister</0> votre parcours de remise en forme.",
-  "SECOND_HEADER": "<0>Commencer</0> aujourd'hui gratuitement.",
   "FITNESS_BACKGROUND_IMAGE_ALT": "Fille jogging avec téléphone",
-  "SIGNUP": {
-    "BUTTON": "INSCRIVEZ-VOUS AUJOURD'HUI",
-    "EMAIL_PLACEHOLDER": "E-mail",
-    "MODAL": {
-      "TITLE": "Commençons",
-      "EMAIL": "E-mail",
-      "PASSWORD": "Mot de passe",
-      "PASSWORD_PLACEHOLDER": "Entrer le mot de passe",
-      "SUBMIT_BUTTON": "S'inscrire",
-      "CONFIRM_PASSWORD": "Confirmez le mot de passe",
-      "PASSWORDS_ARE_DIFFERENT": "LES MOTS DE PASSE SAISIS SONT DIFFÉRENTS",
-      "PASSWORD_MIN_LENGTH_WARNING": "LE MOT DE PASSE DOIT ÊTRE AU MOINS DE 6 CARACTÈRES"
-    }
-  },
   "LOGIN": {
     "MODAL": {
-      "HEADER": "Accueillir",
-      "PRIMARY_BUTTON": "Connexion",
-      "FORGOT_PASSWORD": "MOT DE PASSE OUBLIÉ?",
-      "PASSWORD_LABEL": "Mot de passe",
-      "PASSWORD_PLACEHOLDER": "le mot de passe",
       "EMAIL_LABEL": "E-mail",
       "EMAIL_PLACEHOLDER": "e-mail",
       "ERROR": {
         "AUTH": "Identifiants invalides, veuillez réessayer."
-      }
+      },
+      "FORGOT_PASSWORD": "MOT DE PASSE OUBLIÉ?",
+      "HEADER": "Accueillir",
+      "PASSWORD_LABEL": "Mot de passe",
+      "PASSWORD_PLACEHOLDER": "le mot de passe",
+      "PRIMARY_BUTTON": "Connexion"
+    }
+  },
+  "NAVIGATION": {},
+  "SECOND_HEADER": "<0>Commencer</0> aujourd'hui gratuitement.",
+  "SIGNUP": {
+    "BUTTON": "INSCRIVEZ-VOUS AUJOURD'HUI",
+    "EMAIL_PLACEHOLDER": "E-mail",
+    "MODAL": {
+      "CONFIRM_PASSWORD": "Confirmez le mot de passe",
+      "EMAIL": "E-mail",
+      "PASSWORD": "Mot de passe",
+      "PASSWORDS_ARE_DIFFERENT": "LES MOTS DE PASSE SAISIS SONT DIFFÉRENTS",
+      "PASSWORD_MIN_LENGTH_WARNING": "LE MOT DE PASSE DOIT ÊTRE AU MOINS DE 6 CARACTÈRES",
+      "PASSWORD_PLACEHOLDER": "Entrer le mot de passe",
+      "SUBMIT_BUTTON": "S'inscrire",
+      "TITLE": "Commençons"
     }
   }
 }

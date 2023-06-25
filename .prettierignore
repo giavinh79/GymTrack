@@ -1,3 +1,4 @@
 node_modules
 .env
 tsconfig.json
+public/locales

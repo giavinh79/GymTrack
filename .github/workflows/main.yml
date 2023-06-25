@@ -17,6 +17,6 @@ jobs:
       - name: Run tests
         run: yarn test
       - name: Check lint
-        run: yarn lint
+        run: yarn lint && yarn lint-i18n
       - name: Check build
         run: yarn build

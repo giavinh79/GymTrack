@@ -1,18 +1,19 @@
 {
-  "NAME": "GymTrack",
   "ACTIONS": {
-    "ADD": "Ajouter"
+    "ADD": "Ajouter",
+    "DELETE": "Supprimer"
   },
   "AUTH": {
     "LOGIN": "Connexion"
   },
   "BUTTON": {
-    "CONFIRM": "Confirmer",
     "CANCEL": "Annuler",
-    "YES": "Oui",
-    "NO": "Non"
+    "CONFIRM": "Confirmer",
+    "NO": "Non",
+    "YES": "Oui"
   },
   "ERROR": {
-    "GENERAL": "Erreur. "
-  }
+    "GENERAL": "Erreur. Essayez de rafraîchir."
+  },
+  "NAME": "GymTrack"
 }

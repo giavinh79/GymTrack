@@ -60,7 +60,7 @@ Install:
 ## TODO
 
 - Complete routine start and update features
-- Internationalize all text + add plugin to auto-import internationalization files based on file location
+- Internationalize all text
 - Add component tests w/ React Testing Library
 - Address all @TODOs in code
 - Re-consider a global modal approach with functions instead (and tradeoffs associated with this) - maybe just use Mantine's Modal Provider
@@ -69,4 +69,3 @@ Install:
 - Increase performance on load (reduce initial bundle size load with code splitting w/ Vite.js dynamic imports, [Partytown](https://partytown.builder.io/), replacing Font Awesome at some point...etc.
 - Storybook v7
 - Get rid of Lodash and replace with native functions or create util functions
-- Async load of translation files
