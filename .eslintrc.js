@@ -36,6 +36,20 @@ module.exports = {
     'simple-import-sort/exports': 'error',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+    'i18n-json/identical-keys': [
+      2,
+      {
+        filePath: (function getFilePath() {
+          const pathToLocales = './public/locales/en-US';
+          const filesArray = fs.readdirSync(pathToLocales);
+          return filesArray.reduce((acc, file) => {
+            acc[file] = path.resolve(`${pathToLocales}/${file}`);
+            return acc;
+          }, {});
+        })(),
+      },
+    ],
+    'i18n-json/valid-message-syntax': 0,
   },
   settings: {
     react: {
@@ -59,20 +73,6 @@ module.exports = {
             ],
           },
         ],
-        'i18n-json/identical-keys': [
-          2,
-          {
-            filePath: (function getFilePath() {
-              const pathToLocales = './public/locales/en-US';
-              const filesArray = fs.readdirSync(pathToLocales);
-              return filesArray.reduce((acc, file) => {
-                acc[file] = path.resolve(`${pathToLocales}/${file}`);
-                return acc;
-              }, {});
-            })(),
-          },
-        ],
-        'i18n-json/valid-message-syntax': 0,
       },
     },
   ],
