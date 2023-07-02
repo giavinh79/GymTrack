@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
 import { createStyles, Text } from '@mantine/core';
 
-import { useUpdateRoutineExercisesMutation } from 'src/services/exercise';
+import { useDeleteRoutineExerciseMutation, useUpdateRoutineExercisesMutation } from 'src/services/exercise';
 import { useGetSelectedUserRoutineQuery } from 'src/services/routine';
 import { ClickableIcon } from 'src/shared/components';
 import { useAppSelector } from 'src/stores/hooks';
@@ -66,11 +66,12 @@ export const WorkoutList = ({ day, data }: IDndListHandleProps): ReactElement =>
   const { data: routine } = useGetSelectedUserRoutineQuery(userId);
 
   const [updateRoutineExercises] = useUpdateRoutineExercisesMutation();
+  const [deleteRoutineExercise] = useDeleteRoutineExerciseMutation();
 
   const { t } = useTranslation(['domain']);
 
-  const exercises = data.map((exercise) => (
-    <Draggable key={exercise.id} index={exercise.exerciseOrder} draggableId={`${exercise.id}`}>
+  const exercises = data.map((routineExercise) => (
+    <Draggable key={routineExercise.id} index={routineExercise.exerciseOrder} draggableId={`${routineExercise.id}`}>
       {(provided, snapshot) => (
         <div
           className={cx(classes.exercise, { [classes.itemDragging]: snapshot.isDragging })}
@@ -80,18 +81,28 @@ export const WorkoutList = ({ day, data }: IDndListHandleProps): ReactElement =>
           <div {...provided.dragHandleProps} className={classes.dragHandle}>
             <i className='fas fa-grip-horizontal' />
           </div>
-          <img src={exercise.image.url} alt='' className={classes.exerciseImage} />
+          <img src={routineExercise.image.url} alt='' className={classes.exerciseImage} />
           <div style={{ textAlign: 'left', marginLeft: '1rem' }}>
-            <Text>{t(`domain:EXERCISE.${exercise.name as EExercise}`)}</Text>
+            <Text>{t(`domain:EXERCISE.${routineExercise.name as EExercise}`)}</Text>
             <Text color='dimmed' size='sm'>
-              {exercise.description} • <strong style={{ fontVariantNumeric: 'tabular-nums' }}>Sets:</strong>{' '}
-              {exercise.sets.length}
+              {routineExercise.description} • <strong style={{ fontVariantNumeric: 'tabular-nums' }}>Sets:</strong>{' '}
+              {routineExercise.sets.length}
             </Text>
           </div>
           <ClickableIcon
             className='far fa-times-circle'
             color='red'
-            onClick={() => ({})}
+            onClick={() =>
+              routine?.id &&
+              deleteRoutineExercise({
+                routineId: routine.id,
+                userId: userId,
+                exerciseId: routineExercise.exerciseId,
+                deleteRoutineExercisesPayload: {
+                  day,
+                },
+              })
+            }
             style={{
               position: 'absolute',
               top: 5,

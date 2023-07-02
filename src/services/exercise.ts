@@ -30,6 +30,15 @@ interface UpdateRoutineExercisesMutationArgs {
   }[];
 }
 
+interface DeleteRoutineExerciseMutationArgs {
+  userId: string;
+  routineId: number;
+  exerciseId: number;
+  deleteRoutineExercisesPayload: {
+    day: EDay;
+  };
+}
+
 export const exerciseApi = createApi({
   reducerPath: 'exerciseApi',
   baseQuery: getProtectedBaseQuery(),
@@ -50,6 +59,28 @@ export const exerciseApi = createApi({
           routineApi.util.updateQueryData('getSelectedUserRoutine', userId, (selectedRoutine) => {
             const routineDayExercise = transformRoutineExerciseToRoutineDayExercise(newRoutineExercise);
             selectedRoutine.workout[newRoutineExercise.day.toLowerCase() as EDay].push(routineDayExercise);
+          })
+        );
+      },
+    }),
+    deleteRoutineExercise: builder.mutation<number, DeleteRoutineExerciseMutationArgs>({
+      query: ({ userId, routineId, exerciseId, deleteRoutineExercisesPayload }) => ({
+        url: `user/${userId}/routine/${routineId}/exercise/${exerciseId}`,
+        method: 'DELETE',
+        body: {
+          ...deleteRoutineExercisesPayload,
+          day: deleteRoutineExercisesPayload.day.toUpperCase() as EDay,
+        },
+      }),
+      async onQueryStarted({ userId, deleteRoutineExercisesPayload }, { dispatch, queryFulfilled }) {
+        const deletedRoutineExerciseId = (await queryFulfilled)?.data;
+
+        dispatch(
+          routineApi.util.updateQueryData('getSelectedUserRoutine', userId, (selectedRoutine) => {
+            const day = deleteRoutineExercisesPayload.day.toLowerCase() as EDay;
+            selectedRoutine.workout[day] = selectedRoutine.workout[day].filter(
+              (routineExercise) => routineExercise.id !== deletedRoutineExerciseId
+            );
           })
         );
       },
@@ -132,6 +163,7 @@ export const exerciseApi = createApi({
 
 export const {
   useAddRoutineExerciseMutation,
+  useDeleteRoutineExerciseMutation,
   useGetExercisesQuery,
   useUpdateRoutineExerciseMutation,
   useUpdateRoutineExercisesMutation,
