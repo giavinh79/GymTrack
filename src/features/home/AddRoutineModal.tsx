@@ -62,7 +62,6 @@ export const AddRoutineModal = () => {
           name='routine-name'
           label={t('Description (optional)')}
           placeholder={t('Description')}
-          required
           minRows={3}
         />
         <Space h='xl' />
