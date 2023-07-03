@@ -35,9 +35,9 @@ const lazyLoadCss = (cssArray: string[]) => {
  */
 const isSameDay = (dayOne: Date, dayTwo: Date) => {
   return (
-    dayOne.getUTCFullYear() === dayTwo.getUTCFullYear() &&
-    dayOne.getUTCMonth() === dayTwo.getUTCMonth() &&
-    dayOne.getUTCDate() === dayTwo.getUTCDate()
+    dayOne.getDate() === dayTwo.getDate() &&
+    dayOne.getMonth() === dayTwo.getMonth() &&
+    dayOne.getFullYear() === dayTwo.getFullYear()
   );
 };
 
