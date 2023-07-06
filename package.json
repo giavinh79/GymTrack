@@ -50,6 +50,7 @@
     "type-check": "npx tsc --project tsconfig.json --noEmit",
     "test": "vitest --passWithNoTests",
     "coverage": "vitest run --coverage",
+    "preview": "vite preview",
     "prepare": "husky install"
   },
   "browserslist": {
