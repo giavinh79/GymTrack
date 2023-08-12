@@ -8,15 +8,20 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.13.0'
       - name: Install modules
-        run: yarn
+        run: npm ci
       - name: Check formatting
-        run: yarn prettier
+        run: npm run prettier
       - name: Run tests
-        run: yarn test
+        run: npm run test
       - name: Check lint
-        run: yarn lint && yarn lint-i18n
+        run: npm run lint && npm run lint-i18n
       - name: Check build
-        run: yarn build
+        run: npm run build
