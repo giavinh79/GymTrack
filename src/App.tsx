@@ -1,7 +1,7 @@
 import { StrictMode, Suspense, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core';
-import { useColorScheme, useLocalStorage } from '@mantine/hooks';
+import { useLocalStorage } from '@mantine/hooks';
 import { NotificationsProvider } from '@mantine/notifications';
 import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
@@ -14,11 +14,12 @@ import { RunningLoader } from './shared/components';
 
 import 'src/styles/global.css';
 
+const getPreferredColorScheme = () => (window?.matchMedia?.('(prefers-color-scheme:dark)')?.matches ? 'dark' : 'light');
+
 function App() {
-  const preferredColorScheme = useColorScheme();
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: 'mantine-color-scheme',
-    defaultValue: preferredColorScheme,
+    defaultValue: getPreferredColorScheme(),
   });
 
   const toggleColorScheme = (value?: ColorScheme) =>
