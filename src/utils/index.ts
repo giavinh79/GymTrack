@@ -54,4 +54,22 @@ const reorderList = <T>(list: T[], sourceIndex: number, destinationIndex: number
   return clone;
 };
 
-export { isSameDay, lazyImport, lazyLoadCss, reorderList };
+/**
+ * Invariant function that checks if value is defined, if not, throws error
+ */
+function assertIsDefined<T>(value: T, errorMsg: string, callback?: () => void): asserts value {
+  if (value === undefined || value === null) {
+    // if no callback specified (for triggering error snackbar for example), redirect user to landing
+    callback ? callback() : (window.location.href = '/home');
+    throw new Error(errorMsg);
+  }
+}
+
+/**
+ * Asserts that the condition is true, throws error if otherwise
+ */
+function assertCondition(condition: unknown, errorMsg?: string): asserts condition {
+  if (!condition) throw new Error(errorMsg ?? 'Something went wrong, try again!');
+}
+
+export { assertCondition, assertIsDefined, isSameDay, lazyImport, lazyLoadCss, reorderList };
