@@ -18,11 +18,10 @@ export const ThemeToggle = () => {
   return (
     <Group position='center' my='xl'>
       <SegmentedControl
+        data-testid='theme-toggle'
         classNames={classes}
         value={colorScheme}
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore * string values are the same as ColorScheme type
-        onChange={toggleColorScheme}
+        onChange={(value: 'light' | 'dark') => toggleColorScheme(value)}
         data={[
           {
             value: 'light',
