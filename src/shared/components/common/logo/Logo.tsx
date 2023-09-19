@@ -30,7 +30,7 @@ export const Logo = ({ enableLink = false }: ILogoProps) => {
 
   const renderLogo = () => (
     <>
-      <span>Gym</span>
+      <span style={{ color: colorScheme === 'dark' ? 'white' : 'black' }}>Gym</span>
       <span style={{ color: colorScheme === 'dark' ? '#9fa1e7' : '#3e41ab' }}>Track</span>
       <i className='fas fa-running' style={{ marginLeft: '1rem' }} />
     </>
