@@ -1,8 +1,8 @@
 import react from '@vitejs/plugin-react-swc';
 import dns from 'dns';
-import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import { configDefaults, defineConfig } from 'vitest/config';
 
 dns.setDefaultResultOrder('verbatim');
 
@@ -16,5 +16,8 @@ export default defineConfig({
   },
   esbuild: {
     logOverride: { 'this-is-undefined-in-esm': 'silent' },
+  },
+  test: {
+    exclude: [...configDefaults.exclude, '**/e2e/**'],
   },
 });
