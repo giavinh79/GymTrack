@@ -14,7 +14,8 @@ jobs:
       - name: Use Node.js 18
         uses: actions/setup-node@v3
         with:
-          node-version: '18.13.0'
+          node-version-file: '.nvmrc'
+          cache: 'npm'
       - name: Install modules
         run: npm ci
       - name: Check formatting
