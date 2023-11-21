@@ -24,7 +24,7 @@ $ npm start
 
 ## Building
 
-Run 'npm run build' and use the newly created 'build' folder for deployment.
+Run `npm run build` and use the newly created 'build' folder for deployment.
 
 ## Development
 
