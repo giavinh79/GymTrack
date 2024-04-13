@@ -2,7 +2,7 @@
   "editor.linkedEditing": true,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": true
+    "source.fixAll": "explicit"
   },
   "cSpell.words": ["pangea"],
   "i18n-ally.localesPaths": ["src/locales"]

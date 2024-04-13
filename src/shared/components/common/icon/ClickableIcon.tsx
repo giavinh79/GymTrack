@@ -9,6 +9,7 @@ interface ClickableIconProps extends React.DetailedHTMLProps<React.HTMLAttribute
   color?: IconColor;
   onClick: () => void;
   margin?: string;
+  ariaLabel?: string;
 }
 
 const useClickableIconStyles = createStyles(() => ({
@@ -40,6 +41,7 @@ export const ClickableIcon = ({
   margin = '0 0.5rem',
   onClick,
   style,
+  ariaLabel,
   ...rest
 }: ClickableIconProps): ReactElement => {
   const { classes } = useClickableIconStyles();
@@ -53,7 +55,7 @@ export const ClickableIcon = ({
     <button
       onClick={onClick}
       className={classes.button}
-      aria-label={rest['aria-label']}
+      aria-label={ariaLabel}
       style={{ margin: margin ?? 0, ...style }}
       type='button'
     >

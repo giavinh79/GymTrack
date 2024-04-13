@@ -103,6 +103,7 @@ export const WorkoutList = ({ day, data }: IDndListHandleProps): ReactElement =>
                 },
               })
             }
+            ariaLabel={`Delete ${t(`domain:EXERCISE.${routineExercise.name as EExercise}`)} Exercise`}
             style={{
               position: 'absolute',
               top: 5,
